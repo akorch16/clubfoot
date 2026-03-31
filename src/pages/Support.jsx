@@ -73,10 +73,13 @@ export default function Support() {
   return (
     <div>
       {/* Header */}
-      <div className="bg-gradient-to-br from-rose-400 to-rose-600 px-5 pt-12 pb-6">
+      <div className="bg-gradient-to-br from-slate-700 to-slate-900 px-5 pt-12 pb-6">
+        <span className="inline-block bg-rose-400/20 text-rose-300 text-xs font-semibold px-3 py-1 rounded-full tracking-wide mb-3">
+          You are not alone
+        </span>
         <h1 className="text-2xl font-bold text-white">Support & Community</h1>
-        <p className="text-rose-100 text-sm mt-1">
-          You are not alone in this
+        <p className="text-slate-300 text-sm mt-1">
+          Thousands of families have walked this road before you
         </p>
       </div>
 

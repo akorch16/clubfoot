@@ -19,10 +19,13 @@ export default function DoctorFinder() {
   return (
     <div>
       {/* Header */}
-      <div className="bg-gradient-to-br from-teal-500 to-teal-700 px-5 pt-12 pb-6">
+      <div className="bg-gradient-to-br from-slate-700 to-slate-900 px-5 pt-12 pb-6">
+        <span className="inline-block bg-teal-400/20 text-teal-300 text-xs font-semibold px-3 py-1 rounded-full tracking-wide mb-3">
+          Ponseti-trained providers
+        </span>
         <h1 className="text-2xl font-bold text-white">Find a Specialist</h1>
-        <p className="text-teal-100 text-sm mt-1">
-          Ponseti-trained pediatric orthopedic providers
+        <p className="text-slate-300 text-sm mt-1">
+          Finding a qualified Ponseti provider is the most important step
         </p>
         <div className="mt-4 flex gap-2">
           <select
