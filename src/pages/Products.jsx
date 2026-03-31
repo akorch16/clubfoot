@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { products, categories } from "../data/products";
+import ProductImage from "../components/ProductImage";
 
 export default function Products() {
   const [search, setSearch] = useState("");
@@ -72,29 +73,37 @@ export default function Products() {
         )}
         {filtered.map((product) => (
           <div key={product.id} className="bg-white rounded-2xl shadow-sm p-4">
-            <div className="flex items-start justify-between gap-2 mb-2">
+            <div className="flex items-start gap-3">
+              <ProductImage image={product.image} category={product.category} size="md" />
+
               <div className="flex-1 min-w-0">
-                <p className="font-semibold text-slate-800 text-sm leading-snug">{product.name}</p>
-                <p className="text-xs text-slate-400 mt-0.5">{product.brand}</p>
+                <div className="flex items-start justify-between gap-2">
+                  <div className="min-w-0">
+                    <p className="font-semibold text-slate-800 text-sm leading-snug">{product.name}</p>
+                    <p className="text-xs text-slate-400 mt-0.5">{product.brand}</p>
+                  </div>
+                  <span
+                    className={`flex-shrink-0 text-xs font-semibold px-2 py-1 rounded-full ${
+                      product.status === "works"
+                        ? "bg-emerald-100 text-emerald-700"
+                        : "bg-amber-100 text-amber-700"
+                    }`}
+                  >
+                    {product.status === "works" ? "Works" : "Check Fit"}
+                  </span>
+                </div>
+
+                <p className="text-sm text-slate-600 leading-relaxed mt-2">{product.summary}</p>
               </div>
-              <span
-                className={`flex-shrink-0 text-xs font-semibold px-2.5 py-1 rounded-full ${
-                  product.status === "works"
-                    ? "bg-emerald-100 text-emerald-700"
-                    : "bg-amber-100 text-amber-700"
-                }`}
-              >
-                {product.status === "works" ? "Works" : "Check Fit"}
-              </span>
             </div>
 
-            <p className="text-sm text-slate-600 leading-relaxed">{product.summary}</p>
-
             {product.notes && (
-              <p className="text-xs text-slate-400 mt-2 leading-relaxed">{product.notes}</p>
+              <p className="text-xs text-slate-400 mt-2.5 leading-relaxed border-t border-slate-50 pt-2.5">
+                {product.notes}
+              </p>
             )}
 
-            <div className="flex items-center justify-between mt-3 pt-3 border-t border-slate-50">
+            <div className="flex items-center justify-between mt-2.5 pt-2.5 border-t border-slate-50">
               <div className="flex flex-wrap gap-1.5">
                 {product.phases.map((phase) => (
                   <span

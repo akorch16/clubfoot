@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from "react-router-dom";
 import { phases } from "../data/phases";
 import { products } from "../data/products";
 import { faqs } from "../data/faqs";
+import ProductImage from "../components/ProductImage";
 
 function AccordionItem({ question, answer }) {
   const [open, setOpen] = useState(false);
@@ -160,30 +161,31 @@ export default function PhaseDetail() {
             </div>
             <div className="space-y-2">
               {phaseProducts.map((product) => (
-                <div key={product.id} className="bg-white rounded-xl shadow-sm p-3.5 flex items-start gap-3">
-                  <span
-                    className={`text-xs font-semibold px-2 py-1 rounded-full flex-shrink-0 mt-0.5 ${
+                <div key={product.id} className="bg-white rounded-xl shadow-sm p-3 flex items-center gap-3">
+                  <ProductImage image={product.image} category={product.category} size="sm" />
+                  <div className="flex-1 min-w-0">
+                    <p className="text-sm font-medium text-slate-800 leading-snug">{product.name}</p>
+                    <p className="text-xs text-slate-400 mt-0.5">{product.brand}</p>
+                  </div>
+                  <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
+                    <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
                       product.status === "works"
                         ? "bg-emerald-100 text-emerald-700"
                         : "bg-amber-100 text-amber-700"
-                    }`}
-                  >
-                    {product.status === "works" ? "Works" : "Check Fit"}
-                  </span>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-medium text-slate-800">{product.name}</p>
-                    <p className="text-xs text-slate-400 mt-0.5">{product.brand}</p>
+                    }`}>
+                      {product.status === "works" ? "Works" : "Check Fit"}
+                    </span>
+                    {product.url && (
+                      <a
+                        href={product.url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs font-semibold text-blue-600"
+                      >
+                        Shop →
+                      </a>
+                    )}
                   </div>
-                  {product.url && (
-                    <a
-                      href={product.url}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="flex-shrink-0 text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-lg"
-                    >
-                      Shop →
-                    </a>
-                  )}
                 </div>
               ))}
             </div>
