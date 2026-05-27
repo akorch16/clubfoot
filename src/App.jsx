@@ -5,6 +5,7 @@ import PhaseDetail from "./pages/PhaseDetail";
 import Products from "./pages/Products";
 import DoctorFinder from "./pages/DoctorFinder";
 import Support from "./pages/Support";
+import Scan from "./pages/Scan";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
           <Route path="/products" element={<Products />} />
           <Route path="/doctors" element={<DoctorFinder />} />
           <Route path="/support" element={<Support />} />
+          <Route path="/scan" element={<Scan />} />
         </Routes>
       </Layout>
     </HashRouter>
