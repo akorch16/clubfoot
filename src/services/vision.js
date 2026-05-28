@@ -80,10 +80,24 @@ function parseResponse(text) {
   }
 }
 
+const API_KEY_STORAGE = "cf_anthropic_key";
+
+export function getStoredApiKey() {
+  return localStorage.getItem(API_KEY_STORAGE) ?? "";
+}
+
+export function saveApiKey(key) {
+  localStorage.setItem(API_KEY_STORAGE, key.trim());
+}
+
+export function clearApiKey() {
+  localStorage.removeItem(API_KEY_STORAGE);
+}
+
 export async function analyzeImage(base64DataUrl) {
-  const apiKey = import.meta.env.VITE_ANTHROPIC_API_KEY;
-  if (!apiKey || apiKey === "your-key-here") {
-    throw new Error("VITE_ANTHROPIC_API_KEY is not configured. Add it to .env.local.");
+  const apiKey = getStoredApiKey();
+  if (!apiKey) {
+    throw new Error("NO_API_KEY");
   }
 
   const resized = await resizeIfNeeded(base64DataUrl);
