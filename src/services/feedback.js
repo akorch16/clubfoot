@@ -65,7 +65,8 @@ function save(records) {
 /**
  * Save a feedback record. Image is stored in IndexedDB; metadata in localStorage.
  * payload: { feedback: "helpful"|"not_helpful"|null, correction: conditionId|null,
- *            correctionNote: string|null, source: "user_capture"|"facebook_import" }
+ *            correctionNote: string|null, source: "user_capture"|"facebook_import",
+ *            trustedContributor: string|null }
  */
 export async function saveFeedback(base64DataUrl, diagnosis, payload) {
   const imageHash = await hashImage(base64DataUrl);
@@ -84,6 +85,7 @@ export async function saveFeedback(base64DataUrl, diagnosis, payload) {
     feedback: payload.feedback ?? null,
     correction: payload.correction ?? null,
     correctionNote: payload.correctionNote ?? null,
+    trustedContributor: payload.trustedContributor ?? null,
     source: payload.source ?? "user_capture",
     appVersion: "0.1.0",
     platform: navigator.userAgent,

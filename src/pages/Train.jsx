@@ -15,6 +15,7 @@ export default function Train() {
   const [imageDataUrl, setImageDataUrl] = useState(null);
   const [selectedCondition, setSelectedCondition] = useState("");
   const [note, setNote] = useState("");
+  const [trustedContributor, setTrustedContributor] = useState("");
   const [saved, setSaved] = useState(false);
   const [count, setCount] = useState(getFeedbackCount);
   const [confirmClear, setConfirmClear] = useState(false);
@@ -37,6 +38,7 @@ export default function Train() {
       feedback: null,
       correction: selectedCondition,
       correctionNote: note.trim() || null,
+      trustedContributor: trustedContributor.trim() || null,
       source: "facebook_import",
     });
     setCount(getFeedbackCount());
@@ -44,6 +46,7 @@ export default function Train() {
     setImageDataUrl(null);
     setSelectedCondition("");
     setNote("");
+    setTrustedContributor("");
     if (fileRef.current) fileRef.current.value = "";
   }
 
@@ -201,6 +204,24 @@ export default function Train() {
             className="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-slate-400 resize-none"
           />
           <p className="text-xs text-slate-400 text-right">{note.length}/2000</p>
+        </div>
+
+        {/* Trusted contributor */}
+        <div className="space-y-2">
+          <label className="block text-sm font-semibold text-slate-700">
+            4. Trusted expert source{" "}
+            <span className="font-normal text-slate-400">(optional)</span>
+          </label>
+          <input
+            type="text"
+            value={trustedContributor}
+            onChange={(e) => setTrustedContributor(e.target.value)}
+            placeholder="e.g. Kori Rush"
+            className="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-slate-400"
+          />
+          <p className="text-xs text-slate-400 leading-relaxed">
+            Name the community expert whose assessment drove this label. Records marked with a trusted expert are weighted more heavily when improving the model.
+          </p>
         </div>
 
         {/* Save */}
