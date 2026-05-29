@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { products, categories } from "../data/products";
+import ProductImage from "../components/ProductImage";
 
 export default function Products() {
   const [search, setSearch] = useState("");
@@ -67,6 +68,8 @@ export default function Products() {
         {filtered.map((product) => (
           <div key={product.id} className="bg-white rounded-2xl shadow-sm p-4">
             <div className="flex items-start gap-3">
+              <ProductImage image={product.image} category={product.category} size="md" />
+
               <div className="flex-1 min-w-0">
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
@@ -82,9 +85,11 @@ export default function Products() {
                 <p className="text-sm text-slate-600 leading-relaxed mt-2">{product.summary}</p>
               </div>
             </div>
+
             {product.notes && (
               <p className="text-xs text-slate-400 mt-2.5 leading-relaxed border-t border-slate-50 pt-2.5">{product.notes}</p>
             )}
+
             <div className="flex items-center justify-between mt-2.5 pt-2.5 border-t border-slate-50">
               <div className="flex flex-wrap gap-1.5">
                 {product.phases.map((phase) => (

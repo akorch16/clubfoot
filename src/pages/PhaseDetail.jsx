@@ -3,12 +3,13 @@ import { useParams, useNavigate } from "react-router-dom";
 import { phases } from "../data/phases";
 import { products } from "../data/products";
 import { faqs } from "../data/faqs";
+import { phasePhotos } from "../data/phasePhotos";
 
 const phaseColors = {
-  prenatal: "bg-violet-500",
-  casting: "bg-sky-500",
+  prenatal:        "bg-violet-500",
+  casting:         "bg-sky-500",
   "boots-and-bar": "bg-teal-500",
-  "long-term": "bg-emerald-500",
+  "long-term":     "bg-emerald-500",
 };
 
 function TipCard({ tip, allProducts }) {
@@ -69,16 +70,11 @@ function AccordionItem({ question, answer }) {
   const [open, setOpen] = useState(false);
   return (
     <div className="border-b border-slate-100 last:border-0">
-      <button
-        className="w-full text-left py-4 flex justify-between items-start gap-2"
-        onClick={() => setOpen(!open)}
-      >
+      <button className="w-full text-left py-4 flex justify-between items-start gap-2" onClick={() => setOpen(!open)}>
         <span className="text-sm font-medium text-slate-800 leading-snug">{question}</span>
         <span className="text-slate-400 flex-shrink-0 text-lg leading-none mt-0.5">{open ? "−" : "+"}</span>
       </button>
-      {open && (
-        <p className="text-sm text-slate-600 pb-4 leading-relaxed">{answer}</p>
-      )}
+      {open && <p className="text-sm text-slate-600 pb-4 leading-relaxed">{answer}</p>}
     </div>
   );
 }
@@ -86,6 +82,7 @@ function AccordionItem({ question, answer }) {
 export default function PhaseDetail() {
   const { phaseId } = useParams();
   const navigate = useNavigate();
+  const [photoError, setPhotoError] = useState(false);
   const phase = phases.find((p) => p.id === phaseId);
 
   if (!phase) {
@@ -98,6 +95,7 @@ export default function PhaseDetail() {
   }
 
   const phaseColor = phaseColors[phase.id] ?? "bg-slate-500";
+  const photo = phasePhotos[phase.id];
   const phaseProducts = products.filter((p) => phase.productCategories.includes(p.category)).slice(0, 4);
   const phaseFaqs = faqs.filter((f) => f.phases.includes(phase.id));
 
@@ -118,6 +116,18 @@ export default function PhaseDetail() {
         <h1 className="text-2xl font-bold text-white">{phase.label}</h1>
         <p className="text-white/75 text-sm mt-1 leading-relaxed">{phase.description}</p>
       </div>
+
+      {/* Hero photo */}
+      {photo && !photoError && (
+        <div className="w-full h-52 overflow-hidden bg-slate-200">
+          <img
+            src={photo}
+            alt={phase.label}
+            className="w-full h-full object-cover"
+            onError={() => setPhotoError(true)}
+          />
+        </div>
+      )}
 
       <div className="px-4 pt-5 pb-10 space-y-5">
         {/* Key Facts */}
@@ -167,9 +177,7 @@ export default function PhaseDetail() {
                     </span>
                     {product.url && (
                       <a href={product.url} target="_blank" rel="noopener noreferrer"
-                        className="text-xs font-semibold text-amber-600">
-                        Shop →
-                      </a>
+                        className="text-xs font-semibold text-amber-600">Shop →</a>
                     )}
                   </div>
                 </div>

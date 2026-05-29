@@ -1,5 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { phases } from "../data/phases";
+import { phasePhotos } from "../data/phasePhotos";
 
 const quickLinks = [
   { label: "The Method", to: "/method", icon: "📖", iconBg: "bg-amber-100" },
@@ -9,10 +10,10 @@ const quickLinks = [
 ];
 
 const phaseColors = {
-  prenatal: "bg-violet-500",
-  casting: "bg-sky-500",
+  prenatal:        "bg-violet-500",
+  casting:         "bg-sky-500",
   "boots-and-bar": "bg-teal-500",
-  "long-term": "bg-emerald-500",
+  "long-term":     "bg-emerald-500",
 };
 
 const script = { fontFamily: "'Pacifico', cursive" };
@@ -41,34 +42,44 @@ export default function Home() {
           <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
             Treatment Phases
           </p>
-          <button
-            onClick={() => navigate("/method")}
-            className="text-xs text-slate-400 active:text-slate-600"
-          >
+          <button onClick={() => navigate("/method")} className="text-xs text-slate-400 active:text-slate-600">
             New to Ponseti? →
           </button>
         </div>
 
-        {/* Full-width stacked phase tiles */}
-        {phases.map((phase) => (
-          <button
-            key={phase.id}
-            onClick={() => navigate(`/phase/${phase.id}`)}
-            className={`relative w-full ${phaseColors[phase.id] ?? "bg-slate-500"} rounded-2xl py-5 px-5 text-left overflow-hidden active:scale-95 transition-transform`}
-          >
-            <span className="absolute right-3 top-1/2 -translate-y-1/2 text-8xl opacity-[0.12] pointer-events-none select-none leading-none">
-              {phase.emoji}
-            </span>
-            <div className="flex items-center gap-4 relative z-10">
-              <span className="text-3xl leading-none">{phase.emoji}</span>
-              <div className="flex-1 min-w-0">
-                <p className="font-bold text-white text-lg leading-tight">{phase.label}</p>
-                <p className="text-white/75 text-xs mt-0.5 leading-snug">{phase.description}</p>
+        {/* Full-width stacked phase tiles with photo overlay */}
+        {phases.map((phase) => {
+          const photo = phasePhotos[phase.id];
+          return (
+            <button
+              key={phase.id}
+              onClick={() => navigate(`/phase/${phase.id}`)}
+              className={`relative w-full ${phaseColors[phase.id] ?? "bg-slate-500"} rounded-2xl py-5 px-5 text-left overflow-hidden active:scale-95 transition-transform`}
+            >
+              {/* Background photo with colour overlay */}
+              {photo && (
+                <img
+                  src={photo}
+                  alt=""
+                  className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity"
+                  onError={(e) => { e.currentTarget.style.display = "none"; }}
+                />
+              )}
+              {/* Ghost emoji texture */}
+              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-8xl opacity-[0.12] pointer-events-none select-none leading-none">
+                {phase.emoji}
+              </span>
+              <div className="flex items-center gap-4 relative z-10">
+                <span className="text-3xl leading-none">{phase.emoji}</span>
+                <div className="flex-1 min-w-0">
+                  <p className="font-bold text-white text-lg leading-tight">{phase.label}</p>
+                  <p className="text-white/75 text-xs mt-0.5 leading-snug">{phase.description}</p>
+                </div>
+                <span className="text-white/50 text-2xl font-light flex-shrink-0">›</span>
               </div>
-              <span className="text-white/50 text-2xl font-light flex-shrink-0">›</span>
-            </div>
-          </button>
-        ))}
+            </button>
+          );
+        })}
 
         {/* Quick links — circle icon grid */}
         <div className="pt-3">
