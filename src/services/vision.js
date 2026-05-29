@@ -34,7 +34,7 @@ BRACE (boots and bar / Mitchell AFO) assessment rules:
   * Forming blister: raised dome of intact skin, shiny surface, visible fluid under skin → brace_blister_or_redness urgency "urgent"
   * Circular pressure mark: flat, well-defined red circle on intact skin with no raised dome → brace_blister_or_redness urgency "monitor"; common in first weeks of boots-and-bar wear
   * Diffuse redness with skin peeling or flaking, no raised blister → likely normal post-cast skin transition in first 1–2 weeks after casting ends; note in reasoning and set urgency "monitor"
-- Key pressure locations: posterior heel (most common BNB pressure point), dorsum/top of foot (middle strap), near toes (lower strap or sock seam)
+- Key pressure locations: posterior heel (most common BNB pressure point), dorsum/top of foot (middle strap), near toes (lower strap or sock seam), medial ankle bone (inner ankle) — marks here often indicate bar too short and needing widening as child grows
 - When foot is OUT of the brace: you can assess skin condition but cannot assess heel seating or strap fit; note this limitation in your reasoning
 
 FOOT (bare foot without cast or brace) assessment rules:

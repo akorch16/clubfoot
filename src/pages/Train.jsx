@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { conditions } from "../data/conditions";
-import { saveFeedback, exportFeedbackAsJSON, getFeedbackCount } from "../services/feedback";
+import { saveFeedback, exportFeedbackAsJSON, getFeedbackCount, clearAllData } from "../services/feedback";
 
 const DOMAIN_LABELS = {
   cast: "Cast",
@@ -17,6 +17,7 @@ export default function Train() {
   const [note, setNote] = useState("");
   const [saved, setSaved] = useState(false);
   const [count, setCount] = useState(getFeedbackCount);
+  const [confirmClear, setConfirmClear] = useState(false);
   const fileRef = useRef();
 
   function handleFile(e) {
@@ -44,6 +45,13 @@ export default function Train() {
     setSelectedCondition("");
     setNote("");
     if (fileRef.current) fileRef.current.value = "";
+  }
+
+  async function handleClear() {
+    if (!confirmClear) { setConfirmClear(true); return; }
+    await clearAllData();
+    setCount(0);
+    setConfirmClear(false);
   }
 
   async function handleExport() {
@@ -82,13 +90,26 @@ export default function Train() {
             <p className="text-xs text-slate-500">Labeled examples saved</p>
             <p className="text-2xl font-bold text-slate-800">{count}</p>
           </div>
-          <button
-            onClick={handleExport}
-            disabled={count === 0}
-            className="px-4 py-2 rounded-xl bg-slate-800 text-white text-xs font-semibold disabled:opacity-40"
-          >
-            Export JSON
-          </button>
+          <div className="flex gap-2">
+            <button
+              onClick={handleExport}
+              disabled={count === 0}
+              className="px-4 py-2 rounded-xl bg-slate-800 text-white text-xs font-semibold disabled:opacity-40"
+            >
+              Export JSON
+            </button>
+            <button
+              onClick={handleClear}
+              disabled={count === 0}
+              className={`px-4 py-2 rounded-xl text-xs font-semibold disabled:opacity-40 transition-colors ${
+                confirmClear
+                  ? "bg-red-600 text-white"
+                  : "border border-slate-300 text-slate-500"
+              }`}
+            >
+              {confirmClear ? "Confirm clear" : "Clear"}
+            </button>
+          </div>
         </div>
 
         {saved && (

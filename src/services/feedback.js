@@ -117,6 +117,18 @@ export async function exportFeedbackAsJSON() {
   return JSON.stringify(enriched, null, 2);
 }
 
+export async function clearAllData() {
+  localStorage.removeItem(STORAGE_KEY);
+  const db = await openImageDB().catch(() => null);
+  if (!db) return;
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(IDB_STORE, "readwrite");
+    tx.objectStore(IDB_STORE).clear();
+    tx.oncomplete = () => resolve();
+    tx.onerror = (e) => reject(e.target.error);
+  });
+}
+
 /**
  * Facebook training pipeline hook (Phase 2).
  * posts: array of { imageBase64, expertLabel, note }
