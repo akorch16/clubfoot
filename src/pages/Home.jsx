@@ -22,11 +22,17 @@ export default function Home() {
     <div>
       {/* Header */}
       <div className="px-5 pt-12 pb-6">
-        <span className="inline-block bg-amber-100 text-amber-700 text-xs font-semibold px-3 py-1 rounded-full tracking-wide mb-4">
-          Ponseti Method Guide
-        </span>
-        <h1 className="text-3xl font-bold text-slate-800 leading-tight">Clubfoot Resources</h1>
-        <p className="text-slate-500 text-sm mt-2 leading-relaxed">
+        {/* Logo */}
+        <div className="flex items-center gap-3 mb-3">
+          <div className="w-14 h-14 rounded-[18px] bg-gradient-to-br from-amber-400 to-rose-400 flex items-center justify-center shadow-md flex-shrink-0">
+            <span className="text-3xl">🦶</span>
+          </div>
+          <h1 className="text-3xl font-black text-slate-800 leading-tight">
+            ClubFoot<br />
+            <span className="text-amber-500">Club</span>
+          </h1>
+        </div>
+        <p className="text-slate-500 text-sm mt-1 leading-relaxed">
           Everything we wish we'd found sooner — written by parents who've been there.
         </p>
       </div>
