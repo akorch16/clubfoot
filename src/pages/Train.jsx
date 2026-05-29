@@ -174,12 +174,12 @@ export default function Train() {
           </label>
           <textarea
             value={note}
-            onChange={(e) => setNote(e.target.value.slice(0, 500))}
+            onChange={(e) => setNote(e.target.value.slice(0, 2000))}
             placeholder="e.g. Expert in comments confirmed heel not seated — parent had put sock on wrong way"
-            rows={3}
+            rows={5}
             className="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-slate-400 resize-none"
           />
-          <p className="text-xs text-slate-400 text-right">{note.length}/500</p>
+          <p className="text-xs text-slate-400 text-right">{note.length}/2000</p>
         </div>
 
         {/* Save */}
