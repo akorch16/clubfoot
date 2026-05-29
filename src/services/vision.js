@@ -19,16 +19,37 @@ Assess the provided image and return ONLY a valid JSON object — no prose, no m
 
 Valid condition IDs: ${VALID_IDS}
 
-Assessment rules:
-- CAST: Assess toe color (pink = good, purple/white/dusky = urgent), cast integrity, wetness, fit
-- BRACE: Assess heel seating, strap placement, visible skin irritation at heel/dorsum, bar integrity
-- FOOT: Assess position relative to neutral — supination or inward rotation may indicate relapse
-- If toe color cannot be confirmed as pink, classify as cast_too_tight with urgency "urgent"
-- If image is blurry, dark, or partially obscured, set confidence "low" and likely primaryCondition "image_unclear"
-- If nothing foot/cast/brace-related is visible, return primaryCondition "no_relevant_anatomy"
-- secondaryConditions may be empty []
-- careTeamMessage should be a short, plain-language message the parent could copy-paste to their care team, or null if urgency is "normal" or "meta"
-- confidence reflects image quality and visibility of relevant anatomy, not your certainty about the diagnosis`;
+CAST assessment rules:
+- Toe color: pink/warm = normal; purple, dusky, blue, white, or mottled = cast_too_tight urgency "urgent"
+- If toes are hidden, cut off by the frame, or color cannot be confirmed as clearly pink → cast_too_tight urgency "urgent"
+- Cast integrity: visible cracks, soft spots, crumbling edges, or deformed shape → cast_wet_or_damaged urgency "urgent"
+- Wetness: wet, soggy, stained, or softened cast → cast_wet_or_damaged urgency "urgent"
+- Fit: visible gap between leg and cast, cast rotating or sliding down → cast_loose urgency "monitor"
+
+BRACE (boots and bar / Mitchell AFO) assessment rules:
+- Bar: shoes should attach at equal height; visibly bent, cracked, or detached → brace_bar_issue urgency "urgent"
+- Heel seating: look for gap at heel counter, heel riding up inside the shoe, or sock bunched under heel → brace_heel_not_seated urgency "monitor"
+- Skin irritation — classify by these visual cues (urgency may exceed the condition default when warranted):
+  * Open or burst blister: broken skin, raw wound, weeping fluid, or dried drainage (yellow/orange crust) → brace_blister_or_redness urgency "urgent"; careTeamMessage must advise stopping brace use until wound is assessed
+  * Forming blister: raised dome of intact skin, shiny surface, visible fluid under skin → brace_blister_or_redness urgency "urgent"
+  * Circular pressure mark: flat, well-defined red circle on intact skin with no raised dome → brace_blister_or_redness urgency "monitor"; common in first weeks of boots-and-bar wear
+  * Diffuse redness with skin peeling or flaking, no raised blister → likely normal post-cast skin transition in first 1–2 weeks after casting ends; note in reasoning and set urgency "monitor"
+- Key pressure locations: posterior heel (most common BNB pressure point), dorsum/top of foot (middle strap), near toes (lower strap or sock seam)
+- When foot is OUT of the brace: you can assess skin condition but cannot assess heel seating or strap fit; note this limitation in your reasoning
+
+FOOT (bare foot without cast or brace) assessment rules:
+- Normal Ponseti-corrected position: foot points relatively outward, heel is visible and not elevated, no C-shaped border
+- Relapse signs: foot supinating (rolling inward or downward), C-shaped lateral border returning, forefoot adducting → foot_relapse_signs urgency "urgent"
+- Toe walking: child bearing weight primarily on toes with heel elevated → foot_toe_walking urgency "monitor"
+- Factor in the child's apparent developmental stage when assessing position
+
+GENERAL rules:
+- If image is blurry, dark, or relevant anatomy is not clearly visible → confidence "low", primaryCondition "image_unclear"
+- If no foot, cast, or brace is visible → primaryCondition "no_relevant_anatomy"
+- secondaryConditions: list any additional concerns visible; may be empty []
+- careTeamMessage: a short, plain-language message the parent can copy-paste to their care team; null if urgency is "normal" or "meta"
+- confidence reflects image quality and visibility of relevant anatomy, NOT certainty about the diagnosis
+- The urgency in your response may differ from the condition's typical urgency when visual evidence clearly warrants it`;
 
 const FALLBACK = {
   primaryCondition: "image_unclear",
