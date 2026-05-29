@@ -15,6 +15,8 @@ const phaseColors = {
   "long-term": "bg-emerald-500",
 };
 
+const script = { fontFamily: "'Pacifico', cursive" };
+
 export default function Home() {
   const navigate = useNavigate();
 
@@ -22,17 +24,13 @@ export default function Home() {
     <div>
       {/* Header */}
       <div className="px-5 pt-12 pb-6">
-        {/* Logo */}
-        <div className="flex items-center gap-3 mb-3">
-          <div className="w-14 h-14 rounded-[18px] bg-gradient-to-br from-amber-400 to-rose-400 flex items-center justify-center shadow-md flex-shrink-0">
-            <span className="text-3xl">🦶</span>
-          </div>
-          <h1 className="text-3xl font-black text-slate-800 leading-tight">
-            ClubFoot<br />
-            <span className="text-amber-500">Club</span>
-          </h1>
+        <div className="mb-3">
+          <p style={script} className="text-4xl leading-snug">
+            <span className="text-teal-500">clubfoot</span>
+            <span className="text-slate-700"> club</span>
+          </p>
         </div>
-        <p className="text-slate-500 text-sm mt-1 leading-relaxed">
+        <p className="text-slate-500 text-sm leading-relaxed">
           Everything we wish we'd found sooner — written by parents who've been there.
         </p>
       </div>
@@ -91,9 +89,9 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Amber encouragement banner */}
-        <div className="bg-amber-400 rounded-2xl px-5 py-4">
-          <p className="text-amber-950 font-semibold text-sm text-center leading-snug">
+        {/* Soft encouragement note */}
+        <div className="bg-amber-50 border border-amber-100 rounded-2xl px-5 py-4">
+          <p className="text-amber-800 text-sm text-center leading-snug">
             With the Ponseti method, over 95% of children go on to run, play sports, and live without limitations.
           </p>
         </div>
