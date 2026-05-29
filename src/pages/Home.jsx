@@ -1,7 +1,8 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 import { phases } from "../data/phases";
 
 const quickLinks = [
+  { label: "The Method", to: "/method", icon: "📖" },
   { label: "Product Guide", to: "/products", icon: "🛍️" },
   { label: "Find a Specialist", to: "/doctors", icon: "📍" },
   { label: "Support & Community", to: "/support", icon: "💬" },
@@ -33,9 +34,14 @@ export default function Home() {
       <div className="px-4 pt-5 space-y-6">
         {/* Phase Cards */}
         <section>
-          <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">
-            Treatment Phases
-          </h2>
+          <div className="flex items-baseline justify-between mb-3">
+            <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
+              Treatment Phases
+            </h2>
+            <Link to="/method" className="text-xs text-slate-400 hover:text-slate-600 transition-colors">
+              New to Ponseti? →
+            </Link>
+          </div>
           <div className="grid grid-cols-2 gap-3">
             {phases.map((phase) => (
               <button
@@ -58,7 +64,7 @@ export default function Home() {
           <h2 className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">
             Explore
           </h2>
-          <div className="grid grid-cols-3 gap-2">
+          <div className="grid grid-cols-2 gap-2">
             {quickLinks.map(({ label, to, icon }) => (
               <button
                 key={to}

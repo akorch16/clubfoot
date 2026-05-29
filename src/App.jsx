@@ -7,6 +7,7 @@ import DoctorFinder from "./pages/DoctorFinder";
 import Support from "./pages/Support";
 import Scan from "./pages/Scan";
 import Train from "./pages/Train";
+import PonsetiMethod from "./pages/PonsetiMethod";
 
 export default function App() {
   return (
@@ -20,6 +21,7 @@ export default function App() {
           <Route path="/support" element={<Support />} />
           <Route path="/scan" element={<Scan />} />
           <Route path="/train" element={<Train />} />
+          <Route path="/method" element={<PonsetiMethod />} />
         </Routes>
       </Layout>
     </HashRouter>
