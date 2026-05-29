@@ -13,6 +13,7 @@ export default function Scan() {
   const [errorMsg, setErrorMsg] = useState(null);
   const [keyInput, setKeyInput] = useState("");
   const [keyError, setKeyError] = useState("");
+  const [symptoms, setSymptoms] = useState("");
 
   function handleSaveKey() {
     const trimmed = keyInput.trim();
@@ -35,7 +36,7 @@ export default function Scan() {
     setImageDataUrl(dataUrl);
     setPhase("analyzing");
     try {
-      const result = await analyzeImage(dataUrl);
+      const result = await analyzeImage(dataUrl, symptoms);
       setDiagnosis(result);
       setPhase("result");
     } catch (err) {
@@ -54,6 +55,7 @@ export default function Scan() {
     setImageDataUrl(null);
     setDiagnosis(null);
     setErrorMsg(null);
+    setSymptoms("");
   }
 
   return (
@@ -120,6 +122,22 @@ export default function Scan() {
         {phase === "capture" && (
           <>
             <CameraCapture onCapture={handleCapture} />
+
+            <div className="space-y-2">
+              <label className="block text-sm font-semibold text-slate-700">
+                Describe any symptoms{" "}
+                <span className="font-normal text-slate-400">(optional)</span>
+              </label>
+              <textarea
+                value={symptoms}
+                onChange={(e) => setSymptoms(e.target.value.slice(0, 500))}
+                placeholder="e.g. Toes look a little purple, baby is fussier than usual, cast feels tight"
+                rows={3}
+                className="w-full px-3 py-2.5 rounded-xl border border-slate-300 text-sm bg-white focus:outline-none focus:ring-2 focus:ring-slate-400 resize-none"
+              />
+              <p className="text-xs text-slate-400 text-right">{symptoms.length}/500</p>
+            </div>
+
             <button
               onClick={handleForgetKey}
               className="w-full py-2 text-xs text-slate-400 hover:text-slate-600 transition-colors"

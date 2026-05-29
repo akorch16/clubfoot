@@ -18,13 +18,68 @@ function resizeDataUrl(dataUrl, maxPx = 1200) {
   });
 }
 
-// ─── Mobile path: file input with capture ───────────────────────────────────
+function readFileAsDataUrl(file) {
+  return new Promise((resolve) => {
+    const reader = new FileReader();
+    reader.onload = (ev) => resolve(ev.target.result);
+    reader.readAsDataURL(file);
+  });
+}
+
+// ─── Shared upload button (used by both paths) ────────────────────────────────
+function UploadButton({ onFile }) {
+  const ref = useRef(null);
+
+  async function handleChange(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    const raw = await readFileAsDataUrl(file);
+    const resized = await resizeDataUrl(raw);
+    onFile(resized);
+    e.target.value = "";
+  }
+
+  return (
+    <>
+      <input ref={ref} type="file" accept="image/*" className="hidden" onChange={handleChange} />
+      <button
+        onClick={() => ref.current?.click()}
+        className="flex-1 py-3 rounded-xl border border-slate-300 text-slate-600 font-semibold text-sm flex items-center justify-center gap-2"
+      >
+        <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z" />
+        </svg>
+        Upload photo
+      </button>
+    </>
+  );
+}
+
+// ─── Shared preview + confirm UI ─────────────────────────────────────────────
+function PhotoPreview({ preview, onConfirm, onRetake }) {
+  return (
+    <div className="flex flex-col items-center gap-4">
+      <img src={preview} alt="Preview" className="w-full max-w-sm rounded-2xl shadow-md object-cover max-h-72" />
+      <div className="flex gap-3 w-full max-w-sm">
+        <button onClick={onRetake} className="flex-1 py-3 rounded-xl border border-slate-300 text-slate-600 font-semibold text-sm">
+          Retake
+        </button>
+        <button onClick={onConfirm} className="flex-1 py-3 rounded-xl bg-slate-800 text-white font-semibold text-sm">
+          Use this photo
+        </button>
+      </div>
+    </div>
+  );
+}
+
+// ─── Mobile path ──────────────────────────────────────────────────────────────
 function MobileCapture({ onCapture }) {
-  const inputRef = useRef(null);
+  const cameraRef = useRef(null);
   const [preview, setPreview] = useState(null);
   const [pending, setPending] = useState(null);
 
-  function handleFile(e) {
+  function handleCamera(e) {
     const file = e.target.files?.[0];
     if (!file) return;
     const reader = new FileReader();
@@ -34,41 +89,29 @@ function MobileCapture({ onCapture }) {
       setPreview(resized);
     };
     reader.readAsDataURL(file);
-    // Reset so the same file can be re-selected after a retake
     e.target.value = "";
   }
 
-  function confirm() {
-    if (pending) onCapture(pending);
-  }
-
-  function retake() {
-    setPreview(null);
-    setPending(null);
-    inputRef.current?.click();
+  function handleUpload(resized) {
+    setPending(resized);
+    setPreview(resized);
   }
 
   if (preview) {
     return (
-      <div className="flex flex-col items-center gap-4">
-        <img src={preview} alt="Preview" className="w-full max-w-sm rounded-2xl shadow-md object-cover max-h-72" />
-        <div className="flex gap-3 w-full max-w-sm">
-          <button onClick={retake} className="flex-1 py-3 rounded-xl border border-slate-300 text-slate-600 font-semibold text-sm">
-            Retake
-          </button>
-          <button onClick={confirm} className="flex-1 py-3 rounded-xl bg-slate-800 text-white font-semibold text-sm">
-            Use this photo
-          </button>
-        </div>
-      </div>
+      <PhotoPreview
+        preview={preview}
+        onConfirm={() => onCapture(pending)}
+        onRetake={() => { setPreview(null); setPending(null); }}
+      />
     );
   }
 
   return (
     <div className="flex flex-col items-center gap-4">
-      <input ref={inputRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={handleFile} />
+      <input ref={cameraRef} type="file" accept="image/*" capture="environment" className="hidden" onChange={handleCamera} />
       <button
-        onClick={() => inputRef.current?.click()}
+        onClick={() => cameraRef.current?.click()}
         className="w-full max-w-sm py-5 rounded-2xl border-2 border-dashed border-slate-300 flex flex-col items-center gap-3 active:bg-slate-50"
       >
         <div className="w-16 h-16 rounded-full bg-slate-100 flex items-center justify-center">
@@ -80,9 +123,14 @@ function MobileCapture({ onCapture }) {
         </div>
         <div className="text-center">
           <p className="font-semibold text-slate-700">Take a photo</p>
-          <p className="text-xs text-slate-400 mt-0.5">or choose from your library</p>
+          <p className="text-xs text-slate-400 mt-0.5">Opens your camera</p>
         </div>
       </button>
+
+      <div className="flex gap-3 w-full max-w-sm">
+        <UploadButton onFile={handleUpload} />
+      </div>
+
       <p className="text-xs text-slate-400 text-center px-4">
         Point the camera at the cast, brace, or foot you want assessed
       </p>
@@ -90,7 +138,7 @@ function MobileCapture({ onCapture }) {
   );
 }
 
-// ─── Desktop path: live webcam viewfinder ────────────────────────────────────
+// ─── Desktop path ─────────────────────────────────────────────────────────────
 function DesktopCapture({ onCapture }) {
   const videoRef = useRef(null);
   const canvasRef = useRef(null);
@@ -140,26 +188,31 @@ function DesktopCapture({ onCapture }) {
       });
   }
 
-  if (permissionDenied) {
-    return (
-      <div className="text-center px-4">
-        <p className="text-slate-500 text-sm">Camera access was denied.</p>
-        <p className="text-slate-400 text-xs mt-1">Enable camera permissions in your browser settings and reload.</p>
-      </div>
-    );
+  function handleUpload(resized) {
+    streamRef.current?.getTracks().forEach((t) => t.stop());
+    setPending(resized);
+    setPreview(resized);
   }
 
   if (preview) {
     return (
+      <PhotoPreview
+        preview={preview}
+        onConfirm={() => onCapture(pending)}
+        onRetake={retake}
+      />
+    );
+  }
+
+  if (permissionDenied) {
+    return (
       <div className="flex flex-col items-center gap-4">
-        <img src={preview} alt="Preview" className="w-full max-w-sm rounded-2xl shadow-md object-cover max-h-72" />
+        <div className="text-center px-4">
+          <p className="text-slate-500 text-sm">Camera access was denied.</p>
+          <p className="text-slate-400 text-xs mt-1">Enable camera permissions in your browser settings and reload, or upload a photo instead.</p>
+        </div>
         <div className="flex gap-3 w-full max-w-sm">
-          <button onClick={retake} className="flex-1 py-3 rounded-xl border border-slate-300 text-slate-600 font-semibold text-sm">
-            Retake
-          </button>
-          <button onClick={() => onCapture(pending)} className="flex-1 py-3 rounded-xl bg-slate-800 text-white font-semibold text-sm">
-            Use this photo
-          </button>
+          <UploadButton onFile={handleUpload} />
         </div>
       </div>
     );
@@ -171,14 +224,22 @@ function DesktopCapture({ onCapture }) {
         <video ref={videoRef} autoPlay playsInline muted className="w-full h-full object-cover" />
       </div>
       <canvas ref={canvasRef} className="hidden" />
-      <button
-        onClick={capture}
-        className="w-16 h-16 rounded-full bg-white border-4 border-slate-800 flex items-center justify-center shadow-md active:scale-95 transition-transform"
-      >
-        <div className="w-10 h-10 rounded-full bg-slate-800" />
-      </button>
+      <div className="flex gap-3 w-full max-w-sm">
+        <button
+          onClick={capture}
+          className="flex-1 py-3 rounded-xl bg-slate-800 text-white font-semibold text-sm flex items-center justify-center gap-2"
+        >
+          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+              d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+          </svg>
+          Capture
+        </button>
+        <UploadButton onFile={handleUpload} />
+      </div>
       <p className="text-xs text-slate-400 text-center">
-        Frame the cast, brace, or foot clearly — then tap the button
+        Frame the cast, brace, or foot clearly — then capture or upload
       </p>
     </div>
   );

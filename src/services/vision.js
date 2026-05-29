@@ -94,7 +94,7 @@ export function clearApiKey() {
   localStorage.removeItem(API_KEY_STORAGE);
 }
 
-export async function analyzeImage(base64DataUrl) {
+export async function analyzeImage(base64DataUrl, symptoms = "") {
   const apiKey = getStoredApiKey();
   if (!apiKey) {
     throw new Error("NO_API_KEY");
@@ -121,7 +121,12 @@ export async function analyzeImage(base64DataUrl) {
           role: "user",
           content: [
             { type: "image", source: { type: "base64", media_type: mediaType, data } },
-            { type: "text", text: "Please assess this image according to your instructions." },
+            {
+              type: "text",
+              text: symptoms.trim()
+                ? `Please assess this image according to your instructions.\n\nParent-reported symptoms: ${symptoms.trim()}`
+                : "Please assess this image according to your instructions.",
+            },
           ],
         },
       ],
