@@ -18,14 +18,14 @@ function TipCard({ tip, allProducts }) {
     .filter(Boolean);
 
   return (
-    <div className="bg-neutral-800 rounded-2xl overflow-hidden">
+    <div className="bg-white rounded-2xl shadow-sm overflow-hidden">
       <button
-        className="w-full text-left px-5 py-4 flex justify-between items-center gap-2 active:bg-neutral-700 transition-colors"
+        className="w-full text-left px-5 py-4 flex justify-between items-center gap-2"
         onClick={() => setOpen(!open)}
       >
-        <span className="font-semibold text-white text-sm leading-snug">{tip.title}</span>
+        <span className="font-semibold text-slate-800 text-sm leading-snug">{tip.title}</span>
         <svg
-          className={`w-5 h-5 text-neutral-400 flex-shrink-0 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+          className={`w-5 h-5 text-slate-400 flex-shrink-0 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
           fill="none" stroke="currentColor" viewBox="0 0 24 24"
         >
           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
@@ -33,12 +33,10 @@ function TipCard({ tip, allProducts }) {
       </button>
       {open && (
         <div className="px-5 pb-5">
-          <p className="text-sm text-neutral-400 leading-relaxed">{tip.detail}</p>
+          <p className="text-sm text-slate-600 leading-relaxed">{tip.detail}</p>
           {linked.length > 0 && (
-            <div className="mt-3 pt-3 border-t border-neutral-700">
-              <p className="text-xs font-semibold text-neutral-500 uppercase tracking-wide mb-2">
-                Related Products
-              </p>
+            <div className="mt-3 pt-3 border-t border-slate-100">
+              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Related Products</p>
               <div className="flex flex-col gap-2">
                 {linked.map((product) => (
                   <a
@@ -46,13 +44,13 @@ function TipCard({ tip, allProducts }) {
                     href={product.url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="flex items-center justify-between bg-neutral-700 rounded-xl px-3 py-2"
+                    className="flex items-center justify-between bg-slate-50 rounded-xl px-3 py-2"
                   >
                     <div>
-                      <span className="text-sm font-medium text-neutral-200">{product.name}</span>
-                      <span className="text-xs text-neutral-500 ml-2">{product.brand}</span>
+                      <span className="text-sm font-medium text-slate-700">{product.name}</span>
+                      <span className="text-xs text-slate-400 ml-2">{product.brand}</span>
                     </div>
-                    <svg className="w-3.5 h-3.5 text-neutral-500 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg className="w-3.5 h-3.5 text-slate-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
                         d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
                     </svg>
@@ -70,18 +68,16 @@ function TipCard({ tip, allProducts }) {
 function AccordionItem({ question, answer }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border-b border-neutral-700 last:border-0">
+    <div className="border-b border-slate-100 last:border-0">
       <button
         className="w-full text-left py-4 flex justify-between items-start gap-2"
         onClick={() => setOpen(!open)}
       >
-        <span className="text-sm font-medium text-neutral-200 leading-snug">{question}</span>
-        <span className="text-neutral-500 flex-shrink-0 text-lg leading-none mt-0.5">
-          {open ? "−" : "+"}
-        </span>
+        <span className="text-sm font-medium text-slate-800 leading-snug">{question}</span>
+        <span className="text-slate-400 flex-shrink-0 text-lg leading-none mt-0.5">{open ? "−" : "+"}</span>
       </button>
       {open && (
-        <p className="text-sm text-neutral-400 pb-4 leading-relaxed">{answer}</p>
+        <p className="text-sm text-slate-600 pb-4 leading-relaxed">{answer}</p>
       )}
     </div>
   );
@@ -95,22 +91,18 @@ export default function PhaseDetail() {
   if (!phase) {
     return (
       <div className="p-8 text-center">
-        <p className="text-neutral-400">Phase not found.</p>
-        <button onClick={() => navigate("/")} className="mt-4 text-amber-400 text-sm">
-          Go home
-        </button>
+        <p className="text-slate-400">Phase not found.</p>
+        <button onClick={() => navigate("/")} className="mt-4 text-amber-600 text-sm">Go home</button>
       </div>
     );
   }
 
-  const phaseColor = phaseColors[phase.id] ?? "bg-neutral-700";
-  const phaseProducts = products
-    .filter((p) => phase.productCategories.includes(p.category))
-    .slice(0, 4);
+  const phaseColor = phaseColors[phase.id] ?? "bg-slate-500";
+  const phaseProducts = products.filter((p) => phase.productCategories.includes(p.category)).slice(0, 4);
   const phaseFaqs = faqs.filter((f) => f.phases.includes(phase.id));
 
   return (
-    <div className="bg-neutral-950 min-h-screen">
+    <div>
       {/* Phase-colored header */}
       <div className={`${phaseColor} px-5 pt-10 pb-8`}>
         <button
@@ -130,12 +122,12 @@ export default function PhaseDetail() {
       <div className="px-4 pt-5 pb-10 space-y-5">
         {/* Key Facts */}
         <section>
-          <p className="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Key Facts</p>
-          <div className="bg-neutral-800 rounded-2xl p-5">
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Key Facts</p>
+          <div className="bg-white rounded-2xl shadow-sm p-5">
             <ul className="space-y-3">
               {phase.keyPoints.map((point, i) => (
-                <li key={i} className="flex items-start gap-3 text-sm text-neutral-300">
-                  <span className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0 bg-neutral-500" />
+                <li key={i} className="flex items-start gap-3 text-sm text-slate-700">
+                  <span className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0 bg-slate-300" />
                   {point}
                 </li>
               ))}
@@ -145,7 +137,7 @@ export default function PhaseDetail() {
 
         {/* Practical Tips */}
         <section>
-          <p className="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">Practical Tips</p>
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Practical Tips</p>
           <div className="space-y-2">
             {phase.tips.map((tip, i) => (
               <TipCard key={i} tip={tip} allProducts={products} />
@@ -157,35 +149,25 @@ export default function PhaseDetail() {
         {phaseProducts.length > 0 && (
           <section>
             <div className="flex items-center justify-between mb-3">
-              <p className="text-xs font-semibold text-neutral-500 uppercase tracking-widest">
-                Recommended Products
-              </p>
-              <button onClick={() => navigate("/products")} className="text-xs text-neutral-400 active:text-neutral-200">
-                See all →
-              </button>
+              <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest">Recommended Products</p>
+              <button onClick={() => navigate("/products")} className="text-xs text-slate-400 active:text-slate-600">See all →</button>
             </div>
             <div className="space-y-2">
               {phaseProducts.map((product) => (
-                <div key={product.id} className="bg-neutral-800 rounded-2xl p-4 flex items-center gap-3">
+                <div key={product.id} className="bg-white rounded-2xl shadow-sm p-4 flex items-center gap-3">
                   <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-neutral-200 leading-snug">{product.name}</p>
-                    <p className="text-xs text-neutral-500 mt-0.5">{product.brand}</p>
+                    <p className="text-sm font-semibold text-slate-800 leading-snug">{product.name}</p>
+                    <p className="text-xs text-slate-400 mt-0.5">{product.brand}</p>
                   </div>
                   <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
                     <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
-                      product.status === "works"
-                        ? "bg-emerald-500/20 text-emerald-400"
-                        : "bg-amber-500/20 text-amber-400"
+                      product.status === "works" ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"
                     }`}>
                       {product.status === "works" ? "Works" : "Check Fit"}
                     </span>
                     {product.url && (
-                      <a
-                        href={product.url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        className="text-xs font-semibold text-amber-400"
-                      >
+                      <a href={product.url} target="_blank" rel="noopener noreferrer"
+                        className="text-xs font-semibold text-amber-600">
                         Shop →
                       </a>
                     )}
@@ -199,10 +181,8 @@ export default function PhaseDetail() {
         {/* FAQs */}
         {phaseFaqs.length > 0 && (
           <section>
-            <p className="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">
-              Common Questions
-            </p>
-            <div className="bg-neutral-800 rounded-2xl px-5">
+            <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Common Questions</p>
+            <div className="bg-white rounded-2xl shadow-sm px-5">
               {phaseFaqs.map((faq) => (
                 <AccordionItem key={faq.id} question={faq.question} answer={faq.answer} />
               ))}
@@ -212,20 +192,13 @@ export default function PhaseDetail() {
 
         {/* External Resources */}
         <section className="pb-2">
-          <p className="text-xs font-semibold text-neutral-500 uppercase tracking-widest mb-3">
-            External Resources
-          </p>
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">External Resources</p>
           <div className="space-y-2">
             {phase.resources.map((res, i) => (
-              <a
-                key={i}
-                href={res.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center justify-between bg-neutral-800 rounded-2xl px-5 py-4 active:bg-neutral-700 transition-colors"
-              >
-                <span className="text-sm font-medium text-neutral-200 leading-snug">{res.label}</span>
-                <span className="text-neutral-500 ml-3 flex-shrink-0">→</span>
+              <a key={i} href={res.url} target="_blank" rel="noopener noreferrer"
+                className="flex items-center justify-between bg-white rounded-2xl shadow-sm px-5 py-4">
+                <span className="text-sm font-medium text-slate-700 leading-snug">{res.label}</span>
+                <span className="text-slate-400 ml-3 flex-shrink-0">→</span>
               </a>
             ))}
           </div>
