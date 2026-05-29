@@ -26,8 +26,8 @@ export default function Home() {
       <div className="px-5 pt-12 pb-6">
         <div className="mb-3">
           <p style={script} className="text-4xl leading-snug">
-            <span className="text-teal-500">clubfoot</span>
-            <span className="text-slate-700"> club</span>
+            <span className="text-teal-500">Clubfoot</span>
+            <span className="text-slate-700"> Club</span>
           </p>
         </div>
         <p className="text-slate-500 text-sm leading-relaxed">
