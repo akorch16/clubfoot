@@ -46,8 +46,8 @@ export default function Train() {
     if (fileRef.current) fileRef.current.value = "";
   }
 
-  function handleExport() {
-    const json = exportFeedbackAsJSON();
+  async function handleExport() {
+    const json = await exportFeedbackAsJSON();
     const blob = new Blob([json], { type: "application/json" });
     const url = URL.createObjectURL(blob);
     const a = document.createElement("a");

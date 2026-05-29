@@ -1,9 +1,49 @@
 const STORAGE_KEY = "cf_feedback_v1";
 const SCHEMA_VERSION = 1;
 
+// ─── Image store (IndexedDB) ──────────────────────────────────────────────────
+
+const IDB_NAME = "cf_images_v1";
+const IDB_STORE = "images";
+
+function openImageDB() {
+  return new Promise((resolve, reject) => {
+    const req = indexedDB.open(IDB_NAME, 1);
+    req.onupgradeneeded = (e) => e.target.result.createObjectStore(IDB_STORE);
+    req.onsuccess = (e) => resolve(e.target.result);
+    req.onerror = (e) => reject(e.target.error);
+  });
+}
+
+async function saveImage(hash, base64DataUrl) {
+  const db = await openImageDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(IDB_STORE, "readwrite");
+    tx.objectStore(IDB_STORE).put(base64DataUrl, hash);
+    tx.oncomplete = () => resolve();
+    tx.onerror = (e) => reject(e.target.error);
+  });
+}
+
+async function getAllImages() {
+  const db = await openImageDB();
+  return new Promise((resolve, reject) => {
+    const tx = db.transaction(IDB_STORE, "readonly");
+    const images = {};
+    const req = tx.objectStore(IDB_STORE).openCursor();
+    req.onsuccess = (e) => {
+      const cursor = e.target.result;
+      if (cursor) { images[cursor.key] = cursor.value; cursor.continue(); }
+      else resolve(images);
+    };
+    req.onerror = (e) => reject(e.target.error);
+  });
+}
+
+// ─── Metadata store (localStorage) ───────────────────────────────────────────
+
 async function hashImage(base64DataUrl) {
   const encoder = new TextEncoder();
-  // Hash a slice for speed; enough to fingerprint the image
   const data = encoder.encode(base64DataUrl.slice(0, 10000));
   const hashBuffer = await crypto.subtle.digest("SHA-256", data);
   const hashArray = Array.from(new Uint8Array(hashBuffer));
@@ -23,12 +63,18 @@ function save(records) {
 }
 
 /**
- * Save a feedback record.
+ * Save a feedback record. Image is stored in IndexedDB; metadata in localStorage.
  * payload: { feedback: "helpful"|"not_helpful"|null, correction: conditionId|null,
  *            correctionNote: string|null, source: "user_capture"|"facebook_import" }
  */
 export async function saveFeedback(base64DataUrl, diagnosis, payload) {
   const imageHash = await hashImage(base64DataUrl);
+
+  // Store image in IndexedDB (non-fatal if it fails)
+  await saveImage(imageHash, base64DataUrl).catch((e) =>
+    console.warn("Image save failed:", e)
+  );
+
   const record = {
     id: crypto.randomUUID(),
     timestamp: new Date().toISOString(),
@@ -42,6 +88,7 @@ export async function saveFeedback(base64DataUrl, diagnosis, payload) {
     appVersion: "0.1.0",
     platform: navigator.userAgent,
   };
+
   const records = load();
   records.push(record);
   save(records);
@@ -56,15 +103,23 @@ export function getFeedbackCount() {
   return load().length;
 }
 
-export function exportFeedbackAsJSON() {
-  return JSON.stringify(load(), null, 2);
+/**
+ * Export all records joined with their images from IndexedDB.
+ * Each record gets an imageData field (base64 data URL, or null if not found).
+ */
+export async function exportFeedbackAsJSON() {
+  const records = load();
+  const images = await getAllImages().catch(() => ({}));
+  const enriched = records.map((r) => ({
+    ...r,
+    imageData: images[r.imageHash] ?? null,
+  }));
+  return JSON.stringify(enriched, null, 2);
 }
 
 /**
  * Facebook training pipeline hook (Phase 2).
  * posts: array of { imageBase64, expertLabel, note }
- * Imports each post as a "facebook_import" record paired with Claude's baseline diagnosis.
- * analyzeImageFn must be passed in to avoid a circular import with vision.js.
  */
 export async function importFromFacebook(posts, analyzeImageFn) {
   const results = [];
