@@ -6,6 +6,7 @@ import Products from "./pages/Products";
 import DoctorFinder from "./pages/DoctorFinder";
 import Support from "./pages/Support";
 import Scan from "./pages/Scan";
+import Train from "./pages/Train";
 
 export default function App() {
   return (
@@ -18,6 +19,7 @@ export default function App() {
           <Route path="/doctors" element={<DoctorFinder />} />
           <Route path="/support" element={<Support />} />
           <Route path="/scan" element={<Scan />} />
+          <Route path="/train" element={<Train />} />
         </Routes>
       </Layout>
     </HashRouter>
