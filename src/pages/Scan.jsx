@@ -2,10 +2,10 @@ import { useState } from "react";
 import CameraCapture from "../components/CameraCapture";
 import DiagnosisResult from "../components/DiagnosisResult";
 import FeedbackWidget from "../components/FeedbackWidget";
-import { analyzeImage, getStoredApiKey, saveApiKey, clearApiKey } from "../services/vision";
+import { analyzeImage, getStoredApiKey, saveApiKey, clearApiKey, hasSharedKey } from "../services/vision";
 
 export default function Scan() {
-  const [phase, setPhase] = useState(() => getStoredApiKey() ? "capture" : "setup");
+  const [phase, setPhase] = useState(() => (hasSharedKey || getStoredApiKey()) ? "capture" : "setup");
   const [imageDataUrl, setImageDataUrl] = useState(null);
   const [diagnosis, setDiagnosis] = useState(null);
   const [errorMsg, setErrorMsg] = useState(null);
@@ -115,9 +115,11 @@ export default function Scan() {
               />
               <p className="text-xs text-slate-400 text-right">{symptoms.length}/500</p>
             </div>
-            <button onClick={handleForgetKey} className="w-full py-2 text-xs text-slate-400 active:text-slate-600 transition-colors">
-              Forget saved API key
-            </button>
+            {!hasSharedKey && (
+              <button onClick={handleForgetKey} className="w-full py-2 text-xs text-slate-400 active:text-slate-600 transition-colors">
+                Forget saved API key
+              </button>
+            )}
           </>
         )}
 

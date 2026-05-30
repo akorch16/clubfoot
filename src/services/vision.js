@@ -104,7 +104,10 @@ function parseResponse(text) {
   }
 }
 
+const WORKER_URL = import.meta.env.VITE_WORKER_URL ?? "";
 const API_KEY_STORAGE = "cf_anthropic_key";
+
+export const hasSharedKey = !!WORKER_URL;
 
 export function getStoredApiKey() {
   return localStorage.getItem(API_KEY_STORAGE) ?? "";
@@ -118,44 +121,55 @@ export function clearApiKey() {
   localStorage.removeItem(API_KEY_STORAGE);
 }
 
-export async function analyzeImage(base64DataUrl, symptoms = "") {
-  const apiKey = getStoredApiKey();
-  if (!apiKey) {
-    throw new Error("NO_API_KEY");
-  }
+function buildPayload(mediaType, data, symptoms) {
+  return {
+    model: "claude-sonnet-4-6",
+    max_tokens: 1024,
+    system: SYSTEM_PROMPT,
+    messages: [
+      {
+        role: "user",
+        content: [
+          { type: "image", source: { type: "base64", media_type: mediaType, data } },
+          {
+            type: "text",
+            text: symptoms.trim()
+              ? `Please assess this image according to your instructions.\n\nParent-reported symptoms: ${symptoms.trim()}`
+              : "Please assess this image according to your instructions.",
+          },
+        ],
+      },
+    ],
+  };
+}
 
+export async function analyzeImage(base64DataUrl, symptoms = "") {
   const resized = await resizeIfNeeded(base64DataUrl);
   const mediaType = extractMediaType(resized);
   const data = stripPrefix(resized);
+  const payload = buildPayload(mediaType, data, symptoms);
 
-  const response = await fetch("https://api.anthropic.com/v1/messages", {
-    method: "POST",
-    headers: {
-      "x-api-key": apiKey,
-      "anthropic-version": "2023-06-01",
-      "anthropic-dangerous-direct-browser-access": "true",
-      "content-type": "application/json",
-    },
-    body: JSON.stringify({
-      model: "claude-sonnet-4-6",
-      max_tokens: 1024,
-      system: SYSTEM_PROMPT,
-      messages: [
-        {
-          role: "user",
-          content: [
-            { type: "image", source: { type: "base64", media_type: mediaType, data } },
-            {
-              type: "text",
-              text: symptoms.trim()
-                ? `Please assess this image according to your instructions.\n\nParent-reported symptoms: ${symptoms.trim()}`
-                : "Please assess this image according to your instructions.",
-            },
-          ],
-        },
-      ],
-    }),
-  });
+  let response;
+  if (WORKER_URL) {
+    response = await fetch(WORKER_URL, {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload),
+    });
+  } else {
+    const apiKey = getStoredApiKey();
+    if (!apiKey) throw new Error("NO_API_KEY");
+    response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: {
+        "x-api-key": apiKey,
+        "anthropic-version": "2023-06-01",
+        "anthropic-dangerous-direct-browser-access": "true",
+        "content-type": "application/json",
+      },
+      body: JSON.stringify(payload),
+    });
+  }
 
   if (!response.ok) {
     const err = await response.text();
