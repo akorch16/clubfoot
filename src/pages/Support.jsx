@@ -17,54 +17,22 @@ const quotes = [
 ];
 
 const communityLinks = [
-  {
-    label: "Clubfoot Support Facebook Group",
-    url: "https://www.facebook.com/groups/clubfootsupport",
-    description: "Large, active community of clubfoot parents worldwide",
-    icon: "👥",
-  },
-  {
-    label: "Reddit r/clubfoot",
-    url: "https://www.reddit.com/r/clubfoot",
-    description: "Forum for parents, adults with clubfoot, and caregivers",
-    icon: "💬",
-  },
-  {
-    label: "Ponseti International Association",
-    url: "https://www.ponseti.info",
-    description: "Official clinical guidelines, provider directory, and research",
-    icon: "🏥",
-  },
-  {
-    label: "STEPS Charity",
-    url: "https://www.steps-charity.org.uk",
-    description: "UK-based support and information for lower limb conditions",
-    icon: "🌟",
-  },
-  {
-    label: "#clubfoot on Instagram",
-    url: "https://www.instagram.com/explore/tags/clubfoot/",
-    description: "Real families sharing their journeys",
-    icon: "📸",
-  },
+  { label: "Clubfoot Support Facebook Group", url: "https://www.facebook.com/groups/clubfootsupport", description: "Large, active community of clubfoot parents worldwide", icon: "👥", iconBg: "bg-blue-100" },
+  { label: "Reddit r/clubfoot", url: "https://www.reddit.com/r/clubfoot", description: "Forum for parents, adults with clubfoot, and caregivers", icon: "💬", iconBg: "bg-orange-100" },
+  { label: "Ponseti International Association", url: "https://www.ponseti.info", description: "Official clinical guidelines, provider directory, and research", icon: "🏥", iconBg: "bg-teal-100" },
+  { label: "STEPS Charity", url: "https://www.steps-charity.org.uk", description: "UK-based support and information for lower limb conditions", icon: "🌟", iconBg: "bg-amber-100" },
+  { label: "#clubfoot on Instagram", url: "https://www.instagram.com/explore/tags/clubfoot/", description: "Real families sharing their journeys", icon: "📸", iconBg: "bg-rose-100" },
 ];
 
 function AccordionItem({ question, answer }) {
   const [open, setOpen] = useState(false);
   return (
-    <div className="border-b border-gray-100 last:border-0">
-      <button
-        className="w-full text-left py-3.5 flex justify-between items-start gap-2"
-        onClick={() => setOpen(!open)}
-      >
-        <span className="text-sm font-medium text-gray-800">{question}</span>
-        <span className="text-gray-400 flex-shrink-0 text-lg leading-none">
-          {open ? "−" : "+"}
-        </span>
+    <div className="border-b border-slate-100 last:border-0">
+      <button className="w-full text-left py-4 flex justify-between items-start gap-2" onClick={() => setOpen(!open)}>
+        <span className="text-sm font-medium text-slate-800 leading-snug">{question}</span>
+        <span className="text-slate-400 flex-shrink-0 text-lg leading-none mt-0.5">{open ? "−" : "+"}</span>
       </button>
-      {open && (
-        <p className="text-sm text-gray-600 pb-4 leading-relaxed">{answer}</p>
-      )}
+      {open && <p className="text-sm text-slate-600 pb-4 leading-relaxed">{answer}</p>}
     </div>
   );
 }
@@ -73,43 +41,39 @@ export default function Support() {
   return (
     <div>
       {/* Header */}
-      <div className="bg-gradient-to-br from-slate-700 to-slate-900 px-5 pt-12 pb-6">
-        <span className="inline-block bg-rose-400/20 text-rose-300 text-xs font-semibold px-3 py-1 rounded-full tracking-wide mb-3">
+      <div className="px-5 pt-12 pb-6">
+        <span className="inline-block bg-rose-100 text-rose-700 text-xs font-semibold px-3 py-1 rounded-full tracking-wide mb-3">
           You are not alone
         </span>
-        <h1 className="text-2xl font-bold text-white">Support & Community</h1>
-        <p className="text-slate-300 text-sm mt-1">
-          Thousands of families have walked this road before you
-        </p>
+        <h1 className="text-2xl font-bold text-slate-800">Support & Community</h1>
+        <p className="text-slate-500 text-sm mt-1">Thousands of families have walked this road before you</p>
       </div>
 
-      <div className="px-4 pt-5 space-y-6 pb-4">
+      <div className="px-4 pt-1 pb-6 space-y-5">
         {/* Note for new parents */}
-        <section className="bg-rose-50 border border-rose-200 rounded-2xl p-4">
+        <div className="bg-rose-500 rounded-2xl p-5">
           <div className="flex items-start gap-3">
-            <span className="text-2xl">💗</span>
+            <span className="text-xl flex-shrink-0 mt-0.5">💗</span>
             <div>
-              <p className="font-semibold text-rose-800 text-sm mb-2">
-                A note for new parents
-              </p>
-              <p className="text-rose-700 text-sm leading-relaxed">
+              <p className="font-semibold text-white text-sm mb-2">A note for new parents</p>
+              <p className="text-rose-100 text-sm leading-relaxed">
                 If you just received a clubfoot diagnosis — prenatally or at birth — take a breath. This is treatable. The Ponseti method has an over 95% success rate, and children who receive proper treatment grow up to run, jump, play sports, and live without limitations.
               </p>
-              <p className="text-rose-700 text-sm leading-relaxed mt-2">
+              <p className="text-rose-100 text-sm leading-relaxed mt-2">
                 The journey requires commitment — weekly casts, years of bracing — but you will get through it. Thousands of families have. And the community waiting for you is one of the most supportive you'll ever find.
               </p>
             </div>
           </div>
-        </section>
+        </div>
 
         {/* Parent Quotes */}
         <section>
-          <h2 className="text-base font-semibold text-gray-800 mb-3">From the community</h2>
-          <div className="space-y-3">
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">From the community</p>
+          <div className="space-y-2">
             {quotes.map((q, i) => (
               <div key={i} className="bg-white rounded-2xl shadow-sm p-4">
-                <p className="text-sm text-gray-700 leading-relaxed italic">"{q.text}"</p>
-                <p className="text-xs text-gray-400 mt-2 font-medium">— {q.author}</p>
+                <p className="text-sm text-slate-700 leading-relaxed italic">"{q.text}"</p>
+                <p className="text-xs text-slate-400 mt-2 font-medium">— {q.author}</p>
               </div>
             ))}
           </div>
@@ -117,35 +81,28 @@ export default function Support() {
 
         {/* Community Links */}
         <section>
-          <h2 className="text-base font-semibold text-gray-800 mb-3">Community & Resources</h2>
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Community & Resources</p>
           <div className="space-y-2">
             {communityLinks.map((link, i) => (
-              <a
-                key={i}
-                href={link.url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex items-center gap-3 bg-white rounded-2xl shadow-sm p-4 active:bg-gray-50"
-              >
-                <span className="text-2xl flex-shrink-0">{link.icon}</span>
-                <div className="flex-1 min-w-0">
-                  <p className="text-sm font-semibold text-gray-800">{link.label}</p>
-                  <p className="text-xs text-gray-500 mt-0.5">{link.description}</p>
+              <a key={i} href={link.url} target="_blank" rel="noopener noreferrer"
+                className="flex items-center gap-3 bg-white rounded-2xl shadow-sm p-4 active:bg-slate-50 transition-colors">
+                <div className={`w-10 h-10 rounded-full ${link.iconBg} flex items-center justify-center flex-shrink-0`}>
+                  <span className="text-xl">{link.icon}</span>
                 </div>
-                <svg className="w-4 h-4 text-gray-300 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
-                </svg>
+                <div className="flex-1 min-w-0">
+                  <p className="text-sm font-semibold text-slate-800">{link.label}</p>
+                  <p className="text-xs text-slate-500 mt-0.5">{link.description}</p>
+                </div>
+                <span className="text-slate-300 flex-shrink-0">›</span>
               </a>
             ))}
           </div>
         </section>
 
-        {/* Full FAQ */}
+        {/* FAQ */}
         <section className="pb-2">
-          <h2 className="text-base font-semibold text-gray-800 mb-3">
-            Frequently Asked Questions
-          </h2>
-          <div className="bg-white rounded-2xl shadow-sm px-4">
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Frequently Asked Questions</p>
+          <div className="bg-white rounded-2xl shadow-sm px-5">
             {faqs.map((faq) => (
               <AccordionItem key={faq.id} question={faq.question} answer={faq.answer} />
             ))}

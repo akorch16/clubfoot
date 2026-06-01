@@ -58,7 +58,7 @@ function HeartIcon() {
 
 export default function BottomNav() {
   return (
-    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-gray-200 z-50">
+    <nav className="fixed bottom-0 left-0 right-0 bg-white border-t border-slate-200 z-50">
       <div className="max-w-lg mx-auto flex">
         {tabs.map(({ to, label, icon: Icon }) => (
           <NavLink
@@ -67,7 +67,7 @@ export default function BottomNav() {
             end={to === "/"}
             className={({ isActive }) =>
               `flex-1 flex flex-col items-center py-2 px-1 text-xs font-medium transition-colors ${
-                isActive ? "text-blue-600" : "text-gray-500 hover:text-gray-700"
+                isActive ? "text-amber-500" : "text-slate-400"
               }`
             }
           >

@@ -21,19 +21,15 @@ export default function Products() {
   return (
     <div>
       {/* Header */}
-      <div className="bg-gradient-to-br from-slate-700 to-slate-900 px-5 pt-12 pb-6">
-        <span className="inline-block bg-blue-400/20 text-blue-300 text-xs font-semibold px-3 py-1 rounded-full tracking-wide mb-3">
+      <div className="px-5 pt-12 pb-6">
+        <span className="inline-block bg-sky-100 text-sky-700 text-xs font-semibold px-3 py-1 rounded-full tracking-wide mb-3">
           Community-vetted
         </span>
-        <h1 className="text-2xl font-bold text-white">Product Guide</h1>
-        <p className="text-slate-300 text-sm mt-1">
-          Gear that actually works — tested by clubfoot families
-        </p>
+        <h1 className="text-2xl font-bold text-slate-800">Product Guide</h1>
+        <p className="text-slate-500 text-sm mt-1">Gear that actually works — tested by clubfoot families</p>
         <div className="mt-4 relative">
-          <svg
-            className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"
-            fill="none" stroke="currentColor" viewBox="0 0 24 24"
-          >
+          <svg className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"
+            fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
               d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
           </svg>
@@ -42,21 +38,21 @@ export default function Products() {
             placeholder='Try "socks" or "sleep sack"...'
             value={search}
             onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-white rounded-xl pl-9 pr-4 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none"
+            className="w-full bg-white border border-slate-200 rounded-xl pl-9 pr-4 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-slate-300"
           />
         </div>
       </div>
 
       {/* Category Pills */}
-      <div className="flex gap-2 overflow-x-auto px-4 py-3 scrollbar-hide border-b border-slate-100 bg-white sticky top-0 z-10">
+      <div className="flex gap-2 overflow-x-auto px-4 py-3 bg-white border-b border-slate-100 sticky top-0 z-10">
         {categories.map((cat) => (
           <button
             key={cat.id}
             onClick={() => setActiveCategory(cat.id)}
-            className={`flex-shrink-0 px-3.5 py-1.5 rounded-full text-sm font-medium transition-colors ${
+            className={`flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-colors ${
               activeCategory === cat.id
-                ? "bg-slate-800 text-white"
-                : "bg-slate-100 text-slate-500 hover:bg-slate-200"
+                ? "bg-amber-400 text-amber-950"
+                : "bg-slate-100 text-slate-500"
             }`}
           >
             {cat.label}
@@ -65,11 +61,9 @@ export default function Products() {
       </div>
 
       {/* Product Cards */}
-      <div className="px-4 pt-4 pb-4 space-y-3">
+      <div className="px-4 pt-4 pb-6 space-y-3">
         {filtered.length === 0 && (
-          <div className="text-center py-12 text-slate-400 text-sm">
-            No products match your search.
-          </div>
+          <div className="text-center py-12 text-slate-400 text-sm">No products match your search.</div>
         )}
         {filtered.map((product) => (
           <div key={product.id} className="bg-white rounded-2xl shadow-sm p-4">
@@ -82,45 +76,31 @@ export default function Products() {
                     <p className="font-semibold text-slate-800 text-sm leading-snug">{product.name}</p>
                     <p className="text-xs text-slate-400 mt-0.5">{product.brand}</p>
                   </div>
-                  <span
-                    className={`flex-shrink-0 text-xs font-semibold px-2 py-1 rounded-full ${
-                      product.status === "works"
-                        ? "bg-emerald-100 text-emerald-700"
-                        : "bg-amber-100 text-amber-700"
-                    }`}
-                  >
+                  <span className={`flex-shrink-0 text-xs font-semibold px-2 py-1 rounded-full ${
+                    product.status === "works" ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"
+                  }`}>
                     {product.status === "works" ? "Works" : "Check Fit"}
                   </span>
                 </div>
-
                 <p className="text-sm text-slate-600 leading-relaxed mt-2">{product.summary}</p>
               </div>
             </div>
 
             {product.notes && (
-              <p className="text-xs text-slate-400 mt-2.5 leading-relaxed border-t border-slate-50 pt-2.5">
-                {product.notes}
-              </p>
+              <p className="text-xs text-slate-400 mt-2.5 leading-relaxed border-t border-slate-50 pt-2.5">{product.notes}</p>
             )}
 
             <div className="flex items-center justify-between mt-2.5 pt-2.5 border-t border-slate-50">
               <div className="flex flex-wrap gap-1.5">
                 {product.phases.map((phase) => (
-                  <span
-                    key={phase}
-                    className="text-xs bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full capitalize"
-                  >
+                  <span key={phase} className="text-xs bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full capitalize">
                     {phase.replace("-", " ")}
                   </span>
                 ))}
               </div>
               {product.url && (
-                <a
-                  href={product.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex-shrink-0 text-xs font-semibold text-blue-600 bg-blue-50 px-3 py-1.5 rounded-lg ml-2"
-                >
+                <a href={product.url} target="_blank" rel="noopener noreferrer"
+                  className="flex-shrink-0 text-xs font-semibold text-amber-600 bg-amber-50 px-3 py-1.5 rounded-lg ml-2">
                   Shop →
                 </a>
               )}
