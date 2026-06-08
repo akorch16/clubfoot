@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
 import { phases } from "../data/phases";
-import { phasePhotos } from "../data/phasePhotos";
 
 const quickLinks = [
   { label: "The Method", to: "/method", icon: "📖", iconBg: "bg-amber-100" },
@@ -47,24 +46,13 @@ export default function Home() {
           </button>
         </div>
 
-        {/* Full-width stacked phase tiles with photo overlay */}
-        {phases.map((phase) => {
-          const photo = phasePhotos[phase.id];
-          return (
+        {/* Full-width stacked phase tiles */}
+        {phases.map((phase) => (
             <button
               key={phase.id}
               onClick={() => navigate(`/phase/${phase.id}`)}
               className={`relative w-full ${phaseColors[phase.id] ?? "bg-slate-500"} rounded-2xl py-5 px-5 text-left overflow-hidden active:scale-95 transition-transform`}
             >
-              {/* Background photo with colour overlay */}
-              {photo && (
-                <img
-                  src={photo}
-                  alt=""
-                  className="absolute inset-0 w-full h-full object-cover opacity-20 mix-blend-luminosity"
-                  onError={(e) => { e.currentTarget.style.display = "none"; }}
-                />
-              )}
               {/* Ghost emoji texture */}
               <span className="absolute right-3 top-1/2 -translate-y-1/2 text-8xl opacity-[0.12] pointer-events-none select-none leading-none">
                 {phase.emoji}
@@ -78,8 +66,7 @@ export default function Home() {
                 <span className="text-white/50 text-2xl font-light flex-shrink-0">›</span>
               </div>
             </button>
-          );
-        })}
+        ))}
 
         {/* Quick links — circle icon grid */}
         <div className="pt-3">
