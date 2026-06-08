@@ -119,6 +119,34 @@ export async function exportFeedbackAsJSON() {
   return JSON.stringify(enriched, null, 2);
 }
 
+/**
+ * Remove duplicate records sharing the same imageHash, keeping the richest one
+ * (trusted contributor > longest note > most recent). Returns count removed.
+ */
+export function dedupRecords() {
+  const records = load();
+  const byHash = new Map();
+  for (const r of records) {
+    const key = r.imageHash ?? r.id;
+    if (!byHash.has(key)) { byHash.set(key, []); }
+    byHash.get(key).push(r);
+  }
+  const kept = [];
+  for (const group of byHash.values()) {
+    if (group.length === 1) { kept.push(group[0]); continue; }
+    group.sort((a, b) => {
+      if (a.trustedContributor && !b.trustedContributor) return -1;
+      if (!a.trustedContributor && b.trustedContributor) return 1;
+      const noteLen = (r) => (r.correctionNote ?? "").length;
+      if (noteLen(b) !== noteLen(a)) return noteLen(b) - noteLen(a);
+      return new Date(b.timestamp) - new Date(a.timestamp);
+    });
+    kept.push(group[0]);
+  }
+  save(kept);
+  return records.length - kept.length;
+}
+
 export async function clearAllData() {
   localStorage.removeItem(STORAGE_KEY);
   const db = await openImageDB().catch(() => null);

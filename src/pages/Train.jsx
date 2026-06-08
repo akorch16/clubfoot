@@ -1,6 +1,6 @@
 import { useState, useRef } from "react";
 import { conditions } from "../data/conditions";
-import { saveFeedback, exportFeedbackAsJSON, getFeedbackCount, clearAllData } from "../services/feedback";
+import { saveFeedback, exportFeedbackAsJSON, getFeedbackCount, clearAllData, dedupRecords } from "../services/feedback";
 import { importPdfFile } from "../services/pdfImport";
 
 const DOMAIN_LABELS = {
@@ -20,6 +20,7 @@ export default function Train() {
   const [saved, setSaved] = useState(false);
   const [count, setCount] = useState(getFeedbackCount);
   const [confirmClear, setConfirmClear] = useState(false);
+  const [dedupMsg, setDedupMsg] = useState("");
   const fileRef = useRef();
   const pdfRef = useRef();
   const [pdfPhase, setPdfPhase] = useState("idle"); // idle | processing | done | error
@@ -74,6 +75,13 @@ export default function Train() {
     if (pdfRef.current) pdfRef.current.value = "";
   }
 
+  function handleDedup() {
+    const removed = dedupRecords();
+    setCount(getFeedbackCount());
+    setDedupMsg(removed > 0 ? `Removed ${removed} duplicate${removed !== 1 ? "s" : ""}` : "No duplicates found");
+    setTimeout(() => setDedupMsg(""), 3000);
+  }
+
   async function handleClear() {
     if (!confirmClear) { setConfirmClear(true); return; }
     await clearAllData();
@@ -125,6 +133,13 @@ export default function Train() {
               Export JSON
             </button>
             <button
+              onClick={handleDedup}
+              disabled={count === 0}
+              className="px-4 py-2 rounded-xl border border-slate-200 text-slate-500 text-xs font-semibold disabled:opacity-40 active:scale-95 transition-transform"
+            >
+              Dedup
+            </button>
+            <button
               onClick={handleClear}
               disabled={count === 0}
               className={`px-4 py-2 rounded-xl text-xs font-semibold disabled:opacity-40 transition-colors ${
@@ -134,6 +149,7 @@ export default function Train() {
               {confirmClear ? "Confirm clear" : "Clear"}
             </button>
           </div>
+          {dedupMsg && <p className="text-xs text-emerald-600 mt-1">{dedupMsg}</p>}
         </div>
 
         {/* PDF Import */}
