@@ -1,6 +1,7 @@
 import { useState, useRef } from "react";
 import { conditions } from "../data/conditions";
 import { saveFeedback, exportFeedbackAsJSON, getFeedbackCount, clearAllData } from "../services/feedback";
+import { importPdfFile } from "../services/pdfImport";
 
 const DOMAIN_LABELS = {
   cast: "Cast",
@@ -20,6 +21,11 @@ export default function Train() {
   const [count, setCount] = useState(getFeedbackCount);
   const [confirmClear, setConfirmClear] = useState(false);
   const fileRef = useRef();
+  const pdfRef = useRef();
+  const [pdfPhase, setPdfPhase] = useState("idle"); // idle | processing | done | error
+  const [pdfProgress, setPdfProgress] = useState({ page: 0, total: 0, saved: 0 });
+  const [pdfResults, setPdfResults] = useState([]);
+  const [pdfError, setPdfError] = useState("");
 
   function handleFile(e) {
     const file = e.target.files?.[0];
@@ -45,6 +51,27 @@ export default function Train() {
     setNote("");
     setTrustedContributor("");
     if (fileRef.current) fileRef.current.value = "";
+  }
+
+  async function handlePdfImport(e) {
+    const file = e.target.files?.[0];
+    if (!file) return;
+    setPdfPhase("processing");
+    setPdfProgress({ page: 0, total: 0, saved: 0 });
+    setPdfResults([]);
+    setPdfError("");
+    try {
+      const results = await importPdfFile(file, {
+        onProgress: (p) => setPdfProgress(p),
+      });
+      setPdfResults(results);
+      setCount(getFeedbackCount());
+      setPdfPhase("done");
+    } catch (err) {
+      setPdfError(err.message ?? "Something went wrong");
+      setPdfPhase("error");
+    }
+    if (pdfRef.current) pdfRef.current.value = "";
   }
 
   async function handleClear() {
@@ -107,6 +134,67 @@ export default function Train() {
               {confirmClear ? "Confirm clear" : "Clear"}
             </button>
           </div>
+        </div>
+
+        {/* PDF Import */}
+        <div className="bg-white rounded-2xl shadow-sm p-4 space-y-3">
+          <div>
+            <p className="text-sm font-semibold text-slate-800">Import from Facebook PDF</p>
+            <p className="text-xs text-slate-500 mt-0.5">Upload a PDF export of the Facebook group — Claude will scan each page and extract labeled training cases automatically.</p>
+          </div>
+
+          {pdfPhase === "idle" && (
+            <label className="block cursor-pointer">
+              <input ref={pdfRef} type="file" accept="application/pdf" onChange={handlePdfImport} className="sr-only" />
+              <div className="flex items-center justify-center gap-2 py-3 rounded-xl border-2 border-dashed border-violet-200 bg-violet-50 text-violet-600 text-sm font-medium active:bg-violet-100">
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+                </svg>
+                Choose PDF to import
+              </div>
+            </label>
+          )}
+
+          {pdfPhase === "processing" && (
+            <div className="space-y-2">
+              <div className="flex justify-between text-xs text-slate-500">
+                <span>Processing page {pdfProgress.page} of {pdfProgress.total || "…"}</span>
+                <span>{pdfProgress.saved} cases found</span>
+              </div>
+              <div className="w-full bg-slate-100 rounded-full h-2">
+                <div
+                  className="bg-violet-500 h-2 rounded-full transition-all duration-300"
+                  style={{ width: pdfProgress.total ? `${(pdfProgress.page / pdfProgress.total) * 100}%` : "0%" }}
+                />
+              </div>
+              <p className="text-xs text-slate-400">This may take a few minutes for large PDFs…</p>
+            </div>
+          )}
+
+          {pdfPhase === "done" && (
+            <div className="space-y-2">
+              <div className="bg-emerald-50 border border-emerald-200 rounded-xl px-4 py-3">
+                <p className="text-sm font-semibold text-emerald-800">
+                  {pdfResults.length} training case{pdfResults.length !== 1 ? "s" : ""} extracted and saved
+                </p>
+                {pdfResults.length === 0 && (
+                  <p className="text-xs text-emerald-700 mt-1">No photos found — the PDF may not have embedded images. Try the manual entry below instead.</p>
+                )}
+              </div>
+              <button onClick={() => setPdfPhase("idle")} className="text-xs text-slate-400 active:text-slate-600">
+                Import another PDF
+              </button>
+            </div>
+          )}
+
+          {pdfPhase === "error" && (
+            <div className="space-y-2">
+              <div className="bg-red-50 border border-red-200 rounded-xl px-4 py-3">
+                <p className="text-xs text-red-700">{pdfError}</p>
+              </div>
+              <button onClick={() => setPdfPhase("idle")} className="text-xs text-slate-400 active:text-slate-600">Try again</button>
+            </div>
+          )}
         </div>
 
         {saved && (
