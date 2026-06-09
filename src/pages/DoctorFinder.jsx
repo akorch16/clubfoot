@@ -1,6 +1,9 @@
 import { useState, useEffect, useRef } from "react";
 import { doctors } from "../data/doctors";
 
+const totalDoctors = doctors.length;
+const totalCountries = new Set(doctors.map((d) => d.country || "United States")).size;
+
 function haversineMiles(lat1, lng1, lat2, lng2) {
   const R = 3958.8;
   const dLat = ((lat2 - lat1) * Math.PI) / 180;
@@ -124,6 +127,9 @@ export default function DoctorFinder() {
     <div>
       {/* Header */}
       <div className="px-5 pt-12 pb-6">
+        <p className="text-sm font-semibold text-teal-700 mb-1">
+          We have {totalDoctors} doctors from {totalCountries} countries trained in Ponseti
+        </p>
         <span className="inline-block bg-teal-100 text-teal-700 text-xs font-semibold px-3 py-1 rounded-full tracking-wide mb-3">
           Ponseti-trained providers
         </span>
@@ -207,7 +213,7 @@ export default function DoctorFinder() {
               </div>
             </div>
             {doc.hospital && <p className="text-sm text-slate-700 mt-1">{doc.hospital}</p>}
-            <p className="text-xs text-slate-500">{doc.city ? `${doc.city}, ` : ""}{doc.state}</p>
+            <p className="text-xs text-slate-500">{doc.city ? `${doc.city}, ` : ""}{doc.country ?? doc.state}</p>
             {doc.phone && (
               <a href={`tel:${doc.phone}`} className="inline-flex items-center gap-1.5 mt-3 text-sm font-medium text-teal-600">
                 <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
