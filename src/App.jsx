@@ -1,5 +1,6 @@
 import { HashRouter, Routes, Route } from "react-router-dom";
 import Layout from "./components/Layout";
+import ErrorBoundary from "./components/ErrorBoundary";
 import Home from "./pages/Home";
 import PhaseDetail from "./pages/PhaseDetail";
 import Products from "./pages/Products";
@@ -18,6 +19,7 @@ export default function App() {
   return (
     <HashRouter>
       <Layout>
+        <ErrorBoundary>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/phase/:phaseId" element={<PhaseDetail />} />
@@ -33,6 +35,7 @@ export default function App() {
           <Route path="/design/v3" element={<HomeV3 />} />
           <Route path="/design/casting" element={<CastingV1 />} />
         </Routes>
+        </ErrorBoundary>
       </Layout>
     </HashRouter>
   );
