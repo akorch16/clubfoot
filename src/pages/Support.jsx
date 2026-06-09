@@ -34,19 +34,17 @@ export default function Support() {
 
       <div className="px-4 pt-1 pb-6 space-y-5">
         {/* Note for new parents */}
-        <div className="bg-rose-500 rounded-2xl p-5">
-          <div className="flex items-start gap-3">
-            <span className="text-xl flex-shrink-0 mt-0.5">💗</span>
-            <div>
-              <p className="font-semibold text-white text-sm mb-2">A note for new parents</p>
-              <p className="text-rose-100 text-sm leading-relaxed">
-                If you just received a clubfoot diagnosis — prenatally or at birth — take a breath. This is treatable. The Ponseti method has an over 95% success rate, and children who receive proper treatment grow up to run, jump, play sports, and live without limitations.
-              </p>
-              <p className="text-rose-100 text-sm leading-relaxed mt-2">
-                The journey requires commitment — weekly casts, years of bracing — but you will get through it. Thousands of families have. And the community waiting for you is one of the most supportive you'll ever find.
-              </p>
-            </div>
+        <div className="bg-rose-50 border border-rose-100 rounded-2xl p-5">
+          <div className="flex items-center gap-2 mb-3">
+            <span className="text-lg">💗</span>
+            <p className="font-semibold text-rose-700 text-sm">A note for new parents</p>
           </div>
+          <p className="text-slate-700 text-sm leading-relaxed">
+            If you just received a clubfoot diagnosis — prenatally or at birth — take a breath. <span className="font-semibold text-slate-800">This is treatable.</span> The Ponseti method has an over 95% success rate, and children who receive proper treatment grow up to run, jump, play sports, and live without limitations.
+          </p>
+          <p className="text-slate-600 text-sm leading-relaxed mt-3">
+            The journey requires commitment — weekly casts, years of bracing — but you will get through it. Thousands of families have. And the community waiting for you is one of the most supportive you'll ever find.
+          </p>
         </div>
 
         {/* Parent Quotes */}
