@@ -29,7 +29,6 @@ async function geocodeQuery(query) {
 
 export default function DoctorFinder() {
   const [selectedState, setSelectedState] = useState("");
-  const [search, setSearch] = useState("");
   const [locationQuery, setLocationQuery] = useState("");
   const [userCoords, setUserCoords] = useState(null);
   const [geoLoading, setGeoLoading] = useState(false);
@@ -96,16 +95,7 @@ export default function DoctorFinder() {
   }
 
   const filtered = doctors
-    .filter((d) => {
-      const matchesState = !selectedState || d.state === selectedState;
-      const q = search.toLowerCase();
-      const matchesSearch =
-        !q ||
-        d.name.toLowerCase().includes(q) ||
-        (d.hospital ?? "").toLowerCase().includes(q) ||
-        (d.city ?? "").toLowerCase().includes(q);
-      return matchesState && matchesSearch;
-    })
+    .filter((d) => !selectedState || d.state === selectedState)
     .map((d) => ({
       ...d,
       distance:
@@ -138,64 +128,52 @@ export default function DoctorFinder() {
             <option value="">All States</option>
             {states.map((s) => <option key={s} value={s}>{s}</option>)}
           </select>
-          <input
-            type="text"
-            placeholder="Name or hospital..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="flex-1 bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-slate-300"
-          />
-        </div>
-
-        {/* Location proximity search */}
-        <div className="mt-2">
-          <div className="flex gap-2">
-            <div className="relative flex-1">
-              <input
-                type="text"
-                placeholder="City or zip to sort by distance..."
-                value={locationQuery}
-                onChange={(e) => setLocationQuery(e.target.value)}
-                className="w-full bg-white rounded-xl px-3 py-2.5 pr-8 text-sm text-gray-800 placeholder-gray-400 outline-none focus:ring-2 focus:ring-teal-400"
-              />
-              {geoLoading && (
-                <span className="absolute right-3 top-1/2 -translate-y-1/2">
-                  <svg className="w-4 h-4 text-teal-500 animate-spin" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
-                  </svg>
-                </span>
-              )}
-              {userCoords && !geoLoading && (
-                <button
-                  onClick={clearLocation}
-                  className="absolute right-2.5 top-1/2 -translate-y-1/2 text-gray-400 active:text-gray-600"
-                >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-                  </svg>
-                </button>
-              )}
-            </div>
-            <button
-              onClick={handleGeolocate}
-              title="Use my location"
-              className="flex-shrink-0 bg-white rounded-xl px-3 py-2.5 text-teal-600 active:bg-teal-50 transition-colors"
-            >
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            </button>
+          <div className="relative flex-1">
+            <input
+              type="text"
+              placeholder="City or zip code"
+              value={locationQuery}
+              onChange={(e) => setLocationQuery(e.target.value)}
+              className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2.5 pr-8 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-teal-300"
+            />
+            {geoLoading && (
+              <span className="absolute right-3 top-1/2 -translate-y-1/2">
+                <svg className="w-4 h-4 text-teal-500 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                  <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                </svg>
+              </span>
+            )}
+            {userCoords && !geoLoading && (
+              <button
+                onClick={clearLocation}
+                className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 active:text-slate-600"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            )}
           </div>
-          {geoError && <p className="text-xs text-red-400 mt-1.5 px-1">{geoError}</p>}
-          {userCoords && !geoError && (
-            <p className="text-xs text-teal-300 mt-1.5 px-1">
-              Nearest to <strong>{userCoords.label}</strong> — tap × to clear
-            </p>
-          )}
+          <button
+            onClick={handleGeolocate}
+            title="Use my location"
+            className="flex-shrink-0 bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-teal-600 active:bg-teal-50 transition-colors"
+          >
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+            </svg>
+          </button>
         </div>
+        <p className="text-xs text-slate-500 mt-2 px-1">Sort by nearest providers</p>
+        {geoError && <p className="text-xs text-red-500 mt-1 px-1">{geoError}</p>}
+        {userCoords && !geoError && (
+          <p className="text-xs text-teal-600 mt-1 px-1">
+            Nearest to <strong>{userCoords.label}</strong> — tap × to clear
+          </p>
+        )}
       </div>
 
       <div className="px-4 pt-1 pb-6 space-y-3">
