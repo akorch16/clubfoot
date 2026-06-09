@@ -32,7 +32,7 @@ export default function Home() {
           <img src="/logo.jpg" alt="Clubfoot Club" className="h-12 w-12 rounded-full object-cover" />
         </div>
         <p className="text-slate-500 text-sm leading-relaxed">
-          Everything we wish we'd found sooner — written by parents who've been there.
+          Support for every step of the journey
         </p>
       </div>
 
