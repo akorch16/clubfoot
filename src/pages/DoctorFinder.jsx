@@ -119,6 +119,7 @@ export default function DoctorFinder() {
         </span>
         <h1 className="text-2xl font-bold text-slate-800">Find a Specialist</h1>
         <p className="text-slate-500 text-sm mt-1">Finding a qualified Ponseti provider is the most important step</p>
+        <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">This list is sourced from the Ponseti International Association directory. Always verify credentials and availability directly with providers.</p>
         <div className="mt-4 flex gap-2">
           <select
             value={selectedState}
@@ -177,28 +178,6 @@ export default function DoctorFinder() {
       </div>
 
       <div className="px-4 pt-1 pb-6 space-y-3">
-        {/* Official directory */}
-        <a
-          href="https://ponseti.medicine.uiowa.edu/parent-information/ponseti-doctors-location"
-          target="_blank"
-          rel="noopener noreferrer"
-          className="flex items-center gap-3 bg-teal-500 rounded-2xl p-4 active:opacity-90 transition-opacity"
-        >
-          <span className="text-2xl flex-shrink-0">🌐</span>
-          <div className="flex-1 min-w-0">
-            <p className="text-sm font-semibold text-white">Official Ponseti International Directory</p>
-            <p className="text-xs text-teal-100 mt-0.5">The most comprehensive and up-to-date provider list. Tap to open.</p>
-          </div>
-          <span className="text-white/60 flex-shrink-0">→</span>
-        </a>
-
-        {/* Disclaimer */}
-        <div className="bg-amber-50 border border-amber-100 rounded-2xl p-3">
-          <p className="text-xs text-amber-700 leading-relaxed">
-            <strong>Note:</strong> This list is sourced from the Ponseti International Association directory. Always verify credentials and availability directly with providers.
-          </p>
-        </div>
-
         {/* Doctor Cards */}
         {filtered.length === 0 && (
           <div className="text-center py-12 text-slate-400 text-sm">No providers found for your search.</div>
