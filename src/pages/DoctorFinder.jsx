@@ -181,6 +181,11 @@ export default function DoctorFinder() {
             Nearest to <strong>{userCoords.label}</strong> — tap × to clear
           </p>
         )}
+        {userCoords && !geoError && !geoLoading && (
+          <p className="text-xs text-slate-500 mt-0.5 px-1">
+            Found {filtered.filter((d) => d.distance !== null && d.distance <= 100).length} doctors within 100 miles
+          </p>
+        )}
       </div>
 
       <div className="px-4 pt-1 pb-6 space-y-3">
