@@ -102,19 +102,23 @@ export default function PhaseDetail() {
   return (
     <div>
       {/* Phase-colored header */}
-      <div className={`${phaseColor} px-5 pt-10 pb-8`}>
+      <div className={`${phaseColor} px-5 pt-10 pb-6`}>
         <button
           onClick={() => navigate(-1)}
-          className="text-white/70 text-sm flex items-center gap-1 mb-5 active:text-white"
+          className="text-white/70 text-sm flex items-center gap-1 mb-4 active:text-white"
         >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
           Back
         </button>
-        <span className="text-5xl block mb-3 leading-none">{phase.emoji}</span>
-        <h1 className="text-2xl font-bold text-white">{phase.label}</h1>
-        <p className="text-white/75 text-sm mt-1 leading-relaxed">{phase.description}</p>
+        <div className="flex items-center gap-3">
+          <span className="text-3xl leading-none">{phase.emoji}</span>
+          <div>
+            <h1 className="text-2xl font-bold text-white leading-tight">{phase.label}</h1>
+            <p className="text-white/75 text-sm mt-0.5 leading-relaxed">{phase.description}</p>
+          </div>
+        </div>
       </div>
 
       {/* Hero photo */}
