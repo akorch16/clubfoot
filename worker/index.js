@@ -1,4 +1,4 @@
-const ALLOWED_ORIGIN = "https://akorch16.github.io";
+const ALLOWED_ORIGIN = "https://clubfoot-club.com";
 
 const CORS = {
   "Access-Control-Allow-Origin": ALLOWED_ORIGIN,
