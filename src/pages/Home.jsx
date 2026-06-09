@@ -24,11 +24,12 @@ export default function Home() {
     <div>
       {/* Header */}
       <div className="px-5 pt-12 pb-6">
-        <div className="mb-3">
+        <div className="mb-3 flex items-center gap-3">
           <p style={script} className="text-4xl leading-snug">
             <span className="text-teal-500">Clubfoot</span>
             <span className="text-slate-700"> Club</span>
           </p>
+          <img src="/logo.jpg" alt="Clubfoot Club" className="h-12 w-12 rounded-full object-cover" />
         </div>
         <p className="text-slate-500 text-sm leading-relaxed">
           Everything we wish we'd found sooner — written by parents who've been there.
