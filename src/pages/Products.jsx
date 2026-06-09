@@ -3,21 +3,10 @@ import { products, categories } from "../data/products";
 import ProductImage from "../components/ProductImage";
 
 export default function Products() {
-  const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
 
   const filtered = products
-    .filter((p) => {
-      const matchesCategory = activeCategory === "all" || p.category === activeCategory;
-      const q = search.toLowerCase();
-      const matchesSearch =
-        !q ||
-        p.name.toLowerCase().includes(q) ||
-        p.brand.toLowerCase().includes(q) ||
-        p.summary.toLowerCase().includes(q) ||
-        p.category.toLowerCase().includes(q);
-      return matchesCategory && matchesSearch;
-    })
+    .filter((p) => activeCategory === "all" || p.category === activeCategory)
     .sort((a, b) => {
       if (a.category === b.category && (a.mentions != null || b.mentions != null)) {
         return (b.mentions ?? 0) - (a.mentions ?? 0);
@@ -34,20 +23,6 @@ export default function Products() {
         </span>
         <h1 className="text-2xl font-bold text-slate-800">Product Guide</h1>
         <p className="text-slate-500 text-sm mt-1">Gear that actually works — tested by clubfoot families</p>
-        <div className="mt-4 relative">
-          <svg className="w-4 h-4 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2"
-            fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-              d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
-          <input
-            type="text"
-            placeholder='Try "socks" or "sleep sack"...'
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full bg-white border border-slate-200 rounded-xl pl-9 pr-4 py-2.5 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-slate-300"
-          />
-        </div>
       </div>
 
       {/* Category Pills */}
