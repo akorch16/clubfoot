@@ -148,6 +148,10 @@ function DesktopCapture({ onCapture }) {
   const [pending, setPending] = useState(null);
 
   useEffect(() => {
+    if (!navigator.mediaDevices?.getUserMedia) {
+      setPermissionDenied(true);
+      return;
+    }
     let active = true;
     navigator.mediaDevices
       .getUserMedia({ video: { facingMode: "environment", width: { ideal: 1280 } } })
@@ -181,7 +185,7 @@ function DesktopCapture({ onCapture }) {
     setPreview(null);
     setPending(null);
     navigator.mediaDevices
-      .getUserMedia({ video: { facingMode: "environment" } })
+      ?.getUserMedia({ video: { facingMode: "environment" } })
       .then((stream) => {
         streamRef.current = stream;
         if (videoRef.current) videoRef.current.srcObject = stream;
