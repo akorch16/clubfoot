@@ -26,7 +26,7 @@ export default function Home() {
       <div className="px-5 pt-12 pb-6">
         <div className="mb-3 flex items-center gap-3">
           <p style={script} className="text-4xl leading-snug">
-            <span style={{ color: "#4DC3B4" }}>Clubfoot</span>
+            <span style={{ color: "#65abc2" }}>Clubfoot</span>
             <span style={{ color: "#2D3B6E" }}> Club</span>
           </p>
           <img src="/logo.jpg" alt="Clubfoot Club" className="h-12 w-12 rounded-full object-cover" />
