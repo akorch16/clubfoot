@@ -83,18 +83,6 @@ export default function Products() {
                     <p className="font-semibold text-slate-800 text-sm leading-snug">{product.name}</p>
                     <p className="text-xs text-slate-400 mt-0.5">{product.brand}</p>
                   </div>
-                  <div className="flex flex-col items-end gap-1 flex-shrink-0">
-                    {product.mentions != null && (
-                      <span className="text-xs font-semibold px-2 py-1 rounded-full bg-violet-100 text-violet-700 whitespace-nowrap">
-                        {product.mentions} families
-                      </span>
-                    )}
-                    <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
-                      product.status === "works" ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"
-                    }`}>
-                      {product.status === "works" ? "Works" : "Check Fit"}
-                    </span>
-                  </div>
                 </div>
                 {product.bestFor && (
                   <p className="text-xs font-medium text-sky-600 mt-1.5">Best for: {product.bestFor}</p>
