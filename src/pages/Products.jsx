@@ -6,17 +6,24 @@ export default function Products() {
   const [search, setSearch] = useState("");
   const [activeCategory, setActiveCategory] = useState("all");
 
-  const filtered = products.filter((p) => {
-    const matchesCategory = activeCategory === "all" || p.category === activeCategory;
-    const q = search.toLowerCase();
-    const matchesSearch =
-      !q ||
-      p.name.toLowerCase().includes(q) ||
-      p.brand.toLowerCase().includes(q) ||
-      p.summary.toLowerCase().includes(q) ||
-      p.category.toLowerCase().includes(q);
-    return matchesCategory && matchesSearch;
-  });
+  const filtered = products
+    .filter((p) => {
+      const matchesCategory = activeCategory === "all" || p.category === activeCategory;
+      const q = search.toLowerCase();
+      const matchesSearch =
+        !q ||
+        p.name.toLowerCase().includes(q) ||
+        p.brand.toLowerCase().includes(q) ||
+        p.summary.toLowerCase().includes(q) ||
+        p.category.toLowerCase().includes(q);
+      return matchesCategory && matchesSearch;
+    })
+    .sort((a, b) => {
+      if (a.category === b.category && (a.mentions != null || b.mentions != null)) {
+        return (b.mentions ?? 0) - (a.mentions ?? 0);
+      }
+      return 0;
+    });
 
   return (
     <div>
@@ -76,13 +83,23 @@ export default function Products() {
                     <p className="font-semibold text-slate-800 text-sm leading-snug">{product.name}</p>
                     <p className="text-xs text-slate-400 mt-0.5">{product.brand}</p>
                   </div>
-                  <span className={`flex-shrink-0 text-xs font-semibold px-2 py-1 rounded-full ${
-                    product.status === "works" ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"
-                  }`}>
-                    {product.status === "works" ? "Works" : "Check Fit"}
-                  </span>
+                  <div className="flex flex-col items-end gap-1 flex-shrink-0">
+                    {product.mentions != null && (
+                      <span className="text-xs font-semibold px-2 py-1 rounded-full bg-violet-100 text-violet-700 whitespace-nowrap">
+                        {product.mentions} families
+                      </span>
+                    )}
+                    <span className={`text-xs font-semibold px-2 py-1 rounded-full ${
+                      product.status === "works" ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"
+                    }`}>
+                      {product.status === "works" ? "Works" : "Check Fit"}
+                    </span>
+                  </div>
                 </div>
-                <p className="text-sm text-slate-600 leading-relaxed mt-2">{product.summary}</p>
+                {product.bestFor && (
+                  <p className="text-xs font-medium text-sky-600 mt-1.5">Best for: {product.bestFor}</p>
+                )}
+                <p className="text-sm text-slate-600 leading-relaxed mt-1.5">{product.summary}</p>
               </div>
             </div>
 
