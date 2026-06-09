@@ -6,13 +6,7 @@ export default function Products() {
   const [activeCategory, setActiveCategory] = useState("all");
 
   const filtered = products
-    .filter((p) => activeCategory === "all" || p.category === activeCategory)
-    .sort((a, b) => {
-      if (a.category === b.category && (a.mentions != null || b.mentions != null)) {
-        return (b.mentions ?? 0) - (a.mentions ?? 0);
-      }
-      return 0;
-    });
+    .filter((p) => activeCategory === "all" || p.category === activeCategory);
 
   return (
     <div>
@@ -22,7 +16,7 @@ export default function Products() {
           Community-vetted
         </span>
         <h1 className="text-2xl font-bold text-slate-800">Product Guide</h1>
-        <p className="text-slate-500 text-sm mt-1">Gear that actually works — tested by clubfoot families</p>
+        <p className="text-slate-500 text-sm mt-1">Gear that actually works, tested by clubfoot families</p>
       </div>
 
       {/* Category Pills */}
@@ -69,12 +63,12 @@ export default function Products() {
                 {product.bestFor && (
                   <p className="text-xs font-medium text-sky-600 mt-1.5">Best for: {product.bestFor}</p>
                 )}
-                <p className="text-sm text-slate-600 leading-relaxed mt-1.5">{product.summary}</p>
+                <p className="text-sm text-slate-600 leading-relaxed mt-1.5">{product.description}</p>
               </div>
             </div>
 
-            {product.notes && (
-              <p className="text-xs text-slate-400 mt-2.5 leading-relaxed border-t border-slate-50 pt-2.5">{product.notes}</p>
+            {product.tip && (
+              <p className="text-xs text-slate-400 mt-2.5 leading-relaxed border-t border-slate-50 pt-2.5"><span className="font-semibold">Tip: </span>{product.tip}</p>
             )}
 
             <div className="flex items-center justify-between mt-2.5 pt-2.5 border-t border-slate-50">
