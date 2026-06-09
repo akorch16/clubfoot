@@ -40,7 +40,7 @@ export default function Home() {
         {/* Phase label row */}
         <div className="flex items-baseline justify-between pb-1">
           <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
-            Treatment Phases
+            The Journey
           </p>
         </div>
 
