@@ -94,7 +94,7 @@ export const doctors = [
   { id: 54, name: "Matthew D. Cobb, DPM", specialty: "Podiatry", hospital: "Haas Foot and Ankle", city: "Albuquerque", state: "NM", phone: "(505) 247-4164", email: "abqclubfoot@gmail.com", ponseti: true, lat: 35.0844, lng: -106.6504 },
 
   // New York
-  { id: 79, name: "Abigail K. Allen, MD", specialty: "Orthopedic Surgery", hospital: "Hospital for Special Surgery", city: "New York", state: "NY", phone: "+1 (212) 224-7908", ponseti: true, lat: 40.7128, lng: -74.0060 },
+  { id: 79, name: "Abigail K. Allen, MD", specialty: "Orthopedic Surgery", hospital: "Hospital for Special Surgery", city: "New York", state: "NY", phone: "+1 (212) 224-7908", ponseti: true, featured: true, lat: 40.7128, lng: -74.0060 },
   { id: 55, name: "David Feldman, MD", specialty: "Orthopedic Surgery", hospital: "NYU Langone", city: "New York", state: "NY", phone: "(212) 533-5310", email: "David.feldman@nyumc.org", ponseti: true, lat: 40.7128, lng: -74.0060 },
   { id: 56, name: "David H. Godfried, MD", specialty: "Orthopedic Surgery", hospital: "Cohen Children's Medical Center", city: "New Hyde Park", state: "NY", phone: "(516) 470-3570", email: "dgodfrie@nshs.edu", ponseti: true, lat: 40.7348, lng: -73.6880 },
   { id: 57, name: "Joshua Hyman, MD", specialty: "Orthopedic Surgery", hospital: "NewYork-Presbyterian / Columbia", city: "New York", state: "NY", phone: "(212) 305-5475", email: "jh736@columbia.edu", ponseti: true, lat: 40.7128, lng: -74.0060 },
