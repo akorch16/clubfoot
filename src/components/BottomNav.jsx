@@ -70,7 +70,7 @@ export default function BottomNav() {
                 isActive ? "" : "text-slate-400"
               }`
             }
-            style={({ isActive }) => isActive ? { color: "#65abc2" } : undefined}
+            style={({ isActive }) => isActive ? { color: "#2D3B6E" } : undefined}
           >
             <Icon />
             <span className="mt-0.5">{label}</span>
