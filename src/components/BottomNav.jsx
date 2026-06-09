@@ -67,9 +67,10 @@ export default function BottomNav() {
             end={to === "/"}
             className={({ isActive }) =>
               `flex-1 flex flex-col items-center py-2 px-1 text-xs font-medium transition-colors ${
-                isActive ? "text-amber-500" : "text-slate-400"
+                isActive ? "" : "text-slate-400"
               }`
             }
+            style={({ isActive }) => isActive ? { color: "#65abc2" } : undefined}
           >
             <Icon />
             <span className="mt-0.5">{label}</span>
