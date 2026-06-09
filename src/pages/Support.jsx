@@ -17,7 +17,6 @@ const communityLinks = [
   { label: "Clubfoot Support Facebook Group", url: "https://www.facebook.com/groups/clubfootsupport", description: "Large, active community of clubfoot parents worldwide", icon: "👥", iconBg: "bg-blue-100" },
   { label: "Reddit r/clubfoot", url: "https://www.reddit.com/r/clubfoot", description: "Forum for parents, adults with clubfoot, and caregivers", icon: "💬", iconBg: "bg-orange-100" },
   { label: "Ponseti International Association", url: "https://www.ponseti.info", description: "Official clinical guidelines, provider directory, and research", icon: "🏥", iconBg: "bg-teal-100" },
-  { label: "STEPS Charity", url: "https://www.steps-charity.org.uk", description: "UK-based support and information for lower limb conditions", icon: "🌟", iconBg: "bg-amber-100" },
   { label: "#clubfoot on Instagram", url: "https://www.instagram.com/explore/tags/clubfoot/", description: "Real families sharing their journeys", icon: "📸", iconBg: "bg-rose-100" },
 ];
 
