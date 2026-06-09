@@ -9,16 +9,32 @@ export const phases = [
     textColor: "text-purple-700",
     borderColor: "border-purple-200",
     description: "From diagnosis to birth — what to expect and how to prepare.",
-    keyPoints: [
-      "Clubfoot affects roughly 1 in 1,000 babies. You are far from alone.",
-      "It's typically diagnosed on the 20-week anatomy ultrasound and confirmed at birth.",
-      "The Ponseti method — gentle serial casting followed by a foot abduction brace — corrects clubfoot in over 95% of cases without surgery.",
-      "Clubfoot does not cause pain in utero and does not affect the pregnancy itself.",
-      "Both feet are affected (bilateral) in about 50% of cases. Treatment is the same — both feet are cast simultaneously.",
-      "Boys are affected roughly twice as often as girls.",
-      "If a parent or sibling had clubfoot, the recurrence risk is ~3–5%. Genetic counseling is available if desired.",
-      "Treatment ideally begins within the first 1–2 weeks of life while tissues are most pliable.",
-      "Finding a Ponseti-trained provider before birth will save you critical time in the first days.",
+    keyPoints: [],
+    keyPointGroups: [
+      {
+        heading: "What it is",
+        points: [
+          "Clubfoot affects roughly 1 in 1,000 babies. You are far from alone.",
+          "It's typically diagnosed on the 20-week anatomy ultrasound and confirmed at birth.",
+          "The Ponseti method — gentle serial casting followed by a foot abduction brace — corrects clubfoot in over 95% of cases without surgery.",
+          "Clubfoot does not cause pain in utero and does not affect the pregnancy itself.",
+        ],
+      },
+      {
+        heading: "Who it affects",
+        points: [
+          "Both feet are affected (bilateral) in about 50% of cases. Treatment is the same — both feet are cast simultaneously.",
+          "Boys are affected roughly twice as often as girls.",
+          "If a parent or sibling had clubfoot, the recurrence risk is ~3–5%. Genetic counseling is available if desired.",
+        ],
+      },
+      {
+        heading: "Getting ready",
+        points: [
+          "Treatment ideally begins within the first 1–2 weeks of life while tissues are most pliable.",
+          "Finding a Ponseti-trained provider before birth will save you critical time in the first days.",
+        ],
+      },
     ],
     tips: [
       {

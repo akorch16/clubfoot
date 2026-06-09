@@ -133,16 +133,34 @@ export default function PhaseDetail() {
         {/* Key Facts */}
         <section>
           <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Key Facts</p>
-          <div className="bg-white rounded-2xl shadow-sm p-5">
-            <ul className="space-y-3">
-              {phase.keyPoints.map((point, i) => (
-                <li key={i} className="flex items-start gap-3 text-sm text-slate-700">
-                  <span className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0 bg-slate-300" />
-                  {point}
-                </li>
+          {phase.keyPointGroups ? (
+            <div className="bg-white rounded-2xl shadow-sm p-5 space-y-5">
+              {phase.keyPointGroups.map((group, gi) => (
+                <div key={gi}>
+                  <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">{group.heading}</p>
+                  <ul className="space-y-3">
+                    {group.points.map((point, i) => (
+                      <li key={i} className="flex items-start gap-3 text-sm text-slate-700">
+                        <span className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0 bg-slate-300" />
+                        {point}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
               ))}
-            </ul>
-          </div>
+            </div>
+          ) : (
+            <div className="bg-white rounded-2xl shadow-sm p-5">
+              <ul className="space-y-3">
+                {phase.keyPoints.map((point, i) => (
+                  <li key={i} className="flex items-start gap-3 text-sm text-slate-700">
+                    <span className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0 bg-slate-300" />
+                    {point}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </section>
 
         {/* Practical Tips */}
