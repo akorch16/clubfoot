@@ -31,7 +31,7 @@ export default function Home() {
           </p>
           <img src="/logo.jpg" alt="Clubfoot Club" className="h-12 w-12 rounded-full object-cover" />
         </div>
-        <p className="text-slate-500 text-sm leading-relaxed">
+        <p style={{ fontFamily: "'Dancing Script', cursive", color: "#65abc2" }} className="text-lg leading-snug">
           Support for every step of the journey
         </p>
       </div>

@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useParams, useNavigate } from "react-router-dom";
 import { phases } from "../data/phases";
 import { products } from "../data/products";
-import { faqs } from "../data/faqs";
 import { phasePhotos } from "../data/phasePhotos";
 
 const phaseColors = {
@@ -66,18 +65,6 @@ function TipCard({ tip, allProducts }) {
   );
 }
 
-function AccordionItem({ question, answer }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="border-b border-slate-100 last:border-0">
-      <button className="w-full text-left py-4 flex justify-between items-start gap-2" onClick={() => setOpen(!open)}>
-        <span className="text-sm font-medium text-slate-800 leading-snug">{question}</span>
-        <span className="text-slate-400 flex-shrink-0 text-lg leading-none mt-0.5">{open ? "−" : "+"}</span>
-      </button>
-      {open && <p className="text-sm text-slate-600 pb-4 leading-relaxed">{answer}</p>}
-    </div>
-  );
-}
 
 export default function PhaseDetail() {
   const { phaseId } = useParams();
@@ -97,7 +84,6 @@ export default function PhaseDetail() {
   const phaseColor = phaseColors[phase.id] ?? "bg-slate-500";
   const photo = phasePhotos[phase.id];
   const phaseProducts = products.filter((p) => phase.productCategories.includes(p.category)).slice(0, 4);
-  const phaseFaqs = faqs.filter((f) => f.phases.includes(phase.id));
 
   return (
     <div>
@@ -203,18 +189,6 @@ export default function PhaseDetail() {
                     )}
                   </div>
                 </div>
-              ))}
-            </div>
-          </section>
-        )}
-
-        {/* FAQs */}
-        {phaseFaqs.length > 0 && (
-          <section>
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Common Questions</p>
-            <div className="bg-white rounded-2xl shadow-sm px-5">
-              {phaseFaqs.map((faq) => (
-                <AccordionItem key={faq.id} question={faq.question} answer={faq.answer} />
               ))}
             </div>
           </section>

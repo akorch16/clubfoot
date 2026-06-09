@@ -145,12 +145,7 @@ export const phases = [
         relatedProducts: [],
       },
     ],
-    resources: [
-      { label: "Ponseti International — Casting Guide for Parents", url: "https://www.ponseti.info/parents-patients.html" },
-      { label: "STEPS Charity — Clubfoot Explained", url: "https://www.steps-charity.org.uk/info-support/conditions/clubfoot/" },
-      { label: "Clubfoot Support Facebook Group", url: "https://www.facebook.com/groups/clubfootsupport" },
-      { label: "Reddit r/clubfoot", url: "https://www.reddit.com/r/clubfoot" },
-    ],
+    resources: [],
     productCategories: ["clothing", "socks", "car-seats", "tubs"],
   },
   {
@@ -233,13 +228,7 @@ export const phases = [
         relatedProducts: [],
       },
     ],
-    resources: [
-      { label: "Mitchell Ponseti AFO — OrthoPediatrics", url: "https://opsb.com/clubfoot" },
-      { label: "Mitchell Ponseti Accessories (socks, bar covers)", url: "https://opsb.com/accessories" },
-      { label: "Ponseti International — Bracing Guide", url: "https://www.ponseti.info/parents-patients.html" },
-      { label: "Mitchell Brace Support Group (Facebook)", url: "https://www.facebook.com/groups/mitchellbrace" },
-      { label: "STEPS Charity", url: "https://www.steps-charity.org.uk" },
-    ],
+    resources: [],
     productCategories: ["clothing", "socks", "braces", "carriers", "strollers", "pack-and-play"],
   },
   {
@@ -316,12 +305,7 @@ export const phases = [
         relatedProducts: [],
       },
     ],
-    resources: [
-      { label: "Ponseti International", url: "https://www.ponseti.info" },
-      { label: "STEPS Charity — Long-term outcomes", url: "https://www.steps-charity.org.uk/info-support/conditions/clubfoot/" },
-      { label: "Clubfoot Support Community (Facebook)", url: "https://www.facebook.com/groups/clubfootsupport" },
-      { label: "Reddit r/clubfoot — Adults with clubfoot", url: "https://www.reddit.com/r/clubfoot" },
-    ],
+    resources: [],
     productCategories: ["shoes", "orthotics"],
   },
 ];
