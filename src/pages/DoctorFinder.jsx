@@ -112,6 +112,8 @@ export default function DoctorFinder() {
       if (a.distance !== null && b.distance !== null) return a.distance - b.distance;
       if (a.distance !== null) return -1;
       if (b.distance !== null) return 1;
+      if (a.featured && !b.featured) return -1;
+      if (!a.featured && b.featured) return 1;
       return 0;
     });
 
