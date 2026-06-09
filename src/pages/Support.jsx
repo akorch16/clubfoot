@@ -1,6 +1,3 @@
-import { useState } from "react";
-import { faqs } from "../data/faqs";
-
 const quotes = [
   {
     text: "The first few weeks of casting were the hardest thing I've ever done. But watching my son run around the soccer field at age 7 — completely normal — made every sleepless night worth it.",
@@ -23,19 +20,6 @@ const communityLinks = [
   { label: "STEPS Charity", url: "https://www.steps-charity.org.uk", description: "UK-based support and information for lower limb conditions", icon: "🌟", iconBg: "bg-amber-100" },
   { label: "#clubfoot on Instagram", url: "https://www.instagram.com/explore/tags/clubfoot/", description: "Real families sharing their journeys", icon: "📸", iconBg: "bg-rose-100" },
 ];
-
-function AccordionItem({ question, answer }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div className="border-b border-slate-100 last:border-0">
-      <button className="w-full text-left py-4 flex justify-between items-start gap-2" onClick={() => setOpen(!open)}>
-        <span className="text-sm font-medium text-slate-800 leading-snug">{question}</span>
-        <span className="text-slate-400 flex-shrink-0 text-lg leading-none mt-0.5">{open ? "−" : "+"}</span>
-      </button>
-      {open && <p className="text-sm text-slate-600 pb-4 leading-relaxed">{answer}</p>}
-    </div>
-  );
-}
 
 export default function Support() {
   return (
@@ -99,15 +83,7 @@ export default function Support() {
           </div>
         </section>
 
-        {/* FAQ */}
-        <section className="pb-2">
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Frequently Asked Questions</p>
-          <div className="bg-white rounded-2xl shadow-sm px-5">
-            {faqs.map((faq) => (
-              <AccordionItem key={faq.id} question={faq.question} answer={faq.answer} />
-            ))}
-          </div>
-        </section>
+
       </div>
     </div>
   );
