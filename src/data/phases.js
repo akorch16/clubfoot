@@ -85,16 +85,32 @@ export const phases = [
     textColor: "text-blue-700",
     borderColor: "border-blue-200",
     description: "Weekly plaster casts that gently correct the foot — typically 5–8 weeks.",
-    keyPoints: [
-      "Each cast moves the foot incrementally closer to a neutral position. The correction is gradual and gentle.",
-      "Casts are long-leg (above the knee) to control rotation — this is by design.",
-      "Most babies need 5–8 casts; bilateral cases may require slightly more.",
-      "The casting appointment takes 30–60 minutes: removal, skin check, brief manipulation, new cast.",
-      "About 80% of children need an Achilles tenotomy — a minor in-office procedure — before the final cast.",
-      "The final cast after tenotomy stays on for ~3 weeks while the tendon heals.",
-      "Never get casts wet — no baths, no puddles. Sponge baths only.",
-      "Call your care team immediately if toes turn purple/white/cold or if baby is inconsolably crying — these are signs of a too-tight cast.",
-      "Bring a blanket, pacifier, and a bottle or nursing setup — most babies settle quickly after manipulation.",
+    keyPoints: [],
+    keyPointGroups: [
+      {
+        heading: "How it works",
+        points: [
+          "Each cast moves the foot incrementally closer to a neutral position. The correction is gradual and gentle.",
+          "Casts are long-leg (above the knee) to control rotation — this is by design.",
+          "Most babies need 5–8 casts; bilateral cases may require slightly more.",
+          "The casting appointment takes 30–60 minutes: removal, skin check, brief manipulation, new cast.",
+        ],
+      },
+      {
+        heading: "The tenotomy",
+        points: [
+          "About 80% of children need an Achilles tenotomy — a minor in-office procedure — before the final cast.",
+          "The final cast after tenotomy stays on for ~3 weeks while the tendon heals.",
+        ],
+      },
+      {
+        heading: "Day-to-day care",
+        points: [
+          "Never get casts wet — no baths, no puddles. Sponge baths only.",
+          "Call your care team immediately if toes turn purple/white/cold or if baby is inconsolably crying — these are signs of a too-tight cast.",
+          "Bring a blanket, pacifier, and a bottle or nursing setup — most babies settle quickly after manipulation.",
+        ],
+      },
     ],
     tips: [
       {
@@ -151,16 +167,32 @@ export const phases = [
     textColor: "text-teal-700",
     borderColor: "border-teal-200",
     description: "The brace phase — the most important factor in preventing relapse. Typically until age 4–5.",
-    keyPoints: [
-      "The foot abduction brace (FAB) holds the corrected foot/feet at a specific outward angle to maintain the correction achieved during casting.",
-      "Full-time wear (23 hours/day) for the first 3 months after casting, then nights and naps until age 4–5.",
-      "Brace compliance is the single most important predictor of long-term success. Non-compliant bracing leads to relapse in ~80% of cases.",
-      "The most common brace in the US is the Mitchell Ponseti AFO from OrthoPediatrics/OPSB.",
-      "The bar between the shoes is set at a specific angle by your orthotist — do not try to adjust it yourself.",
-      "Inspect skin daily, especially the heel. Blisters at the heel are common during the first weeks; most resolve with proper sock use.",
-      "Transitions (full-time → nights/naps) should always be guided by your orthopedic provider, not self-directed.",
-      "Growth means brace adjustments — your orthotist will typically see you every 3–6 months to check fit.",
-      "Your baby's feet should be warm and pink in the shoes. Cold or discolored toes need immediate attention.",
+    keyPoints: [],
+    keyPointGroups: [
+      {
+        heading: "The brace",
+        points: [
+          "The foot abduction brace (FAB) holds the corrected foot/feet at a specific outward angle to maintain the correction achieved during casting.",
+          "The most common brace in the US is the Mitchell Ponseti AFO from OrthoPediatrics/OPSB.",
+          "The bar between the shoes is set at a specific angle by your orthotist — do not try to adjust it yourself.",
+        ],
+      },
+      {
+        heading: "Wearing schedule",
+        points: [
+          "Full-time wear (23 hours/day) for the first 3 months after casting, then nights and naps until age 4–5.",
+          "Brace compliance is the single most important predictor of long-term success. Non-compliant bracing leads to relapse in ~80% of cases.",
+          "Transitions (full-time → nights/naps) should always be guided by your orthopedic provider, not self-directed.",
+        ],
+      },
+      {
+        heading: "Daily care",
+        points: [
+          "Inspect skin daily, especially the heel. Blisters at the heel are common during the first weeks; most resolve with proper sock use.",
+          "Growth means brace adjustments — your orthotist will typically see you every 3–6 months to check fit.",
+          "Your baby's feet should be warm and pink in the shoes. Cold or discolored toes need immediate attention.",
+        ],
+      },
     ],
     tips: [
       {
@@ -224,16 +256,32 @@ export const phases = [
     textColor: "text-green-700",
     borderColor: "border-green-200",
     description: "After bracing ends — monitoring, physical activity, and what to expect for life.",
-    keyPoints: [
-      "Most children treated with the Ponseti method participate fully in sports, dance, and physical activities.",
-      "Annual orthopedic check-ups are recommended through skeletal maturity (approximately age 16–18).",
-      "A slightly smaller calf circumference on the treated side is common and usually causes no functional limitation.",
-      "Relapse can occur even after bracing ends — typically in children under age 7. Annual monitoring catches it early.",
-      "Signs of relapse: supination (walking on outer foot edge), toe-walking, increased tightness, foot pain.",
-      "Some children benefit from custom orthotics or supportive footwear post-treatment, particularly for arch support.",
-      "Shoe fit matters more for clubfoot-treated children — avoid narrow shoes, prioritize width and support.",
-      "Many professional athletes, including Olympic athletes, have a history of clubfoot.",
-      "Clubfoot does not affect intelligence, development, or any other aspect of health.",
+    keyPoints: [],
+    keyPointGroups: [
+      {
+        heading: "Life after bracing",
+        points: [
+          "Most children treated with the Ponseti method participate fully in sports, dance, and physical activities.",
+          "A slightly smaller calf circumference on the treated side is common and usually causes no functional limitation.",
+          "Many professional athletes, including Olympic athletes, have a history of clubfoot.",
+          "Clubfoot does not affect intelligence, development, or any other aspect of health.",
+        ],
+      },
+      {
+        heading: "Staying vigilant",
+        points: [
+          "Annual orthopedic check-ups are recommended through skeletal maturity (approximately age 16–18).",
+          "Relapse can occur even after bracing ends — typically in children under age 7. Annual monitoring catches it early.",
+          "Signs of relapse: supination (walking on outer foot edge), toe-walking, increased tightness, foot pain.",
+        ],
+      },
+      {
+        heading: "Footwear & support",
+        points: [
+          "Some children benefit from custom orthotics or supportive footwear post-treatment, particularly for arch support.",
+          "Shoe fit matters more for clubfoot-treated children — avoid narrow shoes, prioritize width and support.",
+        ],
+      },
     ],
     tips: [
       {
