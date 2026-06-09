@@ -128,7 +128,7 @@ export default function DoctorFinder() {
           Ponseti-trained providers
         </span>
         <h1 className="text-2xl font-bold text-slate-800">Find a Specialist</h1>
-        <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">This list is sourced from the Ponseti International Association directory. Always verify credentials and availability directly with providers.</p>
+        <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">This list is sourced from the <a href="https://ponseti.medicine.uiowa.edu/parent-information/ponseti-doctors-location" target="_blank" rel="noopener noreferrer" className="underline">Ponseti International Association directory</a>. Always verify credentials and availability directly with providers.</p>
         <div className="mt-4 flex gap-2">
           <select
             value={selectedState}
