@@ -124,7 +124,6 @@ export default function DoctorFinder() {
           Ponseti-trained providers
         </span>
         <h1 className="text-2xl font-bold text-slate-800">Find a Specialist</h1>
-        <p className="text-slate-500 text-sm mt-1">Finding a qualified Ponseti provider is the most important step</p>
         <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">This list is sourced from the Ponseti International Association directory. Always verify credentials and availability directly with providers.</p>
         <div className="mt-4 flex gap-2">
           <select
@@ -174,7 +173,6 @@ export default function DoctorFinder() {
             </svg>
           </button>
         </div>
-        <p className="text-xs text-slate-500 mt-2 px-1">Sort by nearest providers</p>
         {geoError && <p className="text-xs text-red-500 mt-1 px-1">{geoError}</p>}
         {userCoords && !geoError && (
           <p className="text-xs text-teal-600 mt-1 px-1">
