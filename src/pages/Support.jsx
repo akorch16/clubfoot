@@ -1,6 +1,6 @@
 const quotes = [
   {
-    text: "The first few weeks of casting were the hardest thing I've ever done. But watching my son run around the soccer field at age 7 — completely normal — made every sleepless night worth it.",
+    text: "The first few weeks of casting were the hardest thing I've ever done. But watching my son run around the soccer field at age 7, completely normal, made every sleepless night worth it.",
     author: "Mom of a now 7-year-old, bilateral clubfoot",
   },
   {
@@ -40,10 +40,10 @@ export default function Support() {
             <p className="font-semibold text-rose-700 text-sm">A note for new parents</p>
           </div>
           <p className="text-slate-700 text-sm leading-relaxed">
-            If you just received a clubfoot diagnosis — prenatally or at birth — take a breath. <span className="font-semibold text-slate-800">This is treatable.</span> The Ponseti method has an over 95% success rate, and children who receive proper treatment grow up to run, jump, play sports, and live without limitations.
+            If you just received a clubfoot diagnosis, prenatally or at birth, take a breath. <span className="font-semibold text-slate-800">This is treatable.</span> The Ponseti method has an over 95% success rate, and children who receive proper treatment grow up to run, jump, play sports, and live without limitations.
           </p>
           <p className="text-slate-600 text-sm leading-relaxed mt-3">
-            The journey requires commitment — weekly casts, years of bracing — but you will get through it. Thousands of families have. And the community waiting for you is one of the most supportive you'll ever find.
+            The journey requires commitment: weekly casts, years of bracing. But you will get through it. Thousands of families have. And the community waiting for you is one of the most supportive you'll ever find.
           </p>
         </div>
 
@@ -54,7 +54,7 @@ export default function Support() {
             {quotes.map((q, i) => (
               <div key={i} className="bg-white rounded-2xl shadow-sm p-4">
                 <p className="text-sm text-slate-700 leading-relaxed italic">"{q.text}"</p>
-                <p className="text-xs text-slate-400 mt-2 font-medium">— {q.author}</p>
+                <p className="text-xs text-slate-400 mt-2 font-medium">- {q.author}</p>
               </div>
             ))}
           </div>
