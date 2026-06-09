@@ -57,7 +57,7 @@ export default function Products() {
                   <div className="min-w-0">
                     {product.url ? (
                       <a href={product.url} target="_blank" rel="noopener noreferrer"
-                        className="font-semibold text-amber-600 text-sm leading-snug hover:underline">
+                        className="font-semibold text-sm leading-snug hover:underline" style={{ color: "#2D3B6E" }}>
                         {product.name}
                       </a>
                     ) : (
