@@ -4,14 +4,14 @@ export const faqs = [
     question: "What is clubfoot?",
     answer:
       "Clubfoot (talipes equinovarus) is a birth defect where one or both feet are twisted inward and downward. It affects about 1 in 1,000 babies. The Ponseti method — gentle weekly casting followed by a foot abduction brace — corrects it in over 95% of cases without surgery.",
-    phases: ["prenatal", "casting"],
+    phases: ["casting"],
   },
   {
     id: 2,
     question: "How successful is the Ponseti method?",
     answer:
       "When performed by a trained provider and when families comply with the bracing protocol, the Ponseti method achieves >95% long-term correction. Most children walk, run, and participate in sports normally.",
-    phases: ["prenatal", "casting"],
+    phases: ["casting"],
   },
   {
     id: 3,
@@ -67,13 +67,13 @@ export const faqs = [
     question: "Is clubfoot more common in boys, and is it genetic?",
     answer:
       "Clubfoot occurs about twice as often in boys as girls. It can run in families — if one parent had clubfoot, the risk for a child is about 3–4%; if a sibling had it, about 2–5%. Most cases are idiopathic (no known cause). Genetic counseling is available if desired.",
-    phases: ["prenatal"],
+    phases: [],
   },
   {
     id: 11,
     question: "Can my baby have bilateral (both feet) clubfoot?",
     answer:
       "Yes — about 50% of clubfoot cases are bilateral. Treatment is the same Ponseti protocol, applied to both feet simultaneously. Bracing is especially important because both feet need correction and stabilization.",
-    phases: ["prenatal", "casting", "boots-and-bar"],
+    phases: ["casting", "boots-and-bar"],
   },
 ];

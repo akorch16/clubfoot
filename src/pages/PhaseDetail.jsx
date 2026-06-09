@@ -217,7 +217,7 @@ export default function PhaseDetail() {
         )}
 
         {/* External Resources */}
-        <section className="pb-2">
+        {phase.resources.length > 0 && <section className="pb-2">
           <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">External Resources</p>
           <div className="space-y-2">
             {phase.resources.map((res, i) => (
@@ -228,7 +228,7 @@ export default function PhaseDetail() {
               </a>
             ))}
           </div>
-        </section>
+        </section>}
       </div>
     </div>
   );

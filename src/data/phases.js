@@ -68,12 +68,7 @@ export const phases = [
         relatedProducts: [],
       },
     ],
-    resources: [
-      { label: "Ponseti International — Provider Directory", url: "https://www.ponseti.info/find-a-provider.html" },
-      { label: "Ponseti International — Parent Guide", url: "https://www.ponseti.info/parents-patients.html" },
-      { label: "STEPS Charity (UK)", url: "https://www.steps-charity.org.uk" },
-      { label: "Clubfoot Support Facebook Group", url: "https://www.facebook.com/groups/clubfootsupport" },
-    ],
+    resources: [],
     productCategories: ["clothing", "socks", "car-seats"],
   },
   {
