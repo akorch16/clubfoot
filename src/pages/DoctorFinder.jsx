@@ -29,6 +29,8 @@ async function geocodeQuery(query) {
 
 export default function DoctorFinder() {
   const [selectedState, setSelectedState] = useState("");
+  const [page, setPage] = useState(1);
+  const PAGE_SIZE = 25;
   const [locationQuery, setLocationQuery] = useState("");
   const [userCoords, setUserCoords] = useState(null);
   const [geoLoading, setGeoLoading] = useState(false);
@@ -45,6 +47,7 @@ export default function DoctorFinder() {
       setGeoError("");
       return;
     }
+    setPage(1);
     const timer = setTimeout(async () => {
       setGeoLoading(true);
       setGeoError("");
@@ -110,6 +113,9 @@ export default function DoctorFinder() {
       return 0;
     });
 
+  const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
+  const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
   return (
     <div>
       {/* Header */}
@@ -123,7 +129,7 @@ export default function DoctorFinder() {
         <div className="mt-4 flex gap-2">
           <select
             value={selectedState}
-            onChange={(e) => setSelectedState(e.target.value)}
+            onChange={(e) => { setSelectedState(e.target.value); setPage(1); }}
             className="bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-sm text-slate-800 outline-none flex-shrink-0 w-28"
           >
             <option value="">All States</option>
@@ -182,7 +188,7 @@ export default function DoctorFinder() {
         {filtered.length === 0 && (
           <div className="text-center py-12 text-slate-400 text-sm">No providers found for your search.</div>
         )}
-        {filtered.map((doc) => (
+        {paginated.map((doc) => (
           <div key={doc.id} className="bg-white rounded-2xl shadow-sm p-4">
             <div className="flex items-start justify-between gap-2 mb-1">
               <div className="flex-1 min-w-0">
@@ -214,6 +220,28 @@ export default function DoctorFinder() {
             {doc.notes && <p className="text-xs text-slate-400 mt-2 italic">{doc.notes}</p>}
           </div>
         ))}
+        {/* Pagination */}
+        {totalPages > 1 && (
+          <div className="flex items-center justify-between pt-2 pb-2">
+            <button
+              onClick={() => setPage((p) => Math.max(1, p - 1))}
+              disabled={page === 1}
+              className="px-4 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-xl disabled:opacity-40 active:bg-slate-50"
+            >
+              ← Prev
+            </button>
+            <span className="text-xs text-slate-500">
+              Page {page} of {totalPages}
+            </span>
+            <button
+              onClick={() => setPage((p) => Math.min(totalPages, p + 1))}
+              disabled={page === totalPages}
+              className="px-4 py-2 text-sm font-medium text-slate-600 bg-white border border-slate-200 rounded-xl disabled:opacity-40 active:bg-slate-50"
+            >
+              Next →
+            </button>
+          </div>
+        )}
       </div>
     </div>
   );
