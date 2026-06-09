@@ -123,15 +123,15 @@ const API_KEY_STORAGE = "cf_anthropic_key";
 export const hasSharedKey = !!WORKER_URL;
 
 export function getStoredApiKey() {
-  return localStorage.getItem(API_KEY_STORAGE) ?? "";
+  try { return localStorage.getItem(API_KEY_STORAGE) ?? ""; } catch { return ""; }
 }
 
 export function saveApiKey(key) {
-  localStorage.setItem(API_KEY_STORAGE, key.trim());
+  try { localStorage.setItem(API_KEY_STORAGE, key.trim()); } catch { /* ignore */ }
 }
 
 export function clearApiKey() {
-  localStorage.removeItem(API_KEY_STORAGE);
+  try { localStorage.removeItem(API_KEY_STORAGE); } catch { /* ignore */ }
 }
 
 function buildPayload(mediaType, data, symptoms) {
