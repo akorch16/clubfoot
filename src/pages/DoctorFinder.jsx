@@ -1,5 +1,5 @@
 import { useState, useEffect, useRef } from "react";
-import { doctors, states } from "../data/doctors";
+import { doctors } from "../data/doctors";
 
 function haversineMiles(lat1, lng1, lat2, lng2) {
   const R = 3958.8;
@@ -28,7 +28,6 @@ async function geocodeQuery(query) {
 }
 
 export default function DoctorFinder() {
-  const [selectedState, setSelectedState] = useState("");
   const [page, setPage] = useState(1);
   const PAGE_SIZE = 25;
   const [locationQuery, setLocationQuery] = useState("");
@@ -102,7 +101,6 @@ export default function DoctorFinder() {
   }
 
   const filtered = doctors
-    .filter((d) => !selectedState || d.state === selectedState)
     .map((d) => ({
       ...d,
       distance:
@@ -129,64 +127,50 @@ export default function DoctorFinder() {
         </span>
         <h1 className="text-2xl font-bold text-slate-800">Find a Specialist</h1>
         <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">This list is sourced from the <a href="https://ponseti.medicine.uiowa.edu/parent-information/ponseti-doctors-location" target="_blank" rel="noopener noreferrer" className="underline">Ponseti International Association directory</a>. Always verify credentials and availability directly with providers.</p>
-        <div className="mt-4 flex gap-2">
-          <select
-            value={selectedState}
-            onChange={(e) => { setSelectedState(e.target.value); setPage(1); }}
-            className="bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-sm text-slate-800 outline-none flex-shrink-0 w-28"
-          >
-            <option value="">All States</option>
-            {states.map((s) => <option key={s} value={s}>{s}</option>)}
-          </select>
-          <div className="flex-1 flex flex-col gap-1">
-            <label className="text-xs font-semibold text-slate-500 px-1">City or zip code</label>
-            <div className="flex gap-2">
-              <div className="relative flex-1">
-                <input
-                  type="text"
-                  placeholder="New York City, 10001"
-                  value={locationQuery}
-                  onChange={(e) => setLocationQuery(e.target.value)}
-                  onKeyDown={(e) => e.key === "Enter" && triggerGeocode(locationQuery)}
-                  className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2.5 pr-8 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-teal-300"
-                />
-                {geoLoading && (
-                  <span className="absolute right-3 top-1/2 -translate-y-1/2">
-                    <svg className="w-4 h-4 text-teal-500 animate-spin" fill="none" viewBox="0 0 24 24">
-                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
-                    </svg>
-                  </span>
-                )}
-                {userCoords && !geoLoading && (
-                  <button
-                    onClick={clearLocation}
-                    className="absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 active:text-slate-600"
-                  >
+        <div className="mt-4 flex flex-col gap-1">
+          <label className="text-xs font-semibold text-slate-500 px-1">City or zip code</label>
+          <div className="flex gap-2">
+            <div className="relative flex-1">
+              <input
+                type="text"
+                placeholder="New York City, 10001"
+                value={locationQuery}
+                onChange={(e) => setLocationQuery(e.target.value)}
+                onKeyDown={(e) => e.key === "Enter" && triggerGeocode(locationQuery)}
+                className="w-full bg-white border border-slate-200 rounded-xl px-3 py-2.5 pr-10 text-sm text-slate-800 placeholder-slate-400 outline-none focus:border-teal-300"
+              />
+              <span className="absolute right-3 top-1/2 -translate-y-1/2">
+                {geoLoading ? (
+                  <svg className="w-4 h-4 text-teal-500 animate-spin" fill="none" viewBox="0 0 24 24">
+                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v8z" />
+                  </svg>
+                ) : userCoords ? (
+                  <button onClick={clearLocation} className="text-slate-400 active:text-slate-600">
                     <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
                     </svg>
                   </button>
+                ) : (
+                  <button onClick={() => triggerGeocode(locationQuery)} className="text-slate-400 active:text-teal-600">
+                    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-4.35-4.35M17 11A6 6 0 105 11a6 6 0 0012 0z" />
+                    </svg>
+                  </button>
                 )}
-              </div>
-              <button
-                onClick={() => triggerGeocode(locationQuery)}
-                className="flex-shrink-0 bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-sm font-semibold text-slate-600 active:bg-slate-50 transition-colors"
-              >
-                Enter
-              </button>
-              <button
-                onClick={handleGeolocate}
-                title="Use my location"
-                className="flex-shrink-0 bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-teal-600 active:bg-teal-50 transition-colors"
-              >
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
-              </button>
+              </span>
             </div>
+            <button
+              onClick={handleGeolocate}
+              title="Use my location"
+              className="flex-shrink-0 bg-white border border-slate-200 rounded-xl px-3 py-2.5 text-teal-600 active:bg-teal-50 transition-colors"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2}
+                  d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+            </button>
           </div>
         </div>
         {geoError && <p className="text-xs text-red-500 mt-1 px-1">{geoError}</p>}
