@@ -2,7 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { phases } from "../data/phases";
 
 const quickLinks = [
-  { label: "The Method", to: "/method", icon: "📖", iconBg: "bg-amber-100" },
+  { label: "The Ponseti Method", to: "/method", icon: "📖", iconBg: "bg-amber-100" },
   { label: "Product Guide", to: "/products", icon: "🛍️", iconBg: "bg-sky-100" },
   { label: "Find a Specialist", to: "/doctors", icon: "📍", iconBg: "bg-violet-100" },
   { label: "Support & Community", to: "/support", icon: "💬", iconBg: "bg-emerald-100" },
@@ -42,9 +42,6 @@ export default function Home() {
           <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
             Treatment Phases
           </p>
-          <button onClick={() => navigate("/method")} className="text-xs text-slate-400 active:text-slate-600">
-            New to Ponseti? →
-          </button>
         </div>
 
         {/* Full-width stacked phase tiles */}
