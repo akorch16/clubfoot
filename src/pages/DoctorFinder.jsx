@@ -190,13 +190,8 @@ export default function DoctorFinder() {
           </div>
         </div>
         {geoError && <p className="text-xs text-red-500 mt-1 px-1">{geoError}</p>}
-        {userCoords && !geoError && (
-          <p className="text-xs text-teal-600 mt-1 px-1">
-            Nearest to <strong>{userCoords.label}</strong> — tap × to clear
-          </p>
-        )}
         {userCoords && !geoError && !geoLoading && (
-          <p className="text-xs text-slate-500 mt-0.5 px-1">
+          <p className="text-xs font-semibold text-teal-600 mt-1 px-1">
             Found {filtered.filter((d) => d.distance !== null && d.distance <= 100).length} doctors within 100 miles
           </p>
         )}
