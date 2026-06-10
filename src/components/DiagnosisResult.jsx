@@ -8,7 +8,7 @@ const urgencyStyles = {
     badge: "bg-red-600 text-white",
     text: "text-red-800",
     sub: "text-red-600",
-    label: "URGENT — Contact your care team",
+    label: "High priority — Contact your care team",
   },
   monitor: {
     border: "border-amber-200",
