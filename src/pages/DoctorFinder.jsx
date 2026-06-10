@@ -17,7 +17,7 @@ function haversineMiles(lat1, lng1, lat2, lng2) {
 }
 
 async function geocodeQuery(query) {
-  const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&countrycodes=us&limit=1&format=json`;
+  const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&limit=1&format=json`;
   const res = await fetch(url, {
     headers: { "Accept-Language": "en", "User-Agent": "ClubfootClub/1.0" },
   });
@@ -136,7 +136,7 @@ export default function DoctorFinder() {
             <div className="relative flex-1">
               <input
                 type="text"
-                placeholder="New York City, 10001"
+                placeholder="City, zip, or country"
                 value={locationQuery}
                 onChange={(e) => setLocationQuery(e.target.value)}
                 onKeyDown={(e) => e.key === "Enter" && triggerGeocode(locationQuery)}
@@ -179,7 +179,7 @@ export default function DoctorFinder() {
         {geoError && <p className="text-xs text-red-500 mt-1 px-1">{geoError}</p>}
         {userCoords && !geoError && !geoLoading && (
           <p className="text-xs font-semibold text-teal-600 mt-1 px-1">
-            Found {filtered.filter((d) => d.distance !== null && d.distance <= 100).length} doctors within 100 miles
+            Showing {filtered.filter((d) => d.distance !== null).length} doctors sorted by distance
           </p>
         )}
       </div>
