@@ -46,16 +46,15 @@ export default function Products() {
               <div className="flex-1 min-w-0">
                 <div className="flex items-start justify-between gap-2">
                   <div className="min-w-0">
-                    {product.url ? (
-                      <a href={product.url} target="_blank" rel="noopener noreferrer"
-                        className="font-semibold text-sm leading-snug hover:underline" style={{ color: "#2D3B6E" }}>
-                        {product.name}
-                      </a>
-                    ) : (
-                      <p className="font-semibold text-slate-800 text-sm leading-snug">{product.name}</p>
-                    )}
+                    <p className="font-semibold text-slate-800 text-sm leading-snug">{product.name}</p>
                     <p className="text-xs text-slate-400 mt-0.5">{product.brand}</p>
                   </div>
+                  {product.url && (
+                    <a href={product.url} target="_blank" rel="noopener noreferrer"
+                      className="flex-shrink-0 text-xs font-semibold text-amber-600 bg-amber-50 px-3 py-1.5 rounded-lg">
+                      Shop →
+                    </a>
+                  )}
                 </div>
                 {product.bestFor && (
                   <p className="text-xs font-medium text-sky-600 mt-1.5">Best for: {product.bestFor}</p>
@@ -67,22 +66,6 @@ export default function Products() {
             {product.tip && (
               <p className="text-xs text-slate-400 mt-2.5 leading-relaxed border-t border-slate-50 pt-2.5"><span className="font-semibold">Tip: </span>{product.tip}</p>
             )}
-
-            <div className="flex items-center justify-between mt-2.5 pt-2.5 border-t border-slate-50">
-              <div className="flex flex-wrap gap-1.5">
-                {product.phases.map((phase) => (
-                  <span key={phase} className="text-xs bg-slate-100 text-slate-500 px-2 py-0.5 rounded-full capitalize">
-                    {phase.replace("-", " ")}
-                  </span>
-                ))}
-              </div>
-              {product.url && (
-                <a href={product.url} target="_blank" rel="noopener noreferrer"
-                  className="flex-shrink-0 text-xs font-semibold text-amber-600 bg-amber-50 px-3 py-1.5 rounded-lg ml-2">
-                  Shop →
-                </a>
-              )}
-            </div>
           </div>
         ))}
       </div>
