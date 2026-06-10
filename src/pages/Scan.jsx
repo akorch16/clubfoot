@@ -138,7 +138,7 @@ export default function Scan() {
         {phase === "result" && diagnosis && (
           <>
             {imageDataUrl && (
-              <img src={imageDataUrl} alt="Assessed" className="w-full max-w-sm mx-auto rounded-2xl object-cover max-h-48 shadow-sm" />
+              <img src={imageDataUrl} alt="Assessed" className="w-full max-w-sm mx-auto rounded-2xl object-contain shadow-sm" />
             )}
             <DiagnosisResult diagnosis={diagnosis} />
             <FeedbackWidget diagnosis={diagnosis} imageDataUrl={imageDataUrl} onSubmitted={() => {}} />

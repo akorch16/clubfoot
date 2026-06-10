@@ -62,7 +62,7 @@ export const conditions = [
     label: "Possible skin irritation or blister",
     urgency: "monitor",
     color: "amber",
-    actionText: "Leave the brace off and inspect the skin. Contact your orthotist — a shoe adjustment or pressure saddle may be needed.",
+    actionText: "Apply a bandage or moleskin over the blister and continue wearing. Only leave the brace off if there is an open, painful sore. Contact your orthotist — a sock adjustment or pressure saddle often resolves this.",
     description: "Visible redness, skin breakdown, or a blister at the heel or dorsum of the foot. Some initial redness is normal; open blisters or persistent redness need assessment.",
   },
   {
