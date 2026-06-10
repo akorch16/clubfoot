@@ -16,7 +16,7 @@ export const phases = [
         points: [
           "Clubfoot affects roughly 1 in 1,000 babies. You are far from alone.",
           "It's typically diagnosed on the 20-week anatomy ultrasound and confirmed at birth.",
-          "The Ponseti method. gentle serial casting followed by a foot abduction brace. corrects clubfoot in over 95% of cases without surgery.",
+          "The Ponseti method — gentle serial casting followed by a foot abduction brace (commonly called boots and bar, or B&B) — corrects clubfoot in over 95% of cases without surgery.",
           "Clubfoot does not cause pain in utero and does not affect the pregnancy itself.",
         ],
       },
@@ -32,7 +32,7 @@ export const phases = [
         heading: "Getting ready",
         points: [
           "Treatment ideally begins within the first 1–2 weeks of life while tissues are most pliable.",
-          "Finding a Ponseti-trained provider before birth will save you critical time in the first days.",
+          "Finding a Ponseti-trained provider before birth will save you critical time in the first days. Casting typically begins within 1–2 weeks of birth, so having a provider identified before delivery matters.",
         ],
       },
     ],
@@ -40,14 +40,14 @@ export const phases = [
       {
         title: "Find a Ponseti-trained provider now",
         detail:
-          "Not every pediatric orthopedic surgeon is Ponseti-trained. The technique requires specific training, and outcomes differ significantly between experienced Ponseti providers and those using other approaches. Ask your OB or maternal-fetal medicine specialist for a referral, or use the Ponseti International provider directory at ponseti.info. Aim to have your first appointment scheduled before birth so you can go directly after discharge.",
+          "Not every pediatric orthopedic surgeon is Ponseti-trained. The technique requires specific training, and outcomes differ significantly between experienced Ponseti providers and those using other approaches. Ask your OB or maternal-fetal medicine specialist for a referral, or use the Ponseti International provider directory at ponseti.info. Aim to have your first appointment scheduled before birth — providers typically see your baby within a few days of discharge, not immediately at the hospital.",
         relatedProducts: [],
       },
       {
         title: "Stock up on footless clothing before birth",
         detail:
-          "Once casting begins, footed sleepers, footie pajamas, and booties are essentially useless. You'll spend the first 6–8 weeks of your baby's life in footless zip sleepers. Carter's footless zip-up sleepers are the most popular option. affordable, soft, and widely available. The Kyte Baby bamboo rompers are a premium alternative parents rave about for their softness against cast edges. Buy sizes newborn through 3 months.",
-        relatedProducts: [1, 3],
+          "For the first 10 days after birth, before casting begins, regular newborn clothes work fine. Once casting starts, footed sleepers and booties become impractical. Footless sleepers — both snap/button and zip styles — are the essentials for the casting phase. Carter's footless sleepers are widely available and affordable. Avoid footed pajamas during casting: they cover the toes, which are your main daily warning sign for circulation problems. Buy sizes newborn through 3 months.",
+        relatedProducts: [1],
       },
       {
         title: "Prepare your support circle early",
@@ -118,8 +118,8 @@ export const phases = [
       {
         title: "Choose clothes that work with full-leg casts",
         detail:
-          "Full-leg casts make normal dressing nearly impossible. The essentials: footless zip-up sleepers (Carter's are the community favorite), side-snap onesies for tops, and stretchy zip sleep sacks for naps. The Zipadee-Zip sleep sack fits over casts in the early weeks. The Woombie swaddle works for newborns in the first casting weeks. Pull-on pants with a wide leg opening are better than snaps.",
-        relatedProducts: [1, 3, 4, 5],
+          "Full-leg casts make normal dressing nearly impossible. Footless sleepers are the workhorse — snap or button styles are easier than zip when you only need to access the top half. Avoid footed pajamas entirely: they cover the toes, which are your main daily warning sign for circulation. The Zipadee-Zip sleep sack fits over casts for naps. For warmth, knee-high socks pulled up over the cast end work better than leg warmers because they cover the toes and let you keep monitoring.",
+        relatedProducts: [1, 4],
       },
       {
         title: "Know the warning signs of a problem cast",
@@ -130,7 +130,7 @@ export const phases = [
       {
         title: "Prepare for the tenotomy appointment",
         detail:
-          "The Achilles tenotomy is typically done in the office under local anesthetic. a very small nick in the tendon with a needle-sized blade. It takes under 5 minutes. The tendon heals completely in about 3 weeks under the post-tenotomy cast. Babies typically cry briefly during the injection, then settle quickly. Many parents are far more anxious than their babies. The post-tenotomy cast goes on the same day and stays for 3 weeks.",
+          "The Achilles tenotomy is a small in-office procedure — a tiny nick in the tendon under local anesthetic that takes under 5 minutes. But don't let the brevity fool you: for many parents, this is emotionally the hardest day of the entire journey. It's okay if it's hard. The tendon heals completely in about 3 weeks under the post-tenotomy cast, and this cast goes on the same day. Your baby will likely settle quickly afterward, but give yourself grace for the feelings that come up.",
         relatedProducts: [],
       },
       {
@@ -171,7 +171,7 @@ export const phases = [
       {
         heading: "Wearing schedule",
         points: [
-          "Full-time wear (23 hours/day) for the first 3 months after casting, then nights and naps until age 4–5.",
+          "Full-time wear (23 hours/day) for the first 3 months after casting. The transition to nights-and-naps is gradual — many providers reduce wear by 2 hours every 4–6 weeks rather than cutting immediately. The full schedule continues through age 4–5.",
           "Brace compliance is the single most important predictor of long-term success. Non-compliant bracing leads to relapse in ~80% of cases.",
           "Transitions (full-time → nights/naps) should always be guided by your orthopedic provider, not self-directed.",
         ],
@@ -180,22 +180,22 @@ export const phases = [
         heading: "Daily care",
         points: [
           "Inspect skin daily, especially the heel. Blisters at the heel are common during the first weeks; most resolve with proper sock use.",
-          "Growth means brace adjustments. your orthotist will typically see you every 3–6 months to check fit.",
+          "Growth means brace adjustments. In the first year, expect fit checks every 2–3 months — feet grow quickly and a poor fit causes blisters and reduces correction.",
           "Your baby's feet should be warm and pink in the shoes. Cold or discolored toes need immediate attention.",
         ],
       },
     ],
     tips: [
       {
-        title: "Use the official Mitchell Ponseti socks. every time",
+        title: "Pick socks that protect from blisters",
         detail:
-          "The most common cause of blisters in the brace is sock bunching. The OrthoPediatrics Mitchell Ponseti bamboo socks are designed specifically for the Mitchell shoe. they have a silicone grip strip that prevents them from sliding down, a seamless toe, and moisture-wicking bamboo fabric. They make a meaningful difference. Buy at least 5–6 pairs so you always have clean ones available. They're available at opsb.com/accessories.",
+          "The most common cause of blisters in the brace is sock bunching or slipping. The key properties to look for: seamless toe, knee-high length, and good elastic that keeps them from sliding down. Many families use EPEIUS or Hudson Baby knee-highs with great results. The OrthoPediatrics Mitchell Ponseti bamboo socks are a more specialized option with a silicone grip strip. Whatever you use, pick light colors so you can see heel placement through the boot's heel hole. Buy at least 5–6 pairs so you always have clean ones available.",
         relatedProducts: [6],
       },
       {
         title: "Build a consistent brace routine",
         detail:
-          "Consistency makes the brace feel routine rather than exceptional. for both you and your baby. Apply the brace at the same times every day: after every diaper change during the full-time phase, then at every nap and bedtime. Having a dedicated spot where you always do it (with socks, brace, and pressure saddle if using one) helps reduce the mental load. Many parents find that once it becomes a habit, it takes less than 2 minutes per application.",
+          "Consistency makes the brace feel routine rather than exceptional. for both you and your baby. Apply the brace at the same times every day: after every diaper change during the full-time phase, then at every nap and bedtime. Having a dedicated spot where you always do it (with socks, brace, and pressure saddle if using one) helps reduce the mental load. Plan on about 5 minutes per application in the early weeks — it gets faster with practice.",
         relatedProducts: [9, 10, 11],
       },
       {
