@@ -21,7 +21,7 @@ export const products = [
     brand: "Sleeping Baby",
     category: "clothing",
     bestFor: "BnB sleep",
-    image: "/products/Zipadee-Zip-Sleep-Sack.webp",
+    image: "/products/zipadee-sleep-sack.webp",
     description: "The star-shaped sleep sack with a roomy bottom that fits right over the Mitchell or Dobbs bar with no leg threading needed.",
     tip: "Sleeping Baby makes a version specifically noted as brace-compatible — the wide bottom clears most bar widths without modification.",
     url: "https://www.sleepingbaby.com/collections/zipadee-zip",
