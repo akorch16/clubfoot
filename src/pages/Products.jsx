@@ -17,12 +17,12 @@ export default function Products() {
       </div>
 
       {/* Category Pills */}
-      <div className="flex gap-2 overflow-x-auto px-4 py-3 bg-white border-b border-slate-100 sticky top-0 z-10">
+      <div className="flex flex-wrap gap-2 px-4 py-3 bg-white border-b border-slate-100 sticky top-0 z-10">
         {categories.map((cat) => (
           <button
             key={cat.id}
             onClick={() => setActiveCategory(cat.id)}
-            className={`flex-shrink-0 px-3.5 py-1.5 rounded-full text-xs font-semibold transition-colors ${
+            className={`px-3.5 py-1.5 rounded-full text-xs font-semibold transition-colors ${
               activeCategory === cat.id
                 ? "bg-amber-400 text-amber-950"
                 : "bg-slate-100 text-slate-500"
