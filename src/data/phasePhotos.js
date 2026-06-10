@@ -3,6 +3,6 @@
 export const phasePhotos = {
   prenatal:      "/prenatal.jpg",
   casting:       "/casting.jpg",
-  "boots-and-bar": null,
-  "long-term":   null,
+  "boots-and-bar": "/boots-and-bar.webp",
+  "long-term":   "/mia hamm.webp",
 };
