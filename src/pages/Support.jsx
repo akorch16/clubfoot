@@ -15,8 +15,9 @@ const quotes = [
 
 const communityLinks = [
   { label: "Clubfoot Support Facebook Group", url: "https://www.facebook.com/groups/clubfeetsupport/", description: "Large, active community of clubfoot parents worldwide", icon: "👥", iconBg: "bg-blue-100" },
+  { label: "Babywearing with Clubfoot", url: "https://www.facebook.com/groups/babywearingclubfoot/", description: "Carry techniques and virtual fit checks for babies in casts and B&B", icon: "🫶", iconBg: "bg-violet-100" },
   { label: "Reddit r/clubfoot", url: "https://www.reddit.com/r/clubfoot", description: "Forum for parents, adults with clubfoot, and caregivers", icon: "💬", iconBg: "bg-orange-100" },
-  { label: "Ponseti International Association", url: "https://www.ponseti.info", description: "Official clinical guidelines, provider directory, and research", icon: "🏥", iconBg: "bg-teal-100" },
+  { label: "Ponseti International Association", url: "https://ponseti.medicine.uiowa.edu/parent-information/ponseti-doctors-location", description: "Official clinical guidelines, provider directory, and research", icon: "🏥", iconBg: "bg-teal-100" },
   { label: "#clubfoot on Instagram", url: "https://www.instagram.com/explore/tags/clubfoot/", description: "Real families sharing their journeys", icon: "📸", iconBg: "bg-rose-100" },
 ];
 
@@ -32,15 +33,12 @@ export default function Support() {
       <div className="px-4 pt-1 pb-6 space-y-5">
         {/* Note for new parents */}
         <div className="bg-rose-50 border border-rose-100 rounded-2xl p-5">
-          <div className="flex items-center gap-2 mb-3">
+          <div className="flex items-center gap-2 mb-2">
             <span className="text-lg">💗</span>
             <p className="font-semibold text-rose-700 text-sm">A note for new parents</p>
           </div>
           <p className="text-slate-700 text-sm leading-relaxed">
-            If you just received a clubfoot diagnosis, prenatally or at birth, take a breath. <span className="font-semibold text-slate-800">This is treatable.</span> The Ponseti method has an over 95% success rate, and children who receive proper treatment grow up to run, jump, play sports, and live without limitations.
-          </p>
-          <p className="text-slate-600 text-sm leading-relaxed mt-3">
-            The journey requires commitment: weekly casts, years of bracing. But you will get through it. Thousands of families have. And the community waiting for you is one of the most supportive you'll ever find.
+            If you just got a diagnosis — take a breath. <span className="font-semibold text-slate-800">This is treatable.</span> The Ponseti method works in over 95% of cases, and the community below has answered every question you'll have, at every hour of the night.
           </p>
         </div>
 
