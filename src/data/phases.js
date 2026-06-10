@@ -70,6 +70,7 @@ export const phases = [
     ],
     resources: [],
     productCategories: ["clothing", "socks", "car-seats"],
+    featuredProductIds: [13, 14, 1, 5, 6],
   },
   {
     id: "casting",

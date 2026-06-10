@@ -83,7 +83,9 @@ export default function PhaseDetail() {
 
   const phaseColor = phaseColors[phase.id] ?? "bg-slate-500";
   const photo = phasePhotos[phase.id];
-  const phaseProducts = products.filter((p) => phase.productCategories.includes(p.category)).slice(0, 4);
+  const carouselProducts = phase.featuredProductIds
+    ? phase.featuredProductIds.map((id) => products.find((p) => p.id === id)).filter(Boolean)
+    : products.filter((p) => phase.productCategories?.includes(p.category)).slice(0, 6);
 
   return (
     <div>
@@ -163,33 +165,47 @@ export default function PhaseDetail() {
           </div>
         </section>
 
-        {/* Relevant Products */}
-        {phaseProducts.length > 0 && (
+        {/* Recommended Products Carousel */}
+        {carouselProducts.length > 0 && (
           <section>
             <div className="flex items-center justify-between mb-3">
               <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest">Recommended Products</p>
               <button onClick={() => navigate("/products")} className="text-xs text-slate-400 active:text-slate-600">See all →</button>
             </div>
-            <div className="space-y-2">
-              {phaseProducts.map((product) => (
-                <div key={product.id} className="bg-white rounded-2xl shadow-sm p-4 flex items-center gap-3">
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm font-semibold text-slate-800 leading-snug">{product.name}</p>
-                    <p className="text-xs text-slate-400 mt-0.5">{product.brand}</p>
-                  </div>
-                  <div className="flex flex-col items-end gap-1.5 flex-shrink-0">
-                    <span className={`text-xs font-semibold px-2 py-0.5 rounded-full ${
-                      product.status === "works" ? "bg-emerald-100 text-emerald-700" : "bg-amber-100 text-amber-700"
-                    }`}>
-                      {product.status === "works" ? "Works" : "Check Fit"}
-                    </span>
-                    {product.url && (
-                      <a href={product.url} target="_blank" rel="noopener noreferrer"
-                        className="text-xs font-semibold text-amber-600">Shop →</a>
-                    )}
-                  </div>
-                </div>
-              ))}
+            <div className="-mx-4 px-4 overflow-x-auto">
+              <div className="flex gap-3 pb-2" style={{ width: "max-content" }}>
+                {carouselProducts.map((product) => (
+                  <a
+                    key={product.id}
+                    href={product.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="flex-shrink-0 w-40 bg-white rounded-2xl shadow-sm overflow-hidden active:opacity-80 transition-opacity"
+                  >
+                    <div className="w-full h-36 bg-slate-100 overflow-hidden">
+                      {product.image ? (
+                        <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-4xl">
+                          {product.category === "car-seats" ? "🚗" :
+                           product.category === "clothing" ? "👕" :
+                           product.category === "socks" ? "🧦" :
+                           product.category === "braces" ? "🦾" :
+                           product.category === "carriers" ? "🫶" :
+                           product.category === "tubs" ? "🛁" : "🛍️"}
+                        </div>
+                      )}
+                    </div>
+                    <div className="p-3">
+                      <p className="text-xs font-semibold text-slate-800 leading-snug line-clamp-2">{product.name}</p>
+                      <p className="text-xs text-slate-400 mt-0.5">{product.brand}</p>
+                      {product.price && (
+                        <p className="text-sm font-bold mt-1.5" style={{ color: "#2D3B6E" }}>{product.price}</p>
+                      )}
+                    </div>
+                  </a>
+                ))}
+              </div>
             </div>
           </section>
         )}
