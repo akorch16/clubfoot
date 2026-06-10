@@ -179,7 +179,7 @@ export default function DoctorFinder() {
         {geoError && <p className="text-xs text-red-500 mt-1 px-1">{geoError}</p>}
         {userCoords && !geoError && !geoLoading && (
           <p className="text-xs font-semibold text-teal-600 mt-1 px-1">
-            Showing {filtered.filter((d) => d.distance !== null).length} doctors sorted by distance
+            Found {filtered.filter((d) => d.distance !== null && d.distance <= 100).length} doctors within 100 miles
           </p>
         )}
       </div>
