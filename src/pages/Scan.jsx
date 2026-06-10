@@ -49,12 +49,9 @@ export default function Scan() {
   return (
     <div>
       {/* Header */}
-      <div className="bg-violet-500 px-5 pt-12 pb-6">
-        <span className="inline-block bg-white/20 text-white text-xs font-semibold px-3 py-1 rounded-full tracking-wide mb-3">
-          AI-powered · not medical advice
-        </span>
-        <h1 className="text-2xl font-bold text-white">Scan &amp; Assess</h1>
-        <p className="text-violet-100 text-sm mt-1">
+      <div className="px-5 pt-12 pb-6">
+        <h1 className="text-2xl font-bold text-slate-800">Scan &amp; Assess</h1>
+        <p className="text-violet-600 text-sm font-semibold mt-1">
           Take a photo of a cast, brace, or foot to check for common issues
         </p>
       </div>

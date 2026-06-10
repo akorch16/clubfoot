@@ -127,11 +127,8 @@ export default function DoctorFinder() {
     <div>
       {/* Header */}
       <div className="px-5 pt-12 pb-6">
-        <span className="inline-block bg-teal-100 text-teal-700 text-xs font-semibold px-3 py-1 rounded-full tracking-wide mb-3">
-          Ponseti-trained providers
-        </span>
         <h1 className="text-2xl font-bold text-slate-800">Find a Specialist</h1>
-        <p className="text-slate-500 text-sm mt-1 leading-relaxed">Search through {totalDoctors} doctors from {totalCountries} countries trained in Ponseti to find the best fit.</p>
+        <p className="text-teal-600 text-sm font-semibold mt-1 leading-relaxed">Search through {totalDoctors} doctors from {totalCountries} countries trained in Ponseti to find the best fit.</p>
         <p className="text-xs text-slate-400 mt-1.5 leading-relaxed">This list is sourced from the <a href="https://ponseti.medicine.uiowa.edu/parent-information/ponseti-doctors-location" target="_blank" rel="noopener noreferrer" className="underline">Ponseti International Association directory</a>. Always verify credentials and availability directly with providers.</p>
         <div className="mt-4 flex flex-col gap-1">
           <label className="text-xs font-semibold text-slate-500 px-1">City or zip code</label>

@@ -25,11 +25,8 @@ export default function Support() {
     <div>
       {/* Header */}
       <div className="px-5 pt-12 pb-6">
-        <span className="inline-block bg-rose-100 text-rose-700 text-xs font-semibold px-3 py-1 rounded-full tracking-wide mb-3">
-          You are not alone
-        </span>
         <h1 className="text-2xl font-bold text-slate-800">Support & Community</h1>
-        <p className="text-slate-500 text-sm mt-1">Thousands of families have walked this road before you</p>
+        <p className="text-rose-600 text-sm font-semibold mt-1">Thousands of families have walked this road before you</p>
       </div>
 
       <div className="px-4 pt-1 pb-6 space-y-5">

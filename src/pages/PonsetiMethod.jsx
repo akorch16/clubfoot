@@ -30,9 +30,6 @@ export default function PonsetiMethod() {
     <div>
       {/* Header */}
       <div className="bg-amber-400 px-5 pt-12 pb-8">
-        <span className="inline-block bg-white/30 text-amber-950 text-xs font-semibold px-3 py-1 rounded-full tracking-wide mb-4">
-          The Method
-        </span>
         <h1 className="text-3xl font-bold text-amber-950 leading-snug">The Ponseti Method</h1>
         <p className="text-amber-800 text-sm mt-2 leading-relaxed">
           The global standard of care for clubfoot — and the reason most children treated today grow up to run, play sports, and live without limitations.

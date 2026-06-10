@@ -12,11 +12,8 @@ export default function Products() {
     <div>
       {/* Header */}
       <div className="px-5 pt-12 pb-6">
-        <span className="inline-block bg-sky-100 text-sky-700 text-xs font-semibold px-3 py-1 rounded-full tracking-wide mb-3">
-          Community-vetted
-        </span>
         <h1 className="text-2xl font-bold text-slate-800">Product Guide</h1>
-        <p className="text-slate-500 text-sm mt-1">Gear that actually works, tested by clubfoot families</p>
+        <p className="text-sky-600 text-sm font-semibold mt-1">Gear that actually works, tested by clubfoot families</p>
       </div>
 
       {/* Category Pills */}
