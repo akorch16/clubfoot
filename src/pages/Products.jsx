@@ -48,6 +48,9 @@ export default function Products() {
                   <div className="min-w-0">
                     <p className="font-semibold text-slate-800 text-sm leading-snug">{product.name}</p>
                     <p className="text-xs text-slate-400 mt-0.5">{product.brand}</p>
+                    {product.price && (
+                      <p className="text-sm font-bold mt-0.5" style={{ color: "#2D3B6E" }}>{product.price}</p>
+                    )}
                   </div>
                   {product.url && (
                     <a href={product.url} target="_blank" rel="noopener noreferrer"
