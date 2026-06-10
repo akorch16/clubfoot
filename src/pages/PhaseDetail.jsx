@@ -132,11 +132,11 @@ export default function PhaseDetail() {
 
       {/* Hero photo */}
       {photo && !photoError && (
-        <div className="w-full h-52 overflow-hidden bg-slate-200">
+        <div className="w-full bg-slate-200">
           <img
             src={photo}
             alt={phase.label}
-            className="w-full h-full object-cover"
+            className="w-full h-auto"
             onError={() => setPhotoError(true)}
           />
         </div>

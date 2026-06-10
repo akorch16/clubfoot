@@ -4,5 +4,5 @@ export const phasePhotos = {
   prenatal:      "/prenatal.jpg",
   casting:       "/casting.jpg",
   "boots-and-bar": "/boots-and-bar.webp",
-  "long-term":   "/mia hamm.webp",
+  "long-term":   "/mia-hamm2.png",
 };
