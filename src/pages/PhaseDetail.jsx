@@ -1,5 +1,18 @@
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { useParams, useNavigate } from "react-router-dom";
+
+const categoryLabel = {
+  "clothing": "Clothing",
+  "socks": "Socks",
+  "braces": "Brace",
+  "car-seats": "Car Seat",
+  "carriers": "Carrier",
+  "strollers": "Stroller",
+  "tubs": "Tub",
+  "pack-and-play": "Pack & Play",
+  "shoes": "Shoes",
+  "orthotics": "Orthotics",
+};
 import { phases } from "../data/phases";
 import { products } from "../data/products";
 import { phasePhotos } from "../data/phasePhotos";
@@ -83,6 +96,14 @@ export default function PhaseDetail() {
 
   const phaseColor = phaseColors[phase.id] ?? "bg-slate-500";
   const photo = phasePhotos[phase.id];
+  const scrollRef = useRef(null);
+
+  function scrollCarousel(dir) {
+    if (scrollRef.current) {
+      scrollRef.current.scrollBy({ left: dir * 176, behavior: "smooth" });
+    }
+  }
+
   const carouselProducts = phase.featuredProductIds
     ? phase.featuredProductIds.map((id) => products.find((p) => p.id === id)).filter(Boolean)
     : products.filter((p) => phase.productCategories?.includes(p.category)).slice(0, 6);
@@ -170,9 +191,27 @@ export default function PhaseDetail() {
           <section>
             <div className="flex items-center justify-between mb-3">
               <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest">Recommended Products</p>
-              <button onClick={() => navigate("/products")} className="text-xs text-slate-400 active:text-slate-600">See all →</button>
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => scrollCarousel(-1)}
+                  className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 active:bg-slate-200"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                  </svg>
+                </button>
+                <button
+                  onClick={() => scrollCarousel(1)}
+                  className="w-7 h-7 rounded-full bg-slate-100 flex items-center justify-center text-slate-500 active:bg-slate-200"
+                >
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
+                <button onClick={() => navigate("/products")} className="text-xs text-slate-400 active:text-slate-600 ml-1">See all →</button>
+              </div>
             </div>
-            <div className="-mx-4 px-4 overflow-x-auto">
+            <div className="-mx-4 px-4 overflow-x-auto scrollbar-hide" ref={scrollRef}>
               <div className="flex gap-3 pb-2" style={{ width: "max-content" }}>
                 {carouselProducts.map((product) => (
                   <a
@@ -182,7 +221,7 @@ export default function PhaseDetail() {
                     rel="noopener noreferrer"
                     className="flex-shrink-0 w-40 bg-white rounded-2xl shadow-sm overflow-hidden active:opacity-80 transition-opacity"
                   >
-                    <div className="w-full h-36 bg-slate-100 overflow-hidden">
+                    <div className="relative w-full h-36 bg-slate-100 overflow-hidden">
                       {product.image ? (
                         <img src={product.image} alt={product.name} className="w-full h-full object-cover" />
                       ) : (
@@ -194,6 +233,11 @@ export default function PhaseDetail() {
                            product.category === "carriers" ? "🫶" :
                            product.category === "tubs" ? "🛁" : "🛍️"}
                         </div>
+                      )}
+                      {categoryLabel[product.category] && (
+                        <span className="absolute top-2 right-2 text-xs font-semibold bg-white/90 text-slate-600 px-2 py-0.5 rounded-full shadow-sm">
+                          {categoryLabel[product.category]}
+                        </span>
                       )}
                     </div>
                     <div className="p-3">
