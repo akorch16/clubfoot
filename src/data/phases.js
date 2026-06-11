@@ -46,8 +46,8 @@ export const phases = [
       {
         title: "Stock up on footless clothing before birth",
         detail:
-          "Once casting begins, footed sleepers, footie pajamas, and booties are essentially useless. You'll spend the first 6–8 weeks of your baby's life in footless zip sleepers. Carter's footless zip-up sleepers are the most popular option. affordable, soft, and widely available. The Kyte Baby bamboo rompers are a premium alternative parents rave about for their softness against cast edges. Buy sizes newborn through 3 months.",
-        relatedProducts: [1, 3],
+          "Once casting begins, footed sleepers, footie pajamas, and booties are essentially useless. You'll spend the first 6–8 weeks of your baby's life in footless zip sleepers. Carter's footless zip-up sleepers are the most popular option — affordable, soft, and widely available. Little Sleepies bamboo rompers are a premium alternative parents love for their softness against cast edges. Buy sizes newborn through 3 months.",
+        relatedProducts: [1, 5],
       },
       {
         title: "Prepare your support circle early",
@@ -118,7 +118,7 @@ export const phases = [
         title: "Choose clothes that work with full-leg casts",
         detail:
           "Full-leg casts make normal dressing nearly impossible. The essentials: footless zip-up sleepers (Carter's are the community favorite), side-snap onesies for tops, and stretchy zip sleep sacks for naps. The Zipadee-Zip sleep sack fits over casts in the early weeks. The Woombie swaddle works for newborns in the first casting weeks. Pull-on pants with a wide leg opening are better than snaps.",
-        relatedProducts: [1, 3, 4, 5],
+        relatedProducts: [1, 4, 5],
       },
       {
         title: "Know the warning signs of a problem cast",
@@ -200,8 +200,8 @@ export const phases = [
       {
         title: "Clothing with a bar: what actually works",
         detail:
-          "The rigid bar between the shoes is about as wide as the hips. normal pants and footie pajamas won't work. The Zipadee-Zip sleep sack is widely considered the best sleep solution for the B&B phase. Kyte Baby footless rompers with two-way zips work well for daytime. Wide-leg pants and leggings with good stretch work for older babies. Many parents simply cut the feet off pajamas. it works fine.",
-        relatedProducts: [4, 3, 1],
+          "The rigid bar between the shoes is about as wide as the hips — normal pants and footie pajamas won't work. The Zipadee-Zip sleep sack is widely considered the best sleep solution for the B&B phase. Little Sleepies footless rompers with two-way zips work well for daytime. Wide-leg pants and leggings with good stretch work for older babies. Many parents simply cut the feet off pajamas — it works fine.",
+        relatedProducts: [4, 5, 1],
       },
       {
         title: "Baby wearing with a brace bar",
