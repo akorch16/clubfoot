@@ -201,8 +201,8 @@ export const phases = [
       {
         title: "Clothing with a bar: what actually works",
         detail:
-          "The rigid bar between the shoes is about as wide as the hips — normal pants and footie pajamas won't work. The Zipadee-Zip sleep sack is widely considered the best sleep solution for the B&B phase. Kyte Baby footless rompers with two-way zips work well for daytime. Wide-leg pants and leggings with good stretch work for older babies. Many parents simply cut the feet off pajamas — it works fine.",
-        relatedProducts: [4, 3, 1],
+          "The rigid bar between the shoes is about as wide as the hips — normal pants and footie pajamas won't work. The Zipadee-Zip sleep sack is widely considered the best sleep solution for the B&B phase. Little Sleepies footless rompers with two-way zips work well for daytime. Wide-leg pants and leggings with good stretch work for older babies. Many parents simply cut the feet off pajamas — it works fine.",
+        relatedProducts: [4, 5, 1],
       },
       {
         title: "Baby wearing with a brace bar",
