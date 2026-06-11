@@ -9,11 +9,6 @@ import Support from "./pages/Support";
 import Scan from "./pages/Scan";
 import Train from "./pages/Train";
 import PonsetiMethod from "./pages/PonsetiMethod";
-import DesignPicker from "./pages/design/DesignPicker";
-import HomeV1 from "./pages/design/HomeV1";
-import HomeV2 from "./pages/design/HomeV2";
-import HomeV3 from "./pages/design/HomeV3";
-import CastingV1 from "./pages/design/CastingV1";
 
 function BoundedRoutes() {
   const { pathname } = useLocation();
@@ -28,11 +23,6 @@ function BoundedRoutes() {
         <Route path="/scan" element={<Scan />} />
         <Route path="/train" element={<Train />} />
         <Route path="/method" element={<PonsetiMethod />} />
-        <Route path="/design" element={<DesignPicker />} />
-        <Route path="/design/v1" element={<HomeV1 />} />
-        <Route path="/design/v2" element={<HomeV2 />} />
-        <Route path="/design/v3" element={<HomeV3 />} />
-        <Route path="/design/casting" element={<CastingV1 />} />
       </Routes>
     </ErrorBoundary>
   );
