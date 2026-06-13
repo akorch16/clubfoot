@@ -143,6 +143,16 @@ export default function PhaseDetail() {
       )}
 
       <div className="px-4 pt-5 pb-10 space-y-5">
+        {/* Prenatal welcome note */}
+        {phase.id === "prenatal" && (
+          <div className="bg-violet-50 border border-violet-100 rounded-2xl p-5">
+            <p className="font-semibold text-violet-800 text-sm mb-1">If you just got a diagnosis — take a breath.</p>
+            <p className="text-slate-700 text-sm leading-relaxed">
+              This is one of the most treatable conditions in pediatric orthopedics. The Ponseti method works in over 95% of cases, and children go on to run, play sports, and live without limitations. Thousands of families have walked this road before you — and they're here to help at every hour of the night.
+            </p>
+          </div>
+        )}
+
         {/* Key Facts */}
         <section>
           <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Key Facts</p>
