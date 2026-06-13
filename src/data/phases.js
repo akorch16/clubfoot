@@ -118,7 +118,7 @@ export const phases = [
       {
         title: "Choose clothes that work with full-leg casts",
         detail:
-          "Full-leg casts make normal dressing nearly impossible. Footless sleepers are the workhorse — snap or button styles are easier than zip when you only need to access the top half. Avoid footed pajamas entirely: they cover the toes, which are your main daily warning sign for circulation. The Zipadee-Zip sleep sack fits over casts for naps. For warmth, knee-high socks pulled up over the cast end work better than leg warmers because they cover the toes and let you keep monitoring.",
+          "Footed pajamas, booties, and anything that covers the toes are off the table during casting — visible toe color is your main daily warning sign for circulation problems. Footless zip sleepers are the easiest option for most changes; snap-bottom styles work well for tops. The Zipadee-Zip sleep sack fits over full-leg casts for safe sleep. For warmth, pull knee-high socks up over the cast end — they cover the toes and let you keep monitoring at a glance.",
         relatedProducts: [1, 4],
       },
       {

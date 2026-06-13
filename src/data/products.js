@@ -309,7 +309,7 @@ export const products = [
     image: "/products/puj-tub.jpeg",
     description: "The top recommended casting-phase bath solution — folds flat and fits in most sinks for safe sponge baths when casts must stay completely dry.",
     tip: "Casts must never get wet; the sink-insert design lets you bathe baby safely without any splash risk.",
-    url: "https://pujbaby.com/products/puj-flyte-newborn-baby-bath",
+    url: "https://www.amazon.com/s?k=puj+flyte+foldable+baby+tub",
     phases: ["casting"],
   },
   {
@@ -374,7 +374,7 @@ export const products = [
     image: "/products/new-balance-928.webp",
     description: "Extra-wide (4E) motion-control shoe frequently recommended by PTs and orthotists for children post-treatment — one of the best platforms for custom orthotics.",
     tip: "Available in widths up to 4E, which is essential for children who need orthotics after treatment.",
-    url: "https://www.newbalance.com/pd/928v3/MW928V3-D.html",
+    url: "https://www.amazon.com/s?k=new+balance+928v3+walking+shoe",
     phases: ["long-term"],
   },
   {
@@ -412,7 +412,7 @@ export const products = [
     image: "/products/custom-model-orthodics.jpeg",
     description: "Custom-molded orthotics prescribed by your orthopedist or podiatrist, recommended for children with residual arch issues or asymmetry after treatment.",
     tip: "Covered by most insurance with a prescription — plan to replace every 12-18 months as the foot grows, and pair with wide shoes for best fit.",
-    url: "https://www.ponseti.info/find-a-provider.html",
+    url: "https://www.amazon.com/s?k=custom+molded+foot+orthotics",
     phases: ["long-term"],
   },
 ];
