@@ -56,7 +56,6 @@ export default function Home() {
                 {phase.emoji}
               </span>
               <div className="flex items-center gap-4 relative z-10">
-                <span className="text-3xl leading-none">{phase.emoji}</span>
                 <div className="flex-1 min-w-0">
                   <p className="font-bold text-white text-lg leading-tight">{phase.label}</p>
                   <p className="text-white/75 text-xs mt-0.5 leading-snug">{phase.description}</p>
