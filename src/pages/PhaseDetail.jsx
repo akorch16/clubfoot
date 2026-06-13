@@ -176,16 +176,6 @@ export default function PhaseDetail() {
           )}
         </section>
 
-        {/* Practical Tips */}
-        <section>
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Practical Tips</p>
-          <div className="space-y-2">
-            {phase.tips.map((tip, i) => (
-              <TipCard key={i} tip={tip} allProducts={products} />
-            ))}
-          </div>
-        </section>
-
         {/* Recommended Products Carousel */}
         {carouselProducts.length > 0 && (
           <section>
@@ -253,6 +243,16 @@ export default function PhaseDetail() {
             </div>
           </section>
         )}
+
+        {/* Practical Tips */}
+        <section>
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Practical Tips</p>
+          <div className="space-y-2">
+            {phase.tips.map((tip, i) => (
+              <TipCard key={i} tip={tip} allProducts={products} />
+            ))}
+          </div>
+        </section>
 
         {/* External Resources */}
         {phase.resources.length > 0 && <section className="pb-2">
