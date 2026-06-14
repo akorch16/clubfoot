@@ -9,7 +9,7 @@
     --bg: #0d1117; --panel: #161b22; --panel2: #1c232c; --border: #30363d;
     --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff; --accent2: #65abc2;
     --rh: #d29922; --rh-bg: #2b2410;
-    --client: #3fb950; --persist: #a371f7; --edge: #f0883e; --ext: #db61a2; --cicd: #58a6ff;
+    --client: #3fb950; --persist: #a371f7; --edge: #f0883e; --ext: #db61a2; --cicd: #58a6ff; --scale: #d29922;
   }
   * { box-sizing: border-box; }
   body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
@@ -61,7 +61,9 @@
   /* tier accent dots */
   .t-client .dot { background: var(--client); } .t-persist .dot { background: var(--persist); }
   .t-edge .dot { background: var(--edge); } .t-ext .dot { background: var(--ext); }
-  .t-cicd .dot { background: var(--cicd); }
+  .t-cicd .dot { background: var(--cicd); } .t-scale .dot { background: var(--scale); }
+  .t-scale { border-color: var(--scale); }
+  .t-scale .tier-head { background: var(--rh-bg); }
 
   /* detail panel */
   .panel-inner { padding: 20px; }
@@ -136,7 +138,8 @@
       <span style="color:var(--persist)">● Client persistence</span> &nbsp;
       <span style="color:var(--edge)">● Edge</span> &nbsp;
       <span style="color:var(--ext)">● External services</span> &nbsp;
-      <span style="color:var(--cicd)">● Build &amp; deploy</span>
+      <span style="color:var(--cicd)">● Build &amp; deploy</span> &nbsp;
+      <span style="color:var(--scale)">● At scale (patterns, not in codebase)</span>
     </div>
     <div class="toolbar">
       <span class="label">Trace a flow:</span>
@@ -356,6 +359,28 @@ const NODES = {
     summary: "The single HTML document. #root mount, OG/Twitter meta for link previews, font preconnects, favicon. The whole SPA boots from here.",
     resp: ["Mount point + meta + asset links"], inp: "—", out: "boot document", conn: ["main","ghpages","fonts"], tech: ["HTML"],
     rh: "One document for all routes (SPA). The SEO/crawlability limits of client rendering are why real consumer apps reach for SSR/edge-rendering — a genuine architecture tradeoff to raise in an interview." },
+
+  // AT SCALE — conceptual patterns NOT in the codebase today (how you'd evolve it)
+  mq: { name: "Message Queue", icon: "📨", file: "pattern — Kafka / SQS (not in codebase)", tier: "scale",
+    summary: "Decouples producers from consumers. Today the scan holds a synchronous request open during inference and the PDF import is an in-tab loop that dies if the tab closes — both should be jobs on a durable queue consumed by a worker fleet.",
+    resp: ["Producer/consumer decoupling","Absorb spikes (backpressure) instead of dropping load","Retries + dead-letter queue (DLQ) for poison messages","Consumer groups for horizontal parallelism","At-least-once delivery → consumers must be idempotent","Log compaction / partition-key ordering (Kafka)"],
+    inp: "scan jobs, import jobs, contribution/trade events", out: "durable, ordered event stream", conn: ["scan","pdfimport","anthropic","eventsource","rpc"], tech: ["Kafka","SQS","DLQ"],
+    rh: "For retirement accounts: every contribution/trade is an event on a partitioned log, keyed by account_id so a single account's events stay ordered while different accounts process in parallel. Smooths market-open spikes, enables replay, and decouples ingestion from settlement. The cost: at-least-once delivery forces idempotent consumers (dedupe by event id)." },
+  shardeddb: { name: "Partitioned DB", icon: "🗃️", file: "pattern — Postgres / Cassandra (not in codebase)", tier: "scale",
+    summary: "Replaces the static JS arrays (doctors 319, products 32…) and the device-local stores once data volume and concurrent writes outgrow a single node or a single device.",
+    resp: ["Real referential integrity (FK constraints) vs the 'never reuse ids' convention","Partition/shard by key; read replicas for read-heavy load","Secondary + spatial indexes (PostGIS/geohash) for DoctorFinder","Cursor pagination (stable under concurrent writes)","Schema migrations"],
+    inp: "writes + queries", out: "durable, indexed, queryable rows", conn: ["doctors","feedback","eventsource"], tech: ["Postgres","PostGIS","read replicas"],
+    rh: "CAP in practice — pick consistency per domain: the account ledger is CP (never show a stale balance after a deposit), the doctor directory is AP (a slightly stale listing is fine, favor availability). Partition the ledger by account_id; aggregate/cross-partition reads go through a separate read model rather than scatter-gather on the write path." },
+  rpc: { name: "RPC + Gateway", icon: "🔗", file: "pattern — gRPC/REST gateway (not in codebase)", tier: "scale",
+    summary: "Replaces the transparent Worker passthrough and the client-held API key with a typed, authenticated gateway fronting internal services.",
+    resp: ["AuthN/Z + rate limiting + quotas at the edge","Typed contracts (gRPC/REST + schema registry) vs regex JSON parsing","Idempotency keys so a retried POST doesn't double-apply","gRPC vs REST tradeoff (binary/streaming vs ubiquity)","Saga (compensating txns) vs 2PC for multi-service writes"],
+    inp: "client requests", out: "authorized, routed service calls", conn: ["worker","vision","mq","eventsource"], tech: ["gRPC","API gateway","idempotency keys"],
+    rh: "A contribution touches cash, ledger, and positions across services. Avoid distributed 2PC (locking + coordinator as a failure point); use a saga — each step has a compensating action if a later step fails — with an idempotency key per request so client/network retries are safe. This is the heart of correctness for money movement, and the most likely deep-dive in a retirement-accounts round." },
+  eventsource: { name: "Event Sourcing / Ledger", icon: "📜", file: "pattern — append-only ledger (not in codebase)", tier: "scale",
+    summary: "The retirement-accounts core. Replace a mutable 'balance' field with an append-only log of immutable events; current state is a fold (reduction) over those events.",
+    resp: ["Double-entry ledger — every debit has a matching credit","Append-only & immutable → complete, provable audit trail (a regulatory requirement)","CQRS — separate write model (events) from read model (materialized balances/positions)","Compensating events instead of UPDATE/DELETE","Snapshots to bound replay cost","Temporal queries ('balance as of April 15' for tax lots)"],
+    inp: "contribution/trade events", out: "immutable ledger + read projections", conn: ["mq","rpc","shardeddb"], tech: ["event sourcing","CQRS","double-entry"],
+    rh: "Why it matters for Trump/retirement accounts: you need provable history, point-in-time balances for tax-lot accounting, and you can never silently mutate a balance — a correction is a new compensating event, not an in-place edit. CQRS lets the positions dashboard (read side) scale independently from the ledger (write side), each with its own consistency model." },
 };
 
 const TIERS = [
@@ -380,6 +405,9 @@ const TIERS = [
   { id: "cicd", name: "Build & deploy (CI/CD)", cls: "t-cicd",
     note: "GitHub → Actions → gh-pages CDN, ~2–3 min push-to-prod",
     groups: [ { name: "Pipeline", ids: ["repo","buildcheck","deploy","ghpages","indexhtml"] } ]},
+  { id: "scale", name: "At scale — distributed-systems patterns NOT in the codebase today", cls: "t-scale",
+    note: "How you'd evolve this for Robinhood scale — click each for the interview-depth talking points",
+    groups: [ { name: "Patterns you'd introduce", ids: ["mq","shardeddb","rpc","eventsource"] } ]},
 ];
 
 const FLOWS = [
@@ -445,6 +473,18 @@ const FLOWS = [
       { node: "deploy", t: "Squash-merge to main → deploy.yml: npm ci → vite build (VITE_WORKER_URL secret)." },
       { node: "ghpages", t: "dist/ published to gh-pages; served via CDN at clubfoot-club.com (~2–3 min)." },
       { node: "indexhtml", t: "Visitors load index.html → main.jsx boots the SPA." },
+    ]},
+  { id: "scaleup", name: "🏦 Scale-up path", blurb: "The bottlenecks where this architecture breaks at scale — and the one pattern that fixes each. Use this as the spine of an interview answer: name the bottleneck, name the pattern, name the tradeoff.",
+    rh: "String it into one narrative: ingest via a queue → process idempotently in a worker fleet → write to an event-sourced double-entry ledger behind an authenticated RPC gateway → serve reads from CQRS projections over a partitioned store, choosing CAP-appropriate consistency per domain (CP for the money ledger, AP for the directory). Each arrow is a tradeoff you can defend.",
+    steps: [
+      { node: "scan", t: "BOTTLENECK: the scan holds a synchronous request open during model inference; the PDF import is an in-tab loop. Neither survives spikes or tab-close." },
+      { node: "mq", t: "FIX — Message Queue: submit inference/import as jobs; a worker fleet consumes. Absorbs spikes (backpressure), retries via DLQ. Tradeoff: at-least-once → idempotent consumers." },
+      { node: "doctors", t: "BOTTLENECK: 319 providers ship in the JS bundle and are scanned linearly + sorted on the client. Fine at 319 rows; impossible at millions." },
+      { node: "shardeddb", t: "FIX — Partitioned DB: move providers to a store with a spatial index (PostGIS/geohash), cursor pagination. Directory tolerates eventual consistency (AP)." },
+      { node: "worker", t: "BOTTLENECK: the Worker is a transparent passthrough, and the fallback path ships a provider secret to the browser. No authN/Z, no quotas." },
+      { node: "rpc", t: "FIX — RPC + Gateway: authenticated, typed gateway; idempotency keys; saga (not 2PC) for multi-service writes. Secrets stay server-side." },
+      { node: "feedback", t: "BOTTLENECK: state is a mutable localStorage array on one device — no audit, no durability, and any edit/delete is silent and unrecoverable." },
+      { node: "eventsource", t: "FIX — Event Sourcing / Ledger: append-only immutable events; current balance is a CQRS projection. Provable history, point-in-time queries, compensating events instead of edits — the retirement-accounts core." },
     ]},
 ];
 
