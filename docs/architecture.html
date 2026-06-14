@@ -1,0 +1,618 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Clubfoot Club — System Architecture Explorer</title>
+<style>
+  :root {
+    --bg: #0d1117; --panel: #161b22; --panel2: #1c232c; --border: #30363d;
+    --text: #e6edf3; --muted: #8b949e; --accent: #58a6ff; --accent2: #65abc2;
+    --rh: #d29922; --rh-bg: #2b2410;
+    --client: #3fb950; --persist: #a371f7; --edge: #f0883e; --ext: #db61a2; --cicd: #58a6ff;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    background: var(--bg); color: var(--text); line-height: 1.5; }
+  header { padding: 18px 24px; border-bottom: 1px solid var(--border); background: var(--panel);
+    position: sticky; top: 0; z-index: 20; }
+  header h1 { margin: 0; font-size: 18px; }
+  header p { margin: 4px 0 0; color: var(--muted); font-size: 13px; }
+  .layout { display: grid; grid-template-columns: 1fr 420px; gap: 0; height: calc(100vh - 64px); }
+  @media (max-width: 1000px) { .layout { grid-template-columns: 1fr; height: auto; } }
+  .map { overflow-y: auto; padding: 20px 24px 80px; }
+  .panel { border-left: 1px solid var(--border); background: var(--panel); overflow-y: auto; padding: 0; }
+  @media (max-width: 1000px) { .panel { border-left: none; border-top: 1px solid var(--border); } }
+
+  .toolbar { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; margin-bottom: 18px; }
+  .toolbar .label { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin-right: 4px; }
+  .flowbtn, .rhtoggle { font-size: 12px; padding: 6px 11px; border-radius: 999px; border: 1px solid var(--border);
+    background: var(--panel2); color: var(--text); cursor: pointer; transition: all .12s; }
+  .flowbtn:hover { border-color: var(--accent); }
+  .flowbtn.active { background: var(--accent); color: #04101f; border-color: var(--accent); font-weight: 600; }
+  .rhtoggle { margin-left: auto; border-color: var(--rh); color: var(--rh); }
+  .rhtoggle.on { background: var(--rh); color: #1a1400; font-weight: 700; }
+
+  .tier { margin-bottom: 16px; border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+  .tier-head { padding: 10px 14px; background: var(--panel); display: flex; align-items: baseline; gap: 10px; }
+  .tier-head .dot { width: 10px; height: 10px; border-radius: 50%; flex-shrink: 0; align-self: center; }
+  .tier-head h2 { margin: 0; font-size: 14px; }
+  .tier-head span { color: var(--muted); font-size: 12px; }
+  .tier-body { padding: 14px; background: var(--bg); }
+  .group { margin-bottom: 12px; }
+  .group:last-child { margin-bottom: 0; }
+  .group-name { font-size: 10px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 7px; }
+  .nodes { display: flex; flex-wrap: wrap; gap: 8px; }
+  .node { display: flex; align-items: center; gap: 7px; padding: 8px 11px; border-radius: 9px;
+    border: 1px solid var(--border); background: var(--panel2); cursor: pointer; font-size: 13px;
+    transition: all .12s; position: relative; }
+  .node:hover { border-color: var(--accent2); transform: translateY(-1px); }
+  .node.selected { border-color: var(--accent); box-shadow: 0 0 0 1px var(--accent); }
+  .node .ic { font-size: 15px; }
+  .node .nm { font-weight: 500; }
+  .node .file { color: var(--muted); font-size: 11px; font-family: ui-monospace, monospace; }
+  .node.dim { opacity: .25; }
+  .node .order { position: absolute; top: -8px; left: -8px; width: 19px; height: 19px; border-radius: 50%;
+    background: var(--accent); color: #04101f; font-size: 11px; font-weight: 700; display: none;
+    align-items: center; justify-content: center; }
+  .node.in-flow { border-color: var(--accent); opacity: 1; }
+  .node.in-flow .order { display: flex; }
+
+  /* tier accent dots */
+  .t-client .dot { background: var(--client); } .t-persist .dot { background: var(--persist); }
+  .t-edge .dot { background: var(--edge); } .t-ext .dot { background: var(--ext); }
+  .t-cicd .dot { background: var(--cicd); }
+
+  /* detail panel */
+  .panel-inner { padding: 20px; }
+  .empty { color: var(--muted); font-size: 14px; padding: 40px 24px; text-align: center; }
+  .p-kicker { font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--accent2); }
+  .p-title { font-size: 19px; margin: 4px 0 2px; }
+  .p-file { font-family: ui-monospace, monospace; font-size: 12px; color: var(--muted); margin-bottom: 14px; word-break: break-all; }
+  .p-summary { font-size: 14px; margin-bottom: 16px; }
+  .p-section { margin-bottom: 16px; }
+  .p-section h4 { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted);
+    margin: 0 0 7px; }
+  .p-section ul { margin: 0; padding-left: 18px; font-size: 13px; }
+  .p-section li { margin-bottom: 4px; }
+  .io { display: flex; gap: 10px; }
+  .io > div { flex: 1; background: var(--panel2); border: 1px solid var(--border); border-radius: 8px; padding: 9px 11px; }
+  .io .io-h { font-size: 10px; text-transform: uppercase; color: var(--muted); margin-bottom: 5px; }
+  .io .io-c { font-size: 12px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; }
+  .chip { font-size: 12px; padding: 4px 9px; border-radius: 7px; border: 1px solid var(--border);
+    background: var(--panel2); cursor: pointer; }
+  .chip:hover { border-color: var(--accent); }
+  .tech { display: flex; flex-wrap: wrap; gap: 5px; }
+  .tech span { font-size: 11px; padding: 2px 7px; border-radius: 5px; background: var(--panel2);
+    border: 1px solid var(--border); font-family: ui-monospace, monospace; color: var(--accent2); }
+
+  .rh-block { display: none; margin-top: 14px; border: 1px solid var(--rh); background: var(--rh-bg);
+    border-radius: 9px; padding: 12px 13px; }
+  body.rh .rh-block { display: block; }
+  .rh-block .rh-h { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--rh);
+    margin-bottom: 6px; font-weight: 700; }
+  .rh-block .rh-c { font-size: 13px; }
+
+  /* flow steps */
+  .steps { counter-reset: s; }
+  .step { display: flex; gap: 11px; padding: 9px 0; border-bottom: 1px solid var(--border); cursor: pointer; }
+  .step:hover { background: var(--panel2); }
+  .step .num { width: 22px; height: 22px; border-radius: 50%; background: var(--accent); color: #04101f;
+    font-size: 12px; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .step .stxt { font-size: 13px; }
+  .step .snode { font-size: 11px; color: var(--accent2); font-family: ui-monospace, monospace; }
+
+  /* concepts section */
+  .concepts { margin-top: 20px; border: 1px solid var(--rh); border-radius: 12px; overflow: hidden; display: none; }
+  body.rh .concepts { display: block; }
+  .concepts-head { padding: 11px 14px; background: var(--rh-bg); }
+  .concepts-head h2 { margin: 0; font-size: 14px; color: var(--rh); }
+  .concepts-head span { font-size: 12px; color: var(--muted); }
+  .concept { padding: 13px 14px; border-top: 1px solid var(--border); }
+  .concept h3 { margin: 0 0 8px; font-size: 14px; }
+  .concept .cc { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+  @media (max-width: 600px) { .concept .cc { grid-template-columns: 1fr; } }
+  .concept .cc > div { font-size: 12.5px; }
+  .concept .cc .h { font-size: 10px; text-transform: uppercase; letter-spacing: .07em; margin-bottom: 4px; }
+  .concept .cf .h { color: var(--client); } .concept .sc .h { color: var(--rh); }
+  .legend { font-size: 11px; color: var(--muted); margin-bottom: 14px; }
+  .legend b { color: var(--text); }
+  kbd { font-family: ui-monospace, monospace; font-size: 11px; background: var(--panel2);
+    border: 1px solid var(--border); border-radius: 4px; padding: 1px 5px; }
+</style>
+</head>
+<body>
+<header>
+  <h1>Clubfoot Club — System Architecture Explorer</h1>
+  <p>Click any node for detail. Pick a <b>data flow</b> to trace it across the system. Toggle <b style="color:var(--rh)">🏦 Robinhood scale</b> to see how each piece maps to distributed-systems interview topics.</p>
+</header>
+
+<div class="layout">
+  <div class="map">
+    <div class="legend">
+      <b>Tiers:</b>
+      <span style="color:var(--client)">● Client (browser)</span> &nbsp;
+      <span style="color:var(--persist)">● Client persistence</span> &nbsp;
+      <span style="color:var(--edge)">● Edge</span> &nbsp;
+      <span style="color:var(--ext)">● External services</span> &nbsp;
+      <span style="color:var(--cicd)">● Build &amp; deploy</span>
+    </div>
+    <div class="toolbar">
+      <span class="label">Trace a flow:</span>
+      <div id="flowbtns" style="display:flex;flex-wrap:wrap;gap:8px;"></div>
+      <button class="rhtoggle" id="rhtoggle">🏦 Robinhood scale: OFF</button>
+    </div>
+    <div id="tiers"></div>
+    <div class="concepts" id="concepts"></div>
+  </div>
+
+  <div class="panel">
+    <div class="panel-inner" id="panel">
+      <div class="empty">Select a node or a flow to begin.<br><br>
+      Tip: turn on <kbd>🏦 Robinhood scale</kbd> first — every panel then gains a gold box showing the distributed-systems analog, and a Concepts section appears below the map mapping the 7 interview topics.</div>
+    </div>
+  </div>
+</div>
+
+<script>
+/* ---------------- DATA MODEL ---------------- */
+const NODES = {
+  // CLIENT — Shell
+  main: { name: "main.jsx", icon: "⚛️", file: "src/main.jsx", tier: "client",
+    summary: "React 18 entry point. Mounts <App/> into #root inside React.StrictMode. No global providers — routing lives in App.",
+    resp: ["createRoot(#root).render(<StrictMode><App/></StrictMode>)"],
+    inp: "index.html #root div", out: "Rendered React tree", conn: ["app","indexhtml"],
+    tech: ["react-dom/client","StrictMode"],
+    rh: "The single mount point is the whole 'frontend deployment.' At RH, the web client is one of many clients (iOS, Android, web) all talking to the same backend APIs — the client is a thin, replaceable view layer over the real system of record." },
+  app: { name: "App.jsx", icon: "🧭", file: "src/App.jsx", tier: "client",
+    summary: "Defines HashRouter + 8 routes. Wraps routes in <ErrorBoundary key={pathname}> (BoundedRoutes) so a crash on one page resets when you navigate away.",
+    resp: ["HashRouter (works on GitHub Pages, no server rewrites)","8 routes → page components","Per-route ErrorBoundary reset via key={pathname}"],
+    inp: "URL hash (e.g. #/scan)", out: "Matched page component", conn: ["main","errboundary","layout","home","phasedetail","products","doctorfinder","support","scan","train","ponseti"],
+    tech: ["react-router-dom@6","HashRouter"],
+    rh: "Client-side routing = no server round-trip per view. The RH analog is an API gateway / BFF (backend-for-frontend) that routes requests to services. HashRouter's tradeoff (invisible to crawlers) mirrors real routing tradeoffs: latency vs. SEO vs. server load." },
+  layout: { name: "Layout.jsx", icon: "🖼️", file: "src/components/Layout.jsx", tier: "client",
+    summary: "App shell: centered max-w-lg column on bg-stone-50 with bottom padding to clear the fixed nav. Renders <BottomNav/>.",
+    resp: ["Mobile-first 512px column","Persistent chrome around page content"],
+    inp: "children (the page)", out: "Shell + nav", conn: ["bottomnav","app"],
+    tech: ["Tailwind"],
+    rh: "Shared chrome = a layout/shell service or design-system package shared across teams. At scale this is versioned and published so 50 teams render consistent headers/nav without copy-paste." },
+  bottomnav: { name: "BottomNav.jsx", icon: "📱", file: "src/components/BottomNav.jsx", tier: "client",
+    summary: "Fixed 5-tab bottom nav: Home, Products, Scan, Doctors, Support. Routes /phase/:id, /train, /method are reachable but not in the nav.",
+    resp: ["5 NavLinks with active styling (#2D3B6E)"],
+    inp: "current route", out: "nav UI", conn: ["layout"],
+    tech: ["NavLink"],
+    rh: "Navigation IA is a product concern; at scale, nav config is often data-driven/remote so it can change without a deploy (feature flags, entitlements per user)." },
+  errboundary: { name: "ErrorBoundary.jsx", icon: "🛡️", file: "src/components/ErrorBoundary.jsx", tier: "client",
+    summary: "Class component using getDerivedStateFromError. Catches render errors, shows a 'Try again' fallback. key={pathname} in App auto-resets it on navigation.",
+    resp: ["Catch render-time exceptions","Isolate failures to one page"],
+    inp: "child render errors", out: "fallback UI or children", conn: ["app"],
+    tech: ["getDerivedStateFromError"],
+    rh: "This is the fault-isolation primitive. Maps directly to the bulkhead and circuit-breaker patterns: contain a failure so one bad component/service doesn't take down the whole app. RH must do this per service with timeouts, retries, and fallbacks." },
+
+  // CLIENT — Pages
+  home: { name: "Home", icon: "🏠", file: "src/pages/Home.jsx", tier: "client",
+    summary: "Landing page. Renders the 4 phase tiles (from phases.js) and quick links to Method/Products/Doctors/Support.",
+    resp: ["Phase tiles → /phase/:id","Quick-link grid"], inp: "phases.js", out: "navigation", conn: ["phases","app"], tech: ["useNavigate"],
+    rh: "Read-only, cacheable landing content — push to a CDN edge and it never hits origin." },
+  phasedetail: { name: "PhaseDetail", icon: "📖", file: "src/pages/PhaseDetail.jsx", tier: "client",
+    summary: "Reads :phaseId param, looks up the phase, renders key facts, a product carousel, expandable tips, and resources.",
+    resp: ["Lookup phase by id","Resolve relatedProducts/featuredProductIds → products.js","Carousel + collapsible tips"],
+    inp: "phaseId, phases.js, products.js, phasePhotos.js", out: "phase page", conn: ["phases","products","phasephotos","app"], tech: ["useParams"],
+    rh: "Join across two datasets by id at render time = an application-level join. At scale you'd denormalize or use a read-optimized projection so the client doesn't N+1." },
+  products: { name: "Products", icon: "🛍️", file: "src/pages/Products.jsx", tier: "client",
+    summary: "Category-filtered product catalog. Sticky tab row + filtered list from products.js.",
+    resp: ["Filter by category","Render product cards"], inp: "products.js", out: "catalog", conn: ["products","productimage"], tech: ["useState filter"],
+    rh: "A catalog/search surface — the classic candidate for a dedicated search service (Elasticsearch) with faceted filtering, separate from the system of record." },
+  doctorfinder: { name: "DoctorFinder", icon: "📍", file: "src/pages/DoctorFinder.jsx", tier: "client",
+    summary: "Geo proximity search over 319 doctors. Geocodes a text query via Nominatim (or uses device geolocation), computes haversine distance, sorts, paginates 25/page.",
+    resp: ["geocodeQuery() → Nominatim","haversineMiles() great-circle distance","Sort by distance→featured→original","Client-side pagination (25/page)"],
+    inp: "doctors.js, user location", out: "ranked doctor list", conn: ["doctors","nominatim"], tech: ["haversine","navigator.geolocation"],
+    rh: "Geospatial search at scale = PostGIS / geohash / S2 cells + a spatial index, not a linear scan + sort on the client. Pagination becomes cursor-based to stay stable under writes." },
+  support: { name: "Support", icon: "💬", file: "src/pages/Support.jsx", tier: "client",
+    summary: "Static community page: parent quotes + external links (Facebook groups, Reddit, Ponseti Intl, Instagram).",
+    resp: ["Hardcoded quotes + outbound links"], inp: "none (inline)", out: "links", conn: [], tech: [],
+    rh: "Pure static content — fully CDN-cacheable, zero backend." },
+  scan: { name: "Scan", icon: "🔬", file: "src/pages/Scan.jsx", tier: "client",
+    summary: "The AI feature. A 5-state machine: setup → capture → analyzing → result → error. Orchestrates capture, vision call, result + feedback.",
+    resp: ["State machine for the scan UX","Resolve API key path on mount","Call analyzeImage(dataUrl, symptoms)","Render DiagnosisResult + FeedbackWidget"],
+    inp: "photo, symptoms text", out: "diagnosis JSON, feedback", conn: ["cameracapture","vision","diagnosisresult","feedbackwidget"], tech: ["useState machine"],
+    rh: "A client orchestrating a multi-step async job. At scale this becomes a job submitted to a queue, with status polling/streaming — the client shouldn't hold the request open for a long-running inference." },
+  train: { name: "Train (admin)", icon: "🏷️", file: "src/pages/Train.jsx", tier: "client",
+    summary: "Unguarded admin tool at /train. Label images by condition, bulk-import Facebook PDF exports, dedup, export JSON. Builds a training dataset locally.",
+    resp: ["Manual labeling UI (conditions grouped by domain)","PDF bulk import → pdfImport.js","Dedup + export + clear"],
+    inp: "images, PDFs, conditions.js", out: "feedback records", conn: ["conditions","feedback","pdfimport"], tech: ["IndexedDB","localStorage"],
+    rh: "This is a data-labeling pipeline feeding model training. At RH the analog is an internal labeling/annotation service with auth, audit, and a feature store — and it would never ship at a guessable public route." },
+  ponseti: { name: "PonsetiMethod", icon: "🦶", file: "src/pages/PonsetiMethod.jsx", tier: "client",
+    summary: "Static educational page explaining the 4-step Ponseti method and success stats.",
+    resp: ["Static educational content"], inp: "none (inline)", out: "content", conn: [], tech: [],
+    rh: "Static, cacheable; no backend dependency." },
+
+  // CLIENT — Components
+  cameracapture: { name: "CameraCapture", icon: "📷", file: "src/components/CameraCapture.jsx", tier: "client",
+    summary: "Captures a photo via file/camera input, reads it as a base64 data URL, resizes to ≤1200px @ JPEG 0.85 on a canvas, then calls onCapture(dataUrl).",
+    resp: ["readFileAsDataUrl()","resizeDataUrl() — canvas downscale","onCapture() → up to Scan"],
+    inp: "File from input", out: "resized base64 data URL", conn: ["scan"], tech: ["FileReader","canvas"],
+    rh: "Client-side preprocessing reduces payload before upload — same idea as resizing/transcoding at the edge to cut bandwidth and inference cost. At scale, uploads go to object storage (S3) via presigned URLs, not inline in the request body." },
+  diagnosisresult: { name: "DiagnosisResult", icon: "📋", file: "src/components/DiagnosisResult.jsx", tier: "client",
+    summary: "Renders the diagnosis JSON: looks up conditionMap[primaryCondition], picks urgency color, shows reasoning, action text, and a copyable care-team message.",
+    resp: ["conditionMap lookup","urgency → Tailwind style","copy-to-clipboard care message"],
+    inp: "diagnosis JSON, conditions.js", out: "rendered result", conn: ["conditions","scan"], tech: ["conditionMap"],
+    rh: "A presentation layer over a model response. The contract (JSON shape + valid condition ids) is the API schema — at scale this is versioned and validated so client and model can evolve independently." },
+  feedbackwidget: { name: "FeedbackWidget", icon: "👍", file: "src/components/FeedbackWidget.jsx", tier: "client",
+    summary: "Captures helpful / not-helpful. On not-helpful, shows a condition picker for a correction + note, then calls saveFeedback().",
+    resp: ["helpful/not_helpful capture","correction picker (non-meta conditions)","saveFeedback()"],
+    inp: "diagnosis, image, user input", out: "feedback record", conn: ["feedback","conditions","scan"], tech: [],
+    rh: "This is the human-in-the-loop signal that closes the ML feedback loop. At scale it streams to an event pipeline → feature store → retraining, with sampling and quality controls." },
+  productimage: { name: "ProductImage", icon: "🖼️", file: "src/components/ProductImage.jsx", tier: "client",
+    summary: "Renders a product image, or a hardcoded category emoji (👕🧦🦶…) as fallback when image is missing.",
+    resp: ["img with emoji fallback by category"], inp: "image url, category", out: "image/emoji", conn: ["products"], tech: [],
+    rh: "Graceful degradation on a missing asset — same instinct as serving a placeholder/last-known-good when an image service times out." },
+
+  // CLIENT — Services
+  vision: { name: "vision.js", icon: "🧠", file: "src/services/vision.js", tier: "client",
+    summary: "The brain of the scan. Resizes if >5MB, builds the Anthropic payload (claude-sonnet-4-6, 1024 tok, clinical system prompt), routes via Worker OR direct API, parses JSON out of the response (regex), falls back on parse failure.",
+    resp: ["buildPayload() — image + symptoms + system prompt","Dual routing: WORKER_URL vs stored key","parseResponse() — extract JSON, FALLBACK on failure","API key storage helpers (localStorage)"],
+    inp: "base64 image, symptoms, conditions.js (VALID_IDS)", out: "diagnosis JSON", conn: ["worker","anthropic","conditions","localstorage","scan"], tech: ["fetch","claude-sonnet-4-6"],
+    rh: "This is the client SDK for an inference service. At RH the analog is a typed gRPC/REST client to a model-serving layer; you'd add timeouts, retries with backoff, idempotency keys, structured outputs (not regex JSON), and circuit breaking." },
+  feedback: { name: "feedback.js", icon: "💾", file: "src/services/feedback.js", tier: "client",
+    summary: "Local persistence layer. SHA-256 hashes the image, stores the blob in IndexedDB (cf_images_v1) and a metadata record in localStorage (cf_feedback_v1). Provides save/getAll/count/export/dedup/clear + Facebook import.",
+    resp: ["hashImage() SHA-256 (content addressing)","saveImage() → IndexedDB","saveFeedback() metadata → localStorage","dedupRecords(), exportFeedbackAsJSON(), clearAllData()"],
+    inp: "image, diagnosis, feedback payload", out: "persisted records", conn: ["indexeddb","localstorage","train","feedbackwidget","pdfimport"], tech: ["IndexedDB","crypto.subtle","localStorage"],
+    rh: "Content-addressed storage by hash = exactly how object stores dedupe blobs. Splitting blob (IndexedDB) from metadata (localStorage) mirrors blob store (S3) + metadata DB (Postgres). At scale: durability, replication, backups — none of which exist here (device-local only)." },
+  pdfimport: { name: "pdfImport.js", icon: "📄", file: "src/services/pdfImport.js", tier: "client",
+    summary: "Batch ETL. Loads pdf.js from CDN, renders each page to a JPEG, asks Claude to extract clinical cases (condition, urgency, expert, notes), saves each as a feedback record with onProgress callbacks.",
+    resp: ["renderPage() PDF → JPEG","extractCases() → Claude vision","Loop pages → saveFeedback()","Progress reporting"],
+    inp: "PDF file, conditions.js", out: "feedback records", conn: ["anthropic","worker","feedback","pdfjs"], tech: ["pdf.js","fetch"],
+    rh: "A batch ingestion job. At scale this is an async pipeline: upload → queue → worker fleet → idempotent writes, with checkpointing/resume instead of a synchronous in-browser loop that dies if the tab closes." },
+
+  // CLIENT — Data (the in-memory 'database')
+  products: { name: "products.js", icon: "🗂️", file: "src/data/products.js", tier: "client",
+    summary: "32 product records. ids are load-bearing — referenced by phases.js relatedProducts/featuredProductIds. Fields: id, name, brand, category, price, image, url, phases.",
+    resp: ["Static product catalog (32 rows)","Stable numeric ids (never reused)"],
+    inp: "—", out: "product records", conn: ["phases","phasedetail","productimage"], tech: ["ES module export"],
+    rh: "A static array shipped in the bundle = read-only seed data baked into the binary. The 'ids are load-bearing, never reuse' rule is referential integrity enforced by convention; a real DB enforces it with foreign keys + constraints." },
+  phases: { name: "phases.js", icon: "🗂️", file: "src/data/phases.js", tier: "client",
+    summary: "4 phase records (prenatal, casting, boots-and-bar, long-term). Each holds key-point groups, tips, and references product ids via relatedProducts + featuredProductIds.",
+    resp: ["Phase content + tips","Foreign-key-style refs into products.js"],
+    inp: "—", out: "phase records", conn: ["products","home","phasedetail"], tech: ["ES module export"],
+    rh: "This is the parent table in a 1-to-many with products. A phantom product id silently disappears (.filter(Boolean)) — i.e. there's no referential-integrity check. At scale, a FK constraint or a CI data-integrity test catches this." },
+  conditions: { name: "conditions.js", icon: "🗂️", file: "src/data/conditions.js", tier: "client",
+    summary: "13 condition records across 4 domains (cast/brace/foot/meta). The id strings ARE the model's output vocabulary — injected into vision.js as VALID_IDS. Exports conditions[] + conditionMap.",
+    resp: ["Enum of diagnosable conditions","Drives system prompt VALID_IDS","conditionMap for O(1) lookup"],
+    inp: "—", out: "conditions + map", conn: ["vision","pdfimport","diagnosisresult","feedbackwidget","train"], tech: ["ES module export"],
+    rh: "A shared enum/schema used by both the producer (model prompt) and consumers (UI). A mismatch → model returns an unknown id → FALLBACK. This is a schema-contract problem; at scale it's solved with a shared schema registry and versioning." },
+  doctors: { name: "doctors.js", icon: "🗂️", file: "src/data/doctors.js", tier: "client",
+    summary: "319 provider records across 69 countries, each pre-geocoded (lat/lng). The moat dataset for DoctorFinder.",
+    resp: ["Provider directory with lat/lng","featured flag for pinning"],
+    inp: "—", out: "doctor records", conn: ["doctorfinder"], tech: ["ES module export"],
+    rh: "319 rows ship fine in a bundle; 3.19M wouldn't. This is the clearest 'move it to a database + API + spatial index' candidate — and the one most worth discussing in an interview as a scaling inflection point." },
+  faqs: { name: "faqs.js", icon: "🗂️", file: "src/data/faqs.js", tier: "client",
+    summary: "11 FAQ records tagged by phase. Present in the data layer (surfacing in phase pages is a proposed feature).",
+    resp: ["FAQ content tagged by phase"], inp: "—", out: "faq records", conn: [], tech: ["ES module export"],
+    rh: "Content that wants a CMS once non-engineers need to edit it without a deploy." },
+  phasephotos: { name: "phasePhotos.js", icon: "🗂️", file: "src/data/phasePhotos.js", tier: "client",
+    summary: "Maps each phaseId → a hero image path in public/. If the file is missing, PhaseDetail silently shows nothing.",
+    resp: ["phaseId → image path map"], inp: "—", out: "image paths", conn: ["phasedetail"], tech: ["ES module export"],
+    rh: "A pointer table to assets in object storage. Missing-asset = a dangling reference; at scale you'd validate asset existence in CI or serve a placeholder." },
+
+  // PERSISTENCE
+  localstorage: { name: "localStorage", icon: "🔑", file: "browser API", tier: "persist",
+    summary: "Two keys: cf_anthropic_key (the user's Anthropic key, plaintext) and cf_feedback_v1 (JSON array of feedback metadata records).",
+    resp: ["Store API key (direct-mode)","Store feedback metadata array"],
+    inp: "key, feedback records", out: "persisted strings", conn: ["vision","feedback"], tech: ["Web Storage"],
+    rh: "Synchronous, ~5MB, single-device, plaintext, no durability. The API-key-in-localStorage is the security teaching moment: secrets belong server-side (the Worker), behind auth — never in a client store readable by any XSS." },
+  indexeddb: { name: "IndexedDB", icon: "🗄️", file: "browser API", tier: "persist",
+    summary: "DB cf_images_v1, object store 'images'. Key = SHA-256(image)[:16], value = full base64 data URL. The blob store for training images.",
+    resp: ["Content-addressed image blobs","Async transactional store"],
+    inp: "hash → base64", out: "stored blobs", conn: ["feedback"], tech: ["IndexedDB"],
+    rh: "Async, larger, transactional — the client-side analog of a blob store. Still single-device with no replication/backup. At RH, durability + encryption-at-rest + lifecycle policies are table stakes." },
+
+  // EDGE
+  worker: { name: "Cloudflare Worker", icon: "🛰️", file: "worker/index.js (clubfoot-proxy)", tier: "edge",
+    summary: "Thin CORS proxy. Accepts POST only from clubfoot-club.com, injects ANTHROPIC_API_KEY (a Cloudflare secret), forwards the body unchanged to api.anthropic.com, returns the response. No logging, no transform.",
+    resp: ["CORS allowlist (origin, POST/OPTIONS)","Inject server-side API key","Transparent passthrough to Anthropic"],
+    inp: "payload from vision.js/pdfImport.js", out: "Anthropic response", conn: ["vision","pdfimport","anthropic"], tech: ["Cloudflare Workers","env secret"],
+    rh: "This is an API gateway / reverse proxy in miniature — and the secrets-management boundary. At scale it'd also do authn/authz, rate limiting, request signing, quota enforcement, and observability. It's the right place to add everything the direct-key path lacks." },
+
+  // EXTERNAL
+  anthropic: { name: "Anthropic API", icon: "✨", file: "api.anthropic.com/v1/messages", tier: "ext",
+    summary: "claude-sonnet-4-6 vision endpoint. Receives image + clinical system prompt, returns the structured assessment as text (parsed to JSON client-side).",
+    resp: ["Vision inference","Returns assessment text"],
+    inp: "messages payload", out: "model response", conn: ["worker","vision","pdfimport"], tech: ["claude-sonnet-4-6"],
+    rh: "A third-party, rate-limited, paid, latency-variable dependency = the textbook case for queues (smooth spikes), timeouts + retries with backoff + jitter, circuit breakers, caching, and graceful fallback. Cost-per-call also drives the monetization conversation." },
+  nominatim: { name: "Nominatim (OSM)", icon: "🌍", file: "nominatim.openstreetmap.org/search", tier: "ext",
+    summary: "Free OpenStreetMap geocoder. DoctorFinder turns a text query into lat/lng (limit=1). Returns lat/lon + display_name.",
+    resp: ["Forward geocoding (text → coords)"],
+    inp: "query string", out: "lat/lng + label", conn: ["doctorfinder"], tech: ["REST"],
+    rh: "A free external dependency with usage policies and no SLA. At scale: self-host or pay for a geocoder, cache aggressively (geocodes rarely change), and rate-limit to respect the provider." },
+  pdfjs: { name: "pdf.js (CDN)", icon: "📦", file: "cdnjs … pdf.js 3.11.174", tier: "ext",
+    summary: "Mozilla PDF renderer loaded at runtime from cdnjs. Used by pdfImport.js to rasterize PDF pages to images.",
+    resp: ["Render PDF pages to canvas"], inp: "PDF bytes", out: "page images", conn: ["pdfimport"], tech: ["pdf.js"],
+    rh: "Runtime dependency on a third-party CDN = a supply-chain + availability risk. At scale you'd self-host, pin + integrity-check (SRI), and vendor critical libs." },
+  fonts: { name: "Google Fonts", icon: "🔤", file: "fonts.googleapis.com", tier: "ext",
+    summary: "Pacifico (logo) + Nunito italic (tagline) loaded from Google Fonts in index.html.",
+    resp: ["Web font delivery"], inp: "—", out: "fonts", conn: ["indexhtml"], tech: ["CSS @font-face"],
+    rh: "Third-party render-blocking dependency; at scale self-host fonts to remove the external hop and the privacy/availability coupling." },
+
+  // BUILD / DEPLOY
+  repo: { name: "GitHub repo", icon: "🐙", file: "akorch16/clubfoot", tier: "cicd",
+    summary: "Source of truth. main is protected-ish by the build-check; feature branches → PR → squash-merge to main.",
+    resp: ["Version control","Trigger for CI/CD"], inp: "commits/PRs", out: "events", conn: ["buildcheck","deploy"], tech: ["git"],
+    rh: "Trunk + CI gating. At scale add required reviews, status checks, signed commits, and progressive delivery (canary/blue-green) instead of deploy-on-merge-to-main." },
+  buildcheck: { name: "build-check.yml", icon: "✅", file: ".github/workflows/build-check.yml", tier: "cicd",
+    summary: "CI gate on PRs to main: npm ci && npm run build. A broken build can't merge.",
+    resp: ["Build verification on PR"], inp: "PR", out: "pass/fail check", conn: ["repo"], tech: ["GitHub Actions"],
+    rh: "The first quality gate. At scale: unit/integration/e2e tests, lint, type-check, security scan, and a data-integrity check (e.g. validate product-id refs) — all blocking." },
+  deploy: { name: "deploy.yml", icon: "🚀", file: ".github/workflows/deploy.yml", tier: "cicd",
+    summary: "On push to main: npm ci → vite build (with VITE_WORKER_URL secret) → publish dist/ to gh-pages via peaceiris. ~2–3 min to prod.",
+    resp: ["Build with injected secret","Publish dist/ → gh-pages"], inp: "main commit", out: "gh-pages build", conn: ["repo","ghpages"], tech: ["GitHub Actions","peaceiris"],
+    rh: "Deploy-on-merge with no canary = all-or-nothing releases. At scale: artifact build once, promote through environments, canary a %, auto-rollback on SLO regression." },
+  ghpages: { name: "GitHub Pages CDN", icon: "🌐", file: "gh-pages → clubfoot-club.com", tier: "cicd",
+    summary: "Static hosting + CDN serving the built SPA at the custom domain (CNAME).",
+    resp: ["Serve static assets globally"], inp: "dist/", out: "live site", conn: ["deploy","indexhtml"], tech: ["CDN","CNAME"],
+    rh: "Edge static hosting. The SPA is fully client-rendered, so 'the backend' is just a CDN + the Worker + Anthropic. At RH, the edge fronts real origin services with caching, WAF, and DDoS protection." },
+  indexhtml: { name: "index.html", icon: "📃", file: "index.html", tier: "cicd",
+    summary: "The single HTML document. #root mount, OG/Twitter meta for link previews, font preconnects, favicon. The whole SPA boots from here.",
+    resp: ["Mount point + meta + asset links"], inp: "—", out: "boot document", conn: ["main","ghpages","fonts"], tech: ["HTML"],
+    rh: "One document for all routes (SPA). The SEO/crawlability limits of client rendering are why real consumer apps reach for SSR/edge-rendering — a genuine architecture tradeoff to raise in an interview." },
+};
+
+const TIERS = [
+  { id: "client", name: "Client Tier — React SPA (runs entirely in the browser)", cls: "t-client",
+    note: "8 routes · 4 components · 3 services · 6 static data modules",
+    groups: [
+      { name: "App shell & routing", ids: ["main","app","layout","bottomnav","errboundary"] },
+      { name: "Pages (routes)", ids: ["home","phasedetail","products","doctorfinder","support","scan","train","ponseti"] },
+      { name: "Components", ids: ["cameracapture","diagnosisresult","feedbackwidget","productimage"] },
+      { name: "Services (logic / IO)", ids: ["vision","feedback","pdfimport"] },
+      { name: "Static data modules — the 'in-memory database'", ids: ["products","phases","conditions","doctors","faqs","phasephotos"] },
+    ]},
+  { id: "persist", name: "Client-side persistence (device-local, no server)", cls: "t-persist",
+    note: "localStorage + IndexedDB — single device, no backup/replication",
+    groups: [ { name: "Browser storage", ids: ["localstorage","indexeddb"] } ]},
+  { id: "edge", name: "Edge tier", cls: "t-edge",
+    note: "One thin proxy that holds the only server-side secret",
+    groups: [ { name: "Cloudflare Worker", ids: ["worker"] } ]},
+  { id: "ext", name: "External services", cls: "t-ext",
+    note: "Third-party dependencies — the parts you don't control",
+    groups: [ { name: "APIs & CDNs", ids: ["anthropic","nominatim","pdfjs","fonts"] } ]},
+  { id: "cicd", name: "Build & deploy (CI/CD)", cls: "t-cicd",
+    note: "GitHub → Actions → gh-pages CDN, ~2–3 min push-to-prod",
+    groups: [ { name: "Pipeline", ids: ["repo","buildcheck","deploy","ghpages","indexhtml"] } ]},
+];
+
+const FLOWS = [
+  { id: "scan", name: "🔬 AI Scan", blurb: "Photo → diagnosis → feedback → storage. The core differentiator and the only request/response path with real backend behavior.",
+    rh: "This synchronous, client-held inference call is the #1 thing to redesign for scale: submit a job to a queue, return a job id, stream/poll status, write results idempotently. Add timeouts, retries+backoff, a circuit breaker around Anthropic, and structured outputs instead of regex JSON parsing.",
+    steps: [
+      { node: "scan", t: "User opens Scan; mount resolves the API path (shared Worker key vs. stored key)." },
+      { node: "cameracapture", t: "Photo captured → read as base64 → canvas-resized to ≤1200px JPEG → onCapture(dataUrl)." },
+      { node: "scan", t: "handleCapture sets state to 'analyzing' and calls analyzeImage(dataUrl, symptoms)." },
+      { node: "vision", t: "resizeIfNeeded (>5MB) → buildPayload (image + symptoms + clinical system prompt, claude-sonnet-4-6)." },
+      { node: "conditions", t: "VALID_IDS (the 13 condition ids) are injected into the system prompt to constrain output." },
+      { node: "worker", t: "If VITE_WORKER_URL set: POST to the Worker, which injects the secret API key (browser never sees it)." },
+      { node: "anthropic", t: "claude-sonnet-4-6 runs vision inference and returns the assessment as text." },
+      { node: "vision", t: "parseResponse extracts the JSON object (regex); on failure returns FALLBACK (image_unclear)." },
+      { node: "diagnosisresult", t: "conditionMap[primaryCondition] → label + urgency color + action text + copyable care-team message." },
+      { node: "feedbackwidget", t: "User marks helpful / not-helpful (+ correction). Calls saveFeedback()." },
+      { node: "feedback", t: "SHA-256 hash the image → blob to IndexedDB, metadata record to localStorage." },
+      { node: "indexeddb", t: "Image blob persisted, content-addressed by hash." },
+      { node: "localstorage", t: "Feedback metadata appended to cf_feedback_v1." },
+    ]},
+  { id: "train", name: "🏷️ Training loop", blurb: "How human feedback + PDF imports become an exportable training dataset.",
+    rh: "A data-labeling pipeline feeding model improvement. At scale: authenticated labeling service, event stream → feature store → scheduled retraining, with dataset versioning and audit. The in-browser PDF loop becomes an async, checkpointed batch job.",
+    steps: [
+      { node: "train", t: "Admin labels an image by condition, or bulk-imports a Facebook PDF export." },
+      { node: "pdfimport", t: "PDF imports: pdf.js rasterizes each page → Claude extracts cases (condition, urgency, expert, notes)." },
+      { node: "anthropic", t: "Vision call per page extracts structured training cases." },
+      { node: "feedback", t: "Each case → saveFeedback (correction + trustedContributor + source='facebook_import')." },
+      { node: "indexeddb", t: "Page/image blobs stored by hash." },
+      { node: "localstorage", t: "Metadata records appended; dedupRecords merges by image hash." },
+      { node: "train", t: "Admin reviews count, dedups, and exports a JSON dataset (records enriched with image data)." },
+    ]},
+  { id: "config", name: "🔑 API key resolution", blurb: "How the scan decides between the shared Worker key and a user-supplied key — the security boundary.",
+    rh: "The direct-key path is the security anti-pattern to call out: a secret in client storage, sent from the browser. The Worker path is correct (secret stays server-side). At scale, all model access is behind authenticated, rate-limited, quota-enforced gateways — never a client-held provider key.",
+    steps: [
+      { node: "deploy", t: "Build injects VITE_WORKER_URL (a GitHub secret) into the bundle." },
+      { node: "vision", t: "WORKER_URL present → hasSharedKey=true → Scan skips setup and uses the Worker." },
+      { node: "worker", t: "Worker holds ANTHROPIC_API_KEY as a Cloudflare secret; browser never sees it." },
+      { node: "localstorage", t: "No Worker URL → fall back to user's cf_anthropic_key (plaintext, client-side) → direct browser→Anthropic call." },
+      { node: "anthropic", t: "Either path reaches the same endpoint; only the secret's location differs." },
+    ]},
+  { id: "content", name: "🔗 Content cross-refs", blurb: "The id-based 'joins' between static data modules — referential integrity by convention.",
+    rh: "Application-level joins by id with no enforced integrity (a phantom id silently vanishes via .filter(Boolean)). At scale: foreign keys + constraints in a real DB, or a CI data-integrity test. The condition-id vocabulary shared between prompt and UI is a schema-contract problem (schema registry + versioning).",
+    steps: [
+      { node: "phases", t: "phases.js tips reference product ids via relatedProducts + featuredProductIds." },
+      { node: "products", t: "PhaseDetail resolves those ids against products.js at render time (an in-memory join)." },
+      { node: "conditions", t: "conditions.js ids become VALID_IDS in the vision system prompt (producer side)." },
+      { node: "vision", t: "Model is constrained to return one of those ids." },
+      { node: "diagnosisresult", t: "conditionMap[id] resolves the returned id back to a label (consumer side). Mismatch → FALLBACK." },
+    ]},
+  { id: "doctor", name: "📍 Doctor finder", blurb: "Geo proximity search — a linear scan + sort that's a clean scaling case study.",
+    rh: "319 rows scan fine on-device; millions don't. The scaled design: providers in a DB with a spatial index (PostGIS / geohash / S2), a geocoding service with heavy caching, cursor-based pagination, and the search behind an API — not shipped in the JS bundle.",
+    steps: [
+      { node: "doctorfinder", t: "User types a location (or taps 'use my location')." },
+      { node: "nominatim", t: "Text query → Nominatim geocoder → lat/lng (device geolocation skips this)." },
+      { node: "doctors", t: "haversineMiles() computes great-circle distance to all 319 pre-geocoded providers." },
+      { node: "doctorfinder", t: "Sort by distance → featured → original order; paginate 25/page; render cards." },
+    ]},
+  { id: "deploy", name: "🚀 Build & deploy", blurb: "From git push to live on clubfoot-club.com.",
+    rh: "Deploy-on-merge with no canary or rollback is the risk. At scale: build an immutable artifact once, promote through envs, canary a small %, watch SLOs, auto-rollback on regression. The build-check is the seed of a real test gate.",
+    steps: [
+      { node: "repo", t: "Feature branch → PR. build-check.yml runs npm ci && build as a merge gate." },
+      { node: "buildcheck", t: "Green build required; a broken build can't reach main." },
+      { node: "deploy", t: "Squash-merge to main → deploy.yml: npm ci → vite build (VITE_WORKER_URL secret)." },
+      { node: "ghpages", t: "dist/ published to gh-pages; served via CDN at clubfoot-club.com (~2–3 min)." },
+      { node: "indexhtml", t: "Visitors load index.html → main.jsx boots the SPA." },
+    ]},
+];
+
+const CONCEPTS = [
+  { topic: "Data modeling", icon: "🗂️",
+    cf: "6 static JS arrays shipped in the bundle (products 32, doctors 319, conditions 13, phases 4…). Relationships are id refs across modules with integrity by convention ('never reuse ids'). A phantom id silently vanishes via .filter(Boolean).",
+    sc: "Normalize into tables/collections with primary + foreign keys and enforced constraints. Pick per-entity stores: a relational system of record for accounts/positions, a search index for catalog, a spatial index for geo. Add migrations + a schema registry for the shared condition-id vocabulary." },
+  { topic: "Service architecture", icon: "🧩",
+    cf: "A monolithic client-rendered SPA + one thin edge proxy. 'Services' are just JS modules (vision/feedback/pdfImport). No backend services, no system of record.",
+    sc: "Decompose by bounded context: account service, ledger/positions, market data, documents, notifications. Each owns its data. A BFF/gateway fronts them for the client. Right-size — not every module becomes a microservice; split on team + scaling boundaries." },
+  { topic: "Inter-service communication", icon: "🔌",
+    cf: "Browser fetch() to the Worker (sync) and to Nominatim. The Worker is a transparent passthrough — no auth, no contract validation. Client and model couple via an unversioned JSON shape parsed by regex.",
+    sc: "Typed contracts (gRPC/REST + schema). Sync for read paths, async (events) for writes and long jobs. Versioned schemas, validation at the boundary, idempotency keys, and structured outputs instead of regex parsing. Gateway does authn/z + rate limiting." },
+  { topic: "Databases & storage", icon: "🗄️",
+    cf: "localStorage (≤5MB, sync, plaintext) for the API key + feedback metadata; IndexedDB (async, content-addressed by SHA-256) for image blobs. All single-device, no replication, no backup, no encryption at rest.",
+    sc: "Blob store (S3) for images + metadata DB (Postgres) — exactly the split feedback.js foreshadows. Add replication, PITR backups, encryption at rest, and read replicas. For money: a double-entry ledger with ACID guarantees, not a JSON array." },
+  { topic: "Queues & async", icon: "📨",
+    cf: "None. The scan holds a synchronous request open during inference; the PDF import is a synchronous in-browser loop that dies if the tab closes.",
+    sc: "Submit inference/import as jobs to a queue (SQS/Kafka). Worker fleet consumes, writes results idempotently, emits events. Client gets a job id and polls/streams status. Queues absorb spikes, decouple producers/consumers, and enable retries + DLQs." },
+  { topic: "Concurrency & correctness", icon: "🔒",
+    cf: "Single user, single device — concurrency is trivially avoided. Dedup is a client-side merge by image hash. No notion of conflicting writes or exactly-once.",
+    sc: "Multi-writer correctness: optimistic concurrency (version columns), idempotency keys so a retried request doesn't double-apply, and for retirement accounts a transactional, append-only ledger with exactly-once semantics + reconciliation. This is where a money platform lives or dies." },
+  { topic: "Fault tolerance", icon: "🛡️",
+    cf: "ErrorBoundary isolates a page crash; vision.js returns a FALLBACK on parse failure; resizeIfNeeded has an onerror fallback. But a slow/failing Anthropic call has no timeout, retry, or circuit breaker, and storage has no durability.",
+    sc: "Timeouts + retries with exponential backoff + jitter, circuit breakers around third parties, bulkheads to isolate failures, graceful degradation (last-known-good), multi-AZ/region redundancy, and health checks. The ErrorBoundary instinct, applied at every service boundary." },
+  { topic: "Caching & CDN", icon: "⚡",
+    cf: "GitHub Pages CDN serves static assets globally. Geocodes and inference results are not cached — every scan and every search hits the third party.",
+    sc: "Multi-layer caching: CDN for static + cacheable reads, Redis for hot data (sessions, geocodes, market quotes), app-level memoization. Cache invalidation strategy per data volatility. Geocodes rarely change → cache hard; quotes change constantly → short TTL." },
+  { topic: "Security & secrets", icon: "🔐",
+    cf: "Two paths: the Worker holds ANTHROPIC_API_KEY as a server-side secret (good); the fallback stores the user's key in localStorage and sends it from the browser (bad — readable by any XSS). /train ships unguarded at a public route.",
+    sc: "All secrets server-side in a secrets manager; never in client storage. AuthN/Z on every request (OAuth/OIDC, short-lived tokens), least privilege, audit logs, PII encryption, and admin tooling behind real auth. For a financial platform: regulatory controls, immutable audit trail, and segregation of duties." },
+];
+
+/* ---------------- RENDER ---------------- */
+const $ = (s, r=document) => r.querySelector(s);
+let selectedNode = null, activeFlow = null;
+
+function renderTiers() {
+  const wrap = $("#tiers");
+  wrap.innerHTML = TIERS.map(tier => `
+    <div class="tier ${tier.cls}">
+      <div class="tier-head"><span class="dot"></span><h2>${tier.name}</h2><span>${tier.note}</span></div>
+      <div class="tier-body">
+        ${tier.groups.map(g => `
+          <div class="group">
+            <div class="group-name">${g.name}</div>
+            <div class="nodes">
+              ${g.ids.map(id => {
+                const n = NODES[id];
+                return `<div class="node" data-id="${id}">
+                  <span class="order"></span>
+                  <span class="ic">${n.icon}</span>
+                  <span class="nm">${n.name}</span>
+                </div>`;
+              }).join("")}
+            </div>
+          </div>`).join("")}
+      </div>
+    </div>`).join("");
+  wrap.querySelectorAll(".node").forEach(el =>
+    el.addEventListener("click", () => selectNode(el.dataset.id)));
+}
+
+function renderFlowBtns() {
+  $("#flowbtns").innerHTML = FLOWS.map(f =>
+    `<button class="flowbtn" data-flow="${f.id}">${f.name}</button>`).join("");
+  $("#flowbtns").querySelectorAll(".flowbtn").forEach(el =>
+    el.addEventListener("click", () => selectFlow(el.dataset.flow)));
+}
+
+function renderConcepts() {
+  $("#concepts").innerHTML = `
+    <div class="concepts-head">
+      <h2>🏦 Distributed-systems concepts — mapped to this codebase</h2>
+      <span>The 7+ topics the Robinhood round targets. Left = what Clubfoot does today; right = how you'd scale it.</span>
+    </div>
+    ${CONCEPTS.map(c => `
+      <div class="concept">
+        <h3>${c.icon} ${c.topic}</h3>
+        <div class="cc">
+          <div class="cf"><div class="h">In Clubfoot today</div>${c.cf}</div>
+          <div class="sc"><div class="h">At Robinhood scale</div>${c.sc}</div>
+        </div>
+      </div>`).join("")}`;
+}
+
+function clearFlowHighlight() {
+  document.querySelectorAll(".node").forEach(el => {
+    el.classList.remove("in-flow","dim");
+    el.querySelector(".order").textContent = "";
+  });
+}
+
+function selectNode(id) {
+  selectedNode = id; activeFlow = null;
+  $("#flowbtns").querySelectorAll(".flowbtn").forEach(b => b.classList.remove("active"));
+  clearFlowHighlight();
+  document.querySelectorAll(".node").forEach(el =>
+    el.classList.toggle("selected", el.dataset.id === id));
+  const n = NODES[id];
+  const connChips = (n.conn||[]).map(c =>
+    `<span class="chip" data-jump="${c}">${NODES[c]?.icon||""} ${NODES[c]?.name||c}</span>`).join("");
+  $("#panel").innerHTML = `
+    <div class="p-kicker">${TIERS.find(t=>t.id===n.tier).name.split("—")[0].trim()}</div>
+    <div class="p-title">${n.icon} ${n.name}</div>
+    <div class="p-file">${n.file}</div>
+    <div class="p-summary">${n.summary}</div>
+    <div class="p-section"><h4>Responsibilities</h4><ul>${n.resp.map(r=>`<li>${r}</li>`).join("")}</ul></div>
+    <div class="p-section"><h4>Data flow</h4>
+      <div class="io">
+        <div><div class="io-h">In ⟶</div><div class="io-c">${n.inp}</div></div>
+        <div><div class="io-h">⟶ Out</div><div class="io-c">${n.out}</div></div>
+      </div>
+    </div>
+    ${connChips ? `<div class="p-section"><h4>Connects to</h4><div class="chips">${connChips}</div></div>`:""}
+    ${(n.tech&&n.tech.length)?`<div class="p-section"><h4>Tech</h4><div class="tech">${n.tech.map(t=>`<span>${t}</span>`).join("")}</div></div>`:""}
+    <div class="rh-block"><div class="rh-h">🏦 At Robinhood scale</div><div class="rh-c">${n.rh}</div></div>`;
+  $("#panel").querySelectorAll(".chip[data-jump]").forEach(el =>
+    el.addEventListener("click", () => selectNode(el.dataset.jump)));
+  $(".panel").scrollTop = 0;
+}
+
+function selectFlow(id) {
+  activeFlow = id; selectedNode = null;
+  $("#flowbtns").querySelectorAll(".flowbtn").forEach(b => b.classList.toggle("active", b.dataset.flow===id));
+  document.querySelectorAll(".node").forEach(el => el.classList.remove("selected"));
+  clearFlowHighlight();
+  const f = FLOWS.find(x => x.id===id);
+  // highlight nodes in order
+  const seen = {};
+  f.steps.forEach((s, i) => {
+    const el = document.querySelector(`.node[data-id="${s.node}"]`);
+    if (el && !el.classList.contains("in-flow")) {
+      el.classList.add("in-flow");
+      el.querySelector(".order").textContent = (i+1);
+    }
+  });
+  document.querySelectorAll(".node:not(.in-flow)").forEach(el => el.classList.add("dim"));
+  $("#panel").innerHTML = `
+    <div class="p-kicker">Data flow</div>
+    <div class="p-title">${f.name}</div>
+    <div class="p-summary">${f.blurb}</div>
+    <div class="p-section"><h4>Step-by-step</h4>
+      <div class="steps">
+        ${f.steps.map((s,i)=>`<div class="step" data-jump="${s.node}">
+          <div class="num">${i+1}</div>
+          <div><div class="stxt">${s.t}</div><div class="snode">${NODES[s.node].icon} ${NODES[s.node].name}</div></div>
+        </div>`).join("")}
+      </div>
+    </div>
+    <div class="rh-block"><div class="rh-h">🏦 Scaling this flow at Robinhood</div><div class="rh-c">${f.rh}</div></div>`;
+  $("#panel").querySelectorAll(".step[data-jump]").forEach(el =>
+    el.addEventListener("mouseenter", () => {
+      document.querySelectorAll(".node").forEach(nn => nn.style.outline = "");
+      const t = document.querySelector(`.node[data-id="${el.dataset.jump}"]`);
+      if (t) t.style.outline = "2px solid var(--accent)";
+    }));
+  $(".panel").scrollTop = 0;
+}
+
+$("#rhtoggle").addEventListener("click", () => {
+  document.body.classList.toggle("rh");
+  const on = document.body.classList.contains("rh");
+  $("#rhtoggle").classList.toggle("on", on);
+  $("#rhtoggle").textContent = `🏦 Robinhood scale: ${on ? "ON" : "OFF"}`;
+});
+
+renderTiers(); renderFlowBtns(); renderConcepts();
+</script>
+</body>
+</html>
