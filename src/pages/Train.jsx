@@ -36,8 +36,11 @@ export default function Train() {
     reader.readAsDataURL(file);
   }
 
+  const needsNote = selectedCondition === "other_unlabeled";
+
   async function handleSave() {
     if (!imageDataUrl || !selectedCondition) return;
+    if (needsNote && !note.trim()) return;
     await saveFeedback(imageDataUrl, null, {
       feedback: null,
       correction: selectedCondition,
@@ -274,14 +277,25 @@ export default function Train() {
         {/* Notes */}
         <div className="space-y-2">
           <label className="block text-sm font-semibold text-slate-700">
-            3. Notes <span className="font-normal text-slate-400">(optional)</span>
+            3. Notes{" "}
+            {needsNote
+              ? <span className="font-normal text-red-500">required — describe what you see</span>
+              : <span className="font-normal text-slate-400">(optional)</span>
+            }
           </label>
           <textarea
             value={note}
             onChange={(e) => setNote(e.target.value.slice(0, 2000))}
-            placeholder="e.g. Expert in comments confirmed heel not seated — parent had put sock on wrong way"
+            placeholder={needsNote
+              ? "Describe what you see — this is how it gets reviewed and promoted to a real category"
+              : "e.g. Expert in comments confirmed heel not seated — parent had put sock on wrong way"
+            }
             rows={5}
-            className="w-full px-3 py-2.5 rounded-xl border border-slate-200 text-sm bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-violet-300 resize-none"
+            className={`w-full px-3 py-2.5 rounded-xl border text-sm bg-white text-slate-800 focus:outline-none focus:ring-2 resize-none ${
+              needsNote && !note.trim()
+                ? "border-red-300 focus:ring-red-300"
+                : "border-slate-200 focus:ring-violet-300"
+            }`}
           />
           <p className="text-xs text-slate-400 text-right">{note.length}/2000</p>
         </div>
@@ -306,7 +320,7 @@ export default function Train() {
         {/* Save */}
         <button
           onClick={handleSave}
-          disabled={!imageDataUrl || !selectedCondition}
+          disabled={!imageDataUrl || !selectedCondition || (needsNote && !note.trim())}
           className="w-full py-3.5 rounded-2xl bg-violet-500 text-white font-semibold text-sm disabled:opacity-40 active:scale-95 transition-transform"
         >
           Save training example

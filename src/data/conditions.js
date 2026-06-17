@@ -123,6 +123,15 @@ export const conditions = [
     actionText: "Take a photo that clearly shows the foot, cast, or brace you want assessed.",
     description: "The photo doesn't appear to show a foot, cast, or brace. Point the camera directly at the area you want assessed.",
   },
+  {
+    id: "other_unlabeled",
+    domain: "meta",
+    label: "Other / doesn't fit a category",
+    urgency: "meta",
+    color: "slate",
+    actionText: null,
+    description: "Image doesn't fit an existing condition. Describe what you see in the notes for later review.",
+  },
 ];
 
 // Index by id for fast lookup in components
