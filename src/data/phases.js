@@ -69,6 +69,10 @@ export const phases = [
       },
     ],
     resources: [],
+    encouragement: {
+      headline: "If you just got a diagnosis — take a breath.",
+      body: "This is one of the most treatable conditions in pediatric orthopedics. The Ponseti method works in over 95% of cases, and children go on to run, play sports, and live without limitations. Thousands of families have walked this road before you — and they're here to help at every hour of the night.",
+    },
     videos: [
       {
         title: "What is clubfoot? Prenatal diagnosis explained",
@@ -154,6 +158,10 @@ export const phases = [
       },
     ],
     resources: [],
+    encouragement: {
+      headline: "Each cast is a week of progress — you'll see it.",
+      body: "The Ponseti technique makes small, precise corrections every appointment. Most babies need 5–8 casts, and the change is visible week to week. By the last cast, you'll look back at week-one photos and barely recognize that foot.",
+    },
     videos: [
       {
         title: "Ponseti casting — what to expect at each appointment",
@@ -243,6 +251,10 @@ export const phases = [
       },
     ],
     resources: [],
+    encouragement: {
+      headline: "The brace phase is hard. It's also where everything is protected.",
+      body: "Full-time bracing is the part most families find toughest — the sleepless nights and adjustments are real. But this phase is what locks in everything casting built. Families who see it through watch their children run, jump, and never think about their foot again.",
+    },
     videos: [
       {
         title: "How to apply the Mitchell Ponseti boots and bar",
@@ -326,6 +338,10 @@ export const phases = [
       },
     ],
     resources: [],
+    encouragement: {
+      headline: "The hardest part is behind you.",
+      body: "Casting, tenotomy, full-time bracing — you navigated all of it. The long-term phase is a gradual handoff toward normal childhood, with part-time bracing and periodic check-ins to protect the correction. The vast majority of Ponseti-treated children live without limitations as adults.",
+    },
     productCategories: ["shoes", "orthotics"],
   },
 ];

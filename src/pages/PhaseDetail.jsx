@@ -24,6 +24,20 @@ const phaseColors = {
   "long-term":     "bg-emerald-500",
 };
 
+const encouragementStyle = {
+  prenatal:        "bg-violet-50 border-violet-100",
+  casting:         "bg-sky-50 border-sky-100",
+  "boots-and-bar": "bg-teal-50 border-teal-100",
+  "long-term":     "bg-emerald-50 border-emerald-100",
+};
+
+const encouragementHeadline = {
+  prenatal:        "text-violet-800",
+  casting:         "text-sky-800",
+  "boots-and-bar": "text-teal-800",
+  "long-term":     "text-emerald-800",
+};
+
 function TipCard({ tip, allProducts }) {
   const [open, setOpen] = useState(false);
   const linked = (tip.relatedProducts || [])
@@ -130,6 +144,16 @@ export default function PhaseDetail() {
         </div>
       </div>
 
+      {/* Encouraging note — appears before the photo */}
+      {phase.encouragement && (
+        <div className={`px-5 py-4 border-b ${encouragementStyle[phase.id] ?? "bg-slate-50 border-slate-100"}`}>
+          <p className={`font-semibold text-sm mb-1 ${encouragementHeadline[phase.id] ?? "text-slate-800"}`}>
+            {phase.encouragement.headline}
+          </p>
+          <p className="text-slate-700 text-sm leading-relaxed">{phase.encouragement.body}</p>
+        </div>
+      )}
+
       {/* Hero photo */}
       {photo && !photoError && (
         <div className="w-full bg-slate-200">
@@ -143,15 +167,6 @@ export default function PhaseDetail() {
       )}
 
       <div className="px-4 pt-5 pb-10 space-y-5">
-        {/* Prenatal welcome note */}
-        {phase.id === "prenatal" && (
-          <div className="bg-violet-50 border border-violet-100 rounded-2xl p-5">
-            <p className="font-semibold text-violet-800 text-sm mb-1">If you just got a diagnosis — take a breath.</p>
-            <p className="text-slate-700 text-sm leading-relaxed">
-              This is one of the most treatable conditions in pediatric orthopedics. The Ponseti method works in over 95% of cases, and children go on to run, play sports, and live without limitations. Thousands of families have walked this road before you — and they're here to help at every hour of the night.
-            </p>
-          </div>
-        )}
 
         {/* Key Facts */}
         <section>
