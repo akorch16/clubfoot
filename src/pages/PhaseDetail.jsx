@@ -201,6 +201,29 @@ export default function PhaseDetail() {
           )}
         </section>
 
+        {/* Videos */}
+        {phase.videos?.length > 0 && (
+          <section>
+            <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Videos</p>
+            <div className="space-y-3">
+              {phase.videos.map((video) => (
+                <div key={video.youtubeId} className="bg-white rounded-2xl shadow-sm overflow-hidden">
+                  <div className={`relative w-full ${video.isShort ? "aspect-[9/16] max-w-[320px] mx-auto" : "aspect-video"}`}>
+                    <iframe
+                      src={`https://www.youtube.com/embed/${video.youtubeId}`}
+                      title={video.title}
+                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                      allowFullScreen
+                      className="absolute inset-0 w-full h-full"
+                    />
+                  </div>
+                  <p className="px-4 py-3 text-sm font-medium text-slate-700 leading-snug">{video.title}</p>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* Recommended Products Carousel */}
         {carouselProducts.length > 0 && (
           <section>
@@ -265,29 +288,6 @@ export default function PhaseDetail() {
                   </a>
                 ))}
               </div>
-            </div>
-          </section>
-        )}
-
-        {/* Videos */}
-        {phase.videos?.length > 0 && (
-          <section>
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Videos</p>
-            <div className="space-y-3">
-              {phase.videos.map((video) => (
-                <div key={video.youtubeId} className="bg-white rounded-2xl shadow-sm overflow-hidden">
-                  <div className={`relative w-full ${video.isShort ? "aspect-[9/16] max-w-[320px] mx-auto" : "aspect-video"}`}>
-                    <iframe
-                      src={`https://www.youtube.com/embed/${video.youtubeId}`}
-                      title={video.title}
-                      allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-                      allowFullScreen
-                      className="absolute inset-0 w-full h-full"
-                    />
-                  </div>
-                  <p className="px-4 py-3 text-sm font-medium text-slate-700 leading-snug">{video.title}</p>
-                </div>
-              ))}
             </div>
           </section>
         )}
