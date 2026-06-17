@@ -69,6 +69,13 @@ export const phases = [
       },
     ],
     resources: [],
+    videos: [
+      {
+        title: "What is clubfoot? Prenatal diagnosis explained",
+        youtubeId: "poMLd-BujDU",
+        isShort: true,
+      },
+    ],
     productCategories: ["clothing", "socks", "car-seats"],
     featuredProductIds: [13, 14, 1, 5, 6],
   },
@@ -147,6 +154,12 @@ export const phases = [
       },
     ],
     resources: [],
+    videos: [
+      {
+        title: "Ponseti casting — what to expect at each appointment",
+        youtubeId: "I5BeHl83v_Q",
+      },
+    ],
     productCategories: ["clothing", "socks", "car-seats", "tubs"],
   },
   {
@@ -230,6 +243,12 @@ export const phases = [
       },
     ],
     resources: [],
+    videos: [
+      {
+        title: "How to apply the Mitchell Ponseti boots and bar",
+        youtubeId: "nVvua3-FvUQ",
+      },
+    ],
     productCategories: ["clothing", "socks", "braces", "carriers", "strollers", "pack-and-play"],
   },
   {
