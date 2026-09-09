@@ -9,6 +9,7 @@ import Support from "./pages/Support";
 import Scan from "./pages/Scan";
 import Train from "./pages/Train";
 import ScanLog from "./pages/ScanLog";
+import Eval from "./pages/Eval";
 import PonsetiMethod from "./pages/PonsetiMethod";
 
 function BoundedRoutes() {
@@ -24,6 +25,7 @@ function BoundedRoutes() {
         <Route path="/scan" element={<Scan />} />
         <Route path="/train" element={<Train />} />
         <Route path="/logs" element={<ScanLog />} />
+        <Route path="/eval" element={<Eval />} />
         <Route path="/method" element={<PonsetiMethod />} />
       </Routes>
     </ErrorBoundary>

@@ -120,6 +120,27 @@ export async function exportFeedbackAsJSON() {
 }
 
 /**
+ * Return labeled records joined with their image data, filtered to those
+ * usable as an eval/gold set (must have both a correction label and an image).
+ * This is the same store the /train tool writes to — training labels double
+ * as eval ground truth.
+ */
+export async function getLabeledExamples() {
+  const records = load().filter((r) => r.correction);
+  const images = await getAllImages().catch(() => ({}));
+  return records
+    .map((r) => ({
+      id: r.id,
+      correction: r.correction,
+      correctionNote: r.correctionNote ?? null,
+      trustedContributor: r.trustedContributor ?? null,
+      source: r.source ?? "user_capture",
+      imageData: images[r.imageHash] ?? null,
+    }))
+    .filter((r) => r.imageData);
+}
+
+/**
  * Remove duplicate records sharing the same imageHash, keeping the richest one
  * (trusted contributor > longest note > most recent). Returns count removed.
  */
