@@ -15,7 +15,7 @@ function openImageDB() {
   });
 }
 
-async function saveImage(hash, base64DataUrl) {
+export async function saveImage(hash, base64DataUrl) {
   const db = await openImageDB();
   return new Promise((resolve, reject) => {
     const tx = db.transaction(IDB_STORE, "readwrite");
@@ -25,7 +25,7 @@ async function saveImage(hash, base64DataUrl) {
   });
 }
 
-async function getAllImages() {
+export async function getAllImages() {
   const db = await openImageDB();
   return new Promise((resolve, reject) => {
     const tx = db.transaction(IDB_STORE, "readonly");
@@ -42,7 +42,7 @@ async function getAllImages() {
 
 // ─── Metadata store (localStorage) ───────────────────────────────────────────
 
-async function hashImage(base64DataUrl) {
+export async function hashImage(base64DataUrl) {
   const encoder = new TextEncoder();
   const data = encoder.encode(base64DataUrl.slice(0, 10000));
   const hashBuffer = await crypto.subtle.digest("SHA-256", data);
