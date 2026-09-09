@@ -161,9 +161,9 @@ export function clearApiKey() {
   try { localStorage.removeItem(API_KEY_STORAGE); } catch { /* ignore */ }
 }
 
-function buildPayload(mediaType, data, symptoms) {
+function buildPayload(mediaType, data, symptoms, model) {
   return {
-    model: MODEL,
+    model: model || MODEL,
     max_tokens: 1024,
     system: SYSTEM_PROMPT,
     messages: [
@@ -183,11 +183,12 @@ function buildPayload(mediaType, data, symptoms) {
   };
 }
 
-export async function analyzeImage(base64DataUrl, symptoms = "") {
+// Core request: returns the raw response text and token usage for one model.
+async function callModel(base64DataUrl, symptoms, model) {
   const resized = await resizeIfNeeded(base64DataUrl);
   const mediaType = extractMediaType(resized);
   const data = stripPrefix(resized);
-  const payload = buildPayload(mediaType, data, symptoms);
+  const payload = buildPayload(mediaType, data, symptoms, model);
 
   let response;
   if (WORKER_URL) {
@@ -217,6 +218,18 @@ export async function analyzeImage(base64DataUrl, symptoms = "") {
   }
 
   const json = await response.json();
-  const text = json.content?.[0]?.text ?? "";
+  return { text: json.content?.[0]?.text ?? "", usage: json.usage ?? null };
+}
+
+export async function analyzeImage(base64DataUrl, symptoms = "", { model } = {}) {
+  const { text } = await callModel(base64DataUrl, symptoms, model);
   return parseResponse(text);
+}
+
+// Eval variant: also returns token usage, latency, and the model used, so the
+// harness can compare accuracy AND cost across models.
+export async function analyzeImageDetailed(base64DataUrl, symptoms = "", { model } = {}) {
+  const start = Date.now();
+  const { text, usage } = await callModel(base64DataUrl, symptoms, model);
+  return { diagnosis: parseResponse(text), usage, latencyMs: Date.now() - start, model: model || MODEL };
 }
