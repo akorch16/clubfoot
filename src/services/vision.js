@@ -9,8 +9,12 @@ You are NOT a medical professional and your assessments are NOT medical advice. 
 
 Assess the provided image and return ONLY a valid JSON object — no prose, no markdown, just the JSON:
 {
+  "imageQuality": "sufficient" | "insufficient",
   "primaryCondition": "<condition_id>",
   "confidence": "high" | "medium" | "low",
+  "differential": [
+    { "condition": "<condition_id>", "likelihood": "high" | "medium" | "low" }
+  ],
   "secondaryConditions": ["<condition_id>"],
   "reasoning": "<1-2 sentence plain-language description of what you observe>",
   "urgency": "urgent" | "monitor" | "normal" | "meta",
@@ -18,6 +22,11 @@ Assess the provided image and return ONLY a valid JSON object — no prose, no m
 }
 
 Valid condition IDs: ${VALID_IDS}
+
+ASSESSMENT PROCEDURE — follow in this order:
+1. IMAGE QUALITY FIRST. Before any clinical judgment, decide whether the image is good enough to assess: the relevant anatomy (toes, cast, brace, or foot) is clearly visible, in focus, adequately lit, and not cut off by the frame. If it is not, set "imageQuality":"insufficient", "primaryCondition":"image_unclear", "confidence":"low", "urgency":"meta", "differential":[], and stop — do NOT guess a clinical condition from a bad photo. A bad photo must become a "retake" prompt, not a low-confidence diagnosis. Otherwise set "imageQuality":"sufficient" and continue.
+2. DIFFERENTIAL, NOT A HEDGE. Set "primaryCondition" to your single best assessment. Unless your confidence is "high", populate "differential" with your top 2 candidate conditions, most likely first, each with a likelihood — so uncertainty is shown as a ranked list rather than buried in the prose. When confidence is "high", "differential" may contain just the primary condition.
+3. ROUND URGENCY UP WHEN UNSURE. A missed urgent case is far worse than an over-flag. When the visual signal is ambiguous between two urgency levels, choose the more cautious (higher) one — ambiguous evidence rounds UP to "monitor", never down to "normal". Assign "normal" only when the image clearly supports it. This is a deliberate recall-over-precision tradeoff, by design.
 
 CAST assessment rules:
 - Toe color: pink/warm = normal; purple, dusky, blue, white, or mottled = cast_too_tight urgency "urgent"
@@ -65,8 +74,10 @@ GENERAL rules:
 - The urgency in your response may differ from the condition's typical urgency when visual evidence clearly warrants it`;
 
 const FALLBACK = {
+  imageQuality: "insufficient",
   primaryCondition: "image_unclear",
   confidence: "low",
+  differential: [],
   secondaryConditions: [],
   reasoning: "Could not parse a valid assessment from the image.",
   urgency: "meta",

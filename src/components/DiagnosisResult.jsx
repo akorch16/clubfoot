@@ -50,6 +50,14 @@ export default function DiagnosisResult({ diagnosis }) {
     .map((id) => conditionMap[id])
     .filter(Boolean);
 
+  // Show the differential as a ranked list only when the model gave more than
+  // one candidate — i.e. it was not highly confident. Structural hedging (a
+  // ranked list) survives a skim; narrative hedging in the prose does not.
+  const differential = (diagnosis.differential ?? [])
+    .map((d) => ({ ...d, condition: conditionMap[d.condition] }))
+    .filter((d) => d.condition);
+  const showDifferential = differential.length > 1;
+
   function copyMessage() {
     navigator.clipboard.writeText(diagnosis.careTeamMessage).then(() => {
       setCopied(true);
@@ -69,6 +77,30 @@ export default function DiagnosisResult({ diagnosis }) {
             <p className={`text-sm mt-1 leading-relaxed ${style.sub}`}>{diagnosis.reasoning}</p>
           )}
         </div>
+        {showDifferential && (
+          <div className="bg-white/60 rounded-xl px-4 py-3">
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">
+              Not certain — most likely first
+            </p>
+            <ol className="space-y-1.5">
+              {differential.map((d, i) => (
+                <li key={d.condition.id} className="flex items-center justify-between gap-2 text-sm">
+                  <span className="text-slate-700">
+                    <span className="text-slate-400 mr-1.5">{i + 1}.</span>
+                    {d.condition.label}
+                  </span>
+                  <span className={`text-xs font-medium capitalize flex-shrink-0 ${
+                    d.likelihood === "high" ? "text-slate-700"
+                    : d.likelihood === "medium" ? "text-slate-500"
+                    : "text-slate-400"
+                  }`}>
+                    {d.likelihood} likelihood
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </div>
+        )}
         {secondaryConditions.length > 0 && (
           <div className="flex flex-wrap gap-1.5">
             <span className="text-xs text-slate-400 self-center">Also noted:</span>
