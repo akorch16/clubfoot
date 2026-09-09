@@ -1,13 +1,15 @@
 import { useState, useEffect } from "react";
-import { conditionMap } from "../data/conditions";
-import { getAllImages } from "../services/feedback";
+import { conditions, conditionMap } from "../data/conditions";
+import { getAllImages, saveFeedback } from "../services/feedback";
 import {
   getScanLog,
-  getScanLogCount,
   setTriage,
   exportScanLogAsJSON,
   clearScanLog,
 } from "../services/scanLog";
+
+// Conditions offered when correcting a wrong scan, grouped for the picker.
+const CORRECTABLE = conditions.filter((c) => c.id !== "other_unlabeled");
 
 const urgencyBadge = {
   urgent: "bg-red-100 text-red-700",
@@ -28,17 +30,52 @@ export default function ScanLog() {
   const [log, setLog] = useState([]);
   const [images, setImages] = useState({});
   const [confirmClear, setConfirmClear] = useState(false);
+  const [correcting, setCorrecting] = useState(null); // record id awaiting a correct-label pick
+  const [promoted, setPromoted] = useState({}); // record id -> condition id added to the gold set
 
   useEffect(() => {
     setLog(getScanLog());
     getAllImages().then(setImages).catch(() => setImages({}));
   }, []);
 
-  function triage(id, verdict) {
-    const current = log.find((r) => r.id === id)?.triage;
-    const next = current === verdict ? null : verdict; // tap again to clear
+  function setVerdict(id, next) {
     setTriage(id, next);
     setLog((prev) => prev.map((r) => (r.id === id ? { ...r, triage: next } : r)));
+  }
+
+  // Promote a triaged scan into the /eval gold set by writing a feedback record
+  // (same store /train writes to) with a correction label + the scan image.
+  async function promote(rec, correctionId, feedbackVerdict) {
+    const img = rec.imageHash ? images[rec.imageHash] : null;
+    if (!img || !correctionId) return; // can't add to the gold set without both
+    await saveFeedback(img, rec.output ?? null, {
+      feedback: feedbackVerdict,
+      correction: correctionId,
+      correctionNote: rec.symptoms ? `scan symptoms: ${rec.symptoms}` : null,
+      source: "scan_triage",
+    });
+    setPromoted((p) => ({ ...p, [rec.id]: correctionId }));
+  }
+
+  function markRight(rec) {
+    const next = rec.triage === "correct" ? null : "correct";
+    setVerdict(rec.id, next);
+    setCorrecting(null);
+    // "Looks right" means the model's own primaryCondition is the true label.
+    if (next === "correct" && rec.output?.primaryCondition) {
+      promote(rec, rec.output.primaryCondition, "helpful");
+    }
+  }
+
+  function markWrong(rec) {
+    const next = rec.triage === "wrong" ? null : "wrong";
+    setVerdict(rec.id, next);
+    setCorrecting(next === "wrong" ? rec.id : null); // open the correct-label picker
+  }
+
+  function chooseCorrection(rec, correctionId) {
+    if (correctionId) promote(rec, correctionId, "not_helpful");
+    setCorrecting(null);
   }
 
   async function handleExport() {
@@ -175,7 +212,7 @@ export default function ScanLog() {
                 </div>
                 <div className="flex gap-1.5 flex-shrink-0">
                   <button
-                    onClick={() => triage(r.id, "correct")}
+                    onClick={() => markRight(r)}
                     className={`px-3 py-1 rounded-lg text-xs font-semibold transition-colors ${
                       r.triage === "correct" ? "bg-emerald-600 text-white" : "border border-slate-200 text-slate-500"
                     }`}
@@ -183,7 +220,7 @@ export default function ScanLog() {
                     Looks right
                   </button>
                   <button
-                    onClick={() => triage(r.id, "wrong")}
+                    onClick={() => markWrong(r)}
                     className={`px-3 py-1 rounded-lg text-xs font-semibold transition-colors ${
                       r.triage === "wrong" ? "bg-red-600 text-white" : "border border-slate-200 text-slate-500"
                     }`}
@@ -192,6 +229,34 @@ export default function ScanLog() {
                   </button>
                 </div>
               </div>
+
+              {/* Correct-label picker (shown after "Wrong") */}
+              {correcting === r.id && (
+                <div className="border-t border-slate-100 px-4 py-2.5 bg-slate-50">
+                  <label className="block text-xs font-medium text-slate-500 mb-1.5">
+                    What was it actually? (adds this scan to the eval gold set)
+                  </label>
+                  <select
+                    defaultValue=""
+                    onChange={(e) => chooseCorrection(r, e.target.value)}
+                    className="w-full px-3 py-2 rounded-xl border border-slate-200 text-sm bg-white text-slate-800 focus:outline-none focus:ring-2 focus:ring-violet-300"
+                  >
+                    <option value="" disabled>Select the correct condition…</option>
+                    {CORRECTABLE.map((c) => (
+                      <option key={c.id} value={c.id}>{c.label}</option>
+                    ))}
+                  </select>
+                </div>
+              )}
+
+              {/* Confirmation once promoted to the gold set */}
+              {promoted[r.id] && (
+                <div className="border-t border-slate-100 px-4 py-2 bg-emerald-50">
+                  <p className="text-xs text-emerald-700">
+                    ✓ Added to eval gold set as <span className="font-semibold">{conditionMap[promoted[r.id]]?.label ?? promoted[r.id]}</span>
+                  </p>
+                </div>
+              )}
             </div>
           );
         })}
