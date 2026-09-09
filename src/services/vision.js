@@ -2,6 +2,11 @@ import { conditions } from "../data/conditions";
 
 const VALID_IDS = conditions.map((c) => c.id).join(", ");
 
+// Model + prompt version stamps for observability. Every scan is logged with
+// these so an output can be traced to exactly what produced it, and outputs
+// can be bucketed before/after a prompt change.
+export const MODEL = "claude-sonnet-4-6";
+
 const SYSTEM_PROMPT = `You are a specialized visual assessment assistant for clubfoot families using the Ponseti treatment method.
 Your role is to help parents recognize potential issues with their child's cast, foot abduction brace (Mitchell AFO or similar), or foot position.
 
@@ -63,6 +68,16 @@ GENERAL rules:
 - careTeamMessage: a short, plain-language message the parent can copy-paste to their care team; null if urgency is "normal" or "meta"
 - confidence reflects image quality and visibility of relevant anatomy, NOT certainty about the diagnosis
 - The urgency in your response may differ from the condition's typical urgency when visual evidence clearly warrants it`;
+
+// A stable 8-char fingerprint of the system prompt. It changes iff the prompt
+// text changes, so logged scans carry a version that auto-tracks prompt edits —
+// no manual bumping. Combine with a human label when making a major revision.
+function fingerprint(str) {
+  let h = 5381;
+  for (let i = 0; i < str.length; i++) h = ((h << 5) + h + str.charCodeAt(i)) >>> 0;
+  return h.toString(16).padStart(8, "0").slice(0, 8);
+}
+export const PROMPT_VERSION = `v1.${fingerprint(SYSTEM_PROMPT)}`;
 
 const FALLBACK = {
   primaryCondition: "image_unclear",
@@ -134,7 +149,7 @@ export function clearApiKey() {
 
 function buildPayload(mediaType, data, symptoms) {
   return {
-    model: "claude-sonnet-4-6",
+    model: MODEL,
     max_tokens: 1024,
     system: SYSTEM_PROMPT,
     messages: [

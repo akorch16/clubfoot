@@ -8,6 +8,7 @@ import DoctorFinder from "./pages/DoctorFinder";
 import Support from "./pages/Support";
 import Scan from "./pages/Scan";
 import Train from "./pages/Train";
+import ScanLog from "./pages/ScanLog";
 import PonsetiMethod from "./pages/PonsetiMethod";
 
 function BoundedRoutes() {
@@ -22,6 +23,7 @@ function BoundedRoutes() {
         <Route path="/support" element={<Support />} />
         <Route path="/scan" element={<Scan />} />
         <Route path="/train" element={<Train />} />
+        <Route path="/logs" element={<ScanLog />} />
         <Route path="/method" element={<PonsetiMethod />} />
       </Routes>
     </ErrorBoundary>

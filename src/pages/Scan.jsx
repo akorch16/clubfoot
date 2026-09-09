@@ -2,7 +2,8 @@ import { useState } from "react";
 import CameraCapture from "../components/CameraCapture";
 import DiagnosisResult from "../components/DiagnosisResult";
 import FeedbackWidget from "../components/FeedbackWidget";
-import { analyzeImage, getStoredApiKey, saveApiKey, clearApiKey, hasSharedKey } from "../services/vision";
+import { analyzeImage, getStoredApiKey, saveApiKey, clearApiKey, hasSharedKey, PROMPT_VERSION, MODEL } from "../services/vision";
+import { logScan } from "../services/scanLog";
 
 export default function Scan() {
   const [phase, setPhase] = useState(() => (hasSharedKey || getStoredApiKey()) ? "capture" : "setup");
@@ -31,6 +32,10 @@ export default function Scan() {
       const result = await analyzeImage(dataUrl, symptoms);
       setDiagnosis(result);
       setPhase("result");
+      // Observability: capture every scan with its output + version stamps.
+      // Fire-and-forget — logging must never block or break the scan.
+      logScan({ imageDataUrl: dataUrl, symptoms, diagnosis: result, promptVersion: PROMPT_VERSION, model: MODEL })
+        .catch((e) => console.warn("scan log failed:", e));
     } catch (err) {
       console.error("Vision API error:", err);
       if (err.message === "NO_API_KEY") { setPhase("setup"); }
