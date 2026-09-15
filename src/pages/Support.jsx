@@ -1,20 +1,6 @@
-const quotes = [
-  {
-    text: "The first few weeks of casting were the hardest thing I've ever done. But watching my son run around the soccer field at age 7, completely normal, made every sleepless night worth it.",
-    author: "Mom of a now 7-year-old, bilateral clubfoot",
-  },
-  {
-    text: "We were terrified when we got the prenatal diagnosis. The clubfoot Facebook group saved me. Parents who'd been through it answered every panicked 2am question I had.",
-    author: "Dad, single clubfoot, diagnosed at 20 weeks",
-  },
-  {
-    text: "Brace compliance was genuinely hard in the early months. Our daughter fought it. But we pushed through, and at her 5-year check-up, her orthopedist said her foot looks perfect.",
-    author: "Mom, boots-and-bar phase survivor",
-  },
-];
-
 const communityLinks = [
   { label: "Clubfoot Support Facebook Group", url: "https://www.facebook.com/groups/clubfeetsupport/", description: "Large, active community of clubfoot parents worldwide", icon: "👥", iconBg: "bg-blue-100" },
+  { label: "Clubbed Foot Support Group", url: "https://www.facebook.com/groups/1503261329975163", description: "Community of clubfoot families sharing support and advice", icon: "🦶", iconBg: "bg-emerald-100" },
   { label: "Babywearing with Clubfoot", url: "https://www.facebook.com/groups/babywearingclubfoot/", description: "Carry techniques and virtual fit checks for babies in casts and B&B", icon: "🫶", iconBg: "bg-violet-100" },
   { label: "Reddit r/clubfoot", url: "https://www.reddit.com/r/clubfoot", description: "Forum for parents, adults with clubfoot, and caregivers", icon: "💬", iconBg: "bg-orange-100" },
   { label: "Ponseti International Association", url: "https://ponseti.medicine.uiowa.edu/parent-information/ponseti-doctors-location", description: "Official clinical guidelines, provider directory, and research", icon: "🏥", iconBg: "bg-teal-100" },
@@ -41,19 +27,6 @@ export default function Support() {
             If you just got a diagnosis — take a breath. <span className="font-semibold text-slate-800">This is treatable.</span> The Ponseti method works in over 95% of cases, and the community below has answered every question you'll have, at every hour of the night.
           </p>
         </div>
-
-        {/* Parent Quotes */}
-        <section>
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">From the community</p>
-          <div className="space-y-2">
-            {quotes.map((q, i) => (
-              <div key={i} className="bg-white rounded-2xl shadow-sm p-4">
-                <p className="text-sm text-slate-700 leading-relaxed italic">"{q.text}"</p>
-                <p className="text-xs text-slate-400 mt-2 font-medium">- {q.author}</p>
-              </div>
-            ))}
-          </div>
-        </section>
 
         {/* Community Links */}
         <section>
