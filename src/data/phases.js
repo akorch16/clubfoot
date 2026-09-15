@@ -67,6 +67,12 @@ export const phases = [
           "Clubfoot treatment takes years, so it helps to know the whole arc up front. Expect about 5-8 weekly casting appointments, then a minor Achilles procedure (a tenotomy) for most children, then a foot abduction brace worn full time for 3 months, then nights and naps until age 4-5. Each phase has its own challenges. Millions of families have finished it.",
         relatedProducts: [],
       },
+      {
+        title: "If your child's clubfoot is atypical or syndromic",
+        detail:
+          "Most clubfoot is idiopathic, which means it happens on its own, and the numbers on this site describe that case. Some clubfoot is atypical (a short, stiff, chubby foot with deep creases) or syndromic (part of a condition like arthrogryposis, myelomeningocele, or Larsen syndrome). These still respond to the Ponseti method, but they often take more casts, relapse more often, and follow a less predictable course. If your provider has used either word, ask them what to expect for your child specifically. The Ponseti International site at ponseti.medicine.uiowa.edu has more detail.",
+        relatedProducts: [],
+      },
     ],
     resources: [],
     encouragement: {
@@ -212,6 +218,12 @@ export const phases = [
         detail:
           "The most common cause of blisters in the brace is socks bunching or slipping. Look for a seamless toe, knee-high length, and good elastic that keeps them from sliding down. Many families use EPEIUS or Hudson Baby knee-highs and like them. The OrthoPediatrics Mitchell Ponseti bamboo socks are a more specialized option with a silicone grip strip. Whatever you use, pick light colors so you can see heel placement through the boot's heel hole. Buy at least 5-6 pairs so you always have clean ones on hand.",
         relatedProducts: [6],
+      },
+      {
+        title: "When your baby escapes the brace",
+        detail:
+          "Babies working a foot out of the brace is common and fixable. It usually means a strap is too loose, so check the fit first. Tighten the middle strap first, since that's the one holding the foot down, then the others. If the heel still lifts out, try lacing the shoe tighter or taking out the shoe's tongue for a snugger fit. If it keeps happening, ask your orthotist to adjust or widen the brace. A foot that keeps escaping isn't holding the correction, so don't let it slide.",
+        relatedProducts: [],
       },
       {
         title: "Build a consistent brace routine",
