@@ -4,23 +4,44 @@ const steps = [
   {
     number: "01",
     title: "Serial casting",
-    body: "A specialist gently manipulates the foot toward its correct position and applies a fresh plaster cast each week. Each cast holds the correction and gradually stretches the ligaments and tendons a little further. Most children need 5–8 casts over 5–8 weeks, though the number varies by severity.",
+    body: "A specialist gently manipulates the foot toward its correct position and applies a fresh plaster cast each week. Each cast holds the correction and stretches the ligaments and tendons a little further. Most children need 5 to 8 casts over 5 to 8 weeks, though the number varies by severity.",
   },
   {
     number: "02",
     title: "Achilles tenotomy",
-    body: "In about 80% of cases, the Achilles tendon is too short to allow full correction after casting. A tenotomy — a minor procedure done in-office or under local anesthesia — releases the tendon. It takes seconds, heals completely within a few weeks, and is followed by a final cast to hold the position during healing.",
+    body: "In about 80% of cases, the Achilles tendon is too short to allow full correction after casting. A tenotomy releases the tendon. It's a minor procedure done in-office or under local anesthesia, it takes seconds, and it heals within a few weeks. A final cast holds the position while it heals.",
   },
   {
     number: "03",
     title: "Foot abduction brace",
-    body: "Once casting is complete, a foot abduction brace — typically boots attached to a bar — holds the correction and prevents relapse. It's worn 23 hours a day for approximately 3 months, then during sleep (nights and naps) until around age 4–5. This phase is the longest and the most critical.",
+    body: "Once casting is complete, a foot abduction brace, typically boots attached to a bar, holds the correction and prevents relapse. It's worn 23 hours a day for about 3 months, then during sleep (nights and naps) until around age 4-5. This phase is the longest and the most important.",
   },
   {
     number: "04",
     title: "Long-term follow-up",
-    body: "Periodic check-ins with the orthopedic team continue through childhood. The goal is catching any early signs of relapse quickly — early relapse is highly treatable, often with just a few additional casts. Most children need no further intervention after the brace phase ends.",
+    body: "Periodic check-ins with the orthopedic team continue through childhood. The goal is catching any early signs of relapse quickly. Early relapse is very treatable, often with just a few extra casts. Most children need no further treatment after the brace phase ends.",
   },
+];
+
+const clubfootTypes = [
+  {
+    label: "Idiopathic",
+    body: "Clubfoot that happens on its own, with no other condition attached. This is the large majority of cases, and it's what the Ponseti method was built around. Most children need 5 to 8 casts and do very well.",
+  },
+  {
+    label: "Atypical (complex)",
+    body: "A short, stiff, chubby foot with a deep crease on the sole and behind the heel. It's harder to correct, and the \"fat\" variety is the toughest. It still responds to the Ponseti method, but often needs a modified casting technique and closer follow-up. Make sure your provider has experience with atypical clubfoot.",
+  },
+  {
+    label: "Syndromic",
+    body: "Clubfoot that comes as part of another condition, such as arthrogryposis, spina bifida (myelomeningocele), or Larsen syndrome. These feet usually need more casts, relapse more often, and follow a less predictable course. The Ponseti method is still the starting point, but the timeline and expectations are different, so talk with your provider about your child's specific situation.",
+  },
+];
+
+const sources = [
+  { label: "Ponseti International Association", url: "https://ponseti.medicine.uiowa.edu" },
+  { label: "What is clubfoot", url: "https://ponseti.medicine.uiowa.edu/what-clubfoot" },
+  { label: "Publications & resources (Red Book, clinical guidelines)", url: "https://ponseti.medicine.uiowa.edu/what-clubfoot/publications-and-resources" },
 ];
 
 export default function PonsetiMethod() {
@@ -32,7 +53,7 @@ export default function PonsetiMethod() {
       <div className="bg-amber-400 px-5 pt-12 pb-8">
         <h1 className="text-3xl font-bold text-amber-950 leading-snug">The Ponseti Method</h1>
         <p className="text-amber-800 text-sm mt-2 leading-relaxed">
-          The global standard of care for clubfoot — and the reason most children treated today grow up to run, play sports, and live without limitations.
+          The global standard of care for clubfoot, and the reason most children treated today grow up to run and play like anyone else.
         </p>
       </div>
 
@@ -42,10 +63,10 @@ export default function PonsetiMethod() {
         <div className="bg-white rounded-2xl shadow-sm p-5 space-y-2">
           <h2 className="font-semibold text-slate-800 text-base">What it is</h2>
           <p className="text-sm text-slate-600 leading-relaxed">
-            The Ponseti method is a non-surgical technique for correcting clubfoot in infants. Developed by Dr. Ignacio Ponseti at the University of Iowa starting in the 1950s, it uses a carefully sequenced series of gentle manipulations and plaster casts to gradually reshape the foot into its correct position — no surgery required in the vast majority of cases.
+            The Ponseti method is a non-surgical technique for correcting clubfoot in infants. Dr. Ignacio Ponseti developed it at the University of Iowa starting in the 1950s. It uses a carefully sequenced series of gentle manipulations and plaster casts to gradually reshape the foot into its correct position. No surgery is needed in the large majority of cases.
           </p>
           <p className="text-sm text-slate-600 leading-relaxed">
-            It replaced invasive surgical correction as the global standard of care because it produces better long-term outcomes with far less risk, pain, and recovery time.
+            It replaced invasive surgical correction as the global standard of care because it produces better long-term outcomes with much less risk, pain, and recovery time.
           </p>
         </div>
 
@@ -69,7 +90,7 @@ export default function PonsetiMethod() {
         <div className="bg-white rounded-2xl shadow-sm p-5 space-y-2">
           <h2 className="font-semibold text-slate-800 text-base">Why it works</h2>
           <p className="text-sm text-slate-600 leading-relaxed">
-            An infant's foot is made almost entirely of cartilage, which is far more pliable than bone. The Ponseti sequence takes advantage of this developmental window — the same biological flexibility that allows rapid growth also allows the foot's shape to be gently and permanently corrected. By the time the foot ossifies into bone in early childhood, the correction is set.
+            An infant's foot is made almost entirely of cartilage, which is far more pliable than bone. The Ponseti sequence takes advantage of this window. The same flexibility that lets the foot grow quickly also lets its shape be gently and permanently corrected. By the time the foot hardens into bone in early childhood, the correction is set.
           </p>
         </div>
 
@@ -80,7 +101,7 @@ export default function PonsetiMethod() {
             <div className="space-y-1.5">
               <h2 className="font-semibold text-amber-800 text-sm">The single most important thing</h2>
               <p className="text-sm text-amber-700 leading-relaxed">
-                Casting corrects the foot. <strong>Bracing holds the correction.</strong> The number one cause of relapse is stopping the brace early or inconsistently. The brace phase feels long — sometimes years — but compliance is what determines whether the correction lasts.
+                Casting corrects the foot. <strong>Bracing holds the correction.</strong> The number one cause of relapse is stopping the brace early or wearing it inconsistently. The brace phase feels long, sometimes years, but compliance is what determines whether the correction lasts.
               </p>
             </div>
           </div>
@@ -90,7 +111,24 @@ export default function PonsetiMethod() {
         <div className="bg-white rounded-2xl shadow-sm p-5 space-y-2">
           <h2 className="font-semibold text-slate-800 text-base">Success rate</h2>
           <p className="text-sm text-slate-600 leading-relaxed">
-            With proper treatment and brace compliance, over 95% of children treated with the Ponseti method go on to walk, run, play sports, and live without limitations. The foot may be slightly smaller or the calf slightly thinner on the affected side, but function is typically normal.
+            With proper treatment and brace compliance, over 95% of children treated with the Ponseti method walk, run, and play like anyone else. The foot may be slightly smaller or the calf slightly thinner on the affected side, but function is typically normal.
+          </p>
+        </div>
+
+        {/* Types of clubfoot */}
+        <div className="bg-white rounded-2xl shadow-sm p-5 space-y-3">
+          <h2 className="font-semibold text-slate-800 text-base">Types of clubfoot</h2>
+          <p className="text-sm text-slate-600 leading-relaxed">
+            Most of the numbers on this site describe idiopathic clubfoot, the most common kind. A few children have a type that behaves differently, and it helps to know which one you're dealing with.
+          </p>
+          {clubfootTypes.map((t) => (
+            <div key={t.label}>
+              <p className="text-sm font-semibold text-slate-800">{t.label}</p>
+              <p className="text-sm text-slate-600 leading-relaxed">{t.body}</p>
+            </div>
+          ))}
+          <p className="text-sm text-slate-600 leading-relaxed">
+            If your provider has used the words atypical, complex, or syndromic, ask what it means for your child's casts, bracing, and follow-up.
           </p>
         </div>
 
@@ -98,10 +136,29 @@ export default function PonsetiMethod() {
         <div className="bg-white rounded-2xl shadow-sm p-5 space-y-2">
           <h2 className="font-semibold text-slate-800 text-base">Who developed it</h2>
           <p className="text-sm text-slate-600 leading-relaxed">
-            Dr. Ignacio Ponseti began developing the method at the University of Iowa in the 1940s and 50s, after observing that surgical corrections often left feet stiff and painful in adulthood. He refined the technique over decades, and his long-term follow-up of patients — some followed for 50+ years — demonstrated outcomes that surgery couldn't match.
+            Dr. Ignacio Ponseti began developing the method at the University of Iowa in the 1940s and 50s, after seeing that surgical corrections often left feet stiff and painful in adulthood. He refined the technique over decades, and his long-term follow-up of patients, some for 50 years or more, showed outcomes surgery couldn't match.
           </p>
           <p className="text-sm text-slate-600 leading-relaxed">
-            The method gained widespread adoption in the early 2000s after the Ponseti International Association helped train orthopedic providers worldwide. It is now the recommended treatment in virtually every major medical guideline globally.
+            The method gained wide adoption in the early 2000s after the Ponseti International Association helped train orthopedic providers worldwide. It is now the recommended treatment in nearly every major medical guideline.
+          </p>
+        </div>
+
+        {/* Sources & references */}
+        <div className="bg-white rounded-2xl shadow-sm p-5 space-y-3">
+          <h2 className="font-semibold text-slate-800 text-base">Sources & references</h2>
+          <p className="text-sm text-slate-600 leading-relaxed">
+            The clinical information here follows the Ponseti International Association at the University of Iowa, where Dr. Ponseti developed the method, and its published guidance. The over-95% success figure and the treatment sequence come from their materials and clinical guidelines.
+          </p>
+          <div className="space-y-1.5">
+            {sources.map((s) => (
+              <a key={s.url} href={s.url} target="_blank" rel="noopener noreferrer"
+                className="block text-sm font-medium text-teal-600 active:text-teal-700">
+                {s.label} →
+              </a>
+            ))}
+          </div>
+          <p className="text-xs text-slate-400 leading-relaxed">
+            This site is for education and support. It doesn't replace your care team.
           </p>
         </div>
 
@@ -109,7 +166,7 @@ export default function PonsetiMethod() {
         <div className="bg-amber-400 rounded-2xl p-5 space-y-3">
           <p className="text-amber-950 font-semibold text-sm">Ready to go deeper?</p>
           <p className="text-amber-800 text-sm leading-relaxed">
-            This guide covers every phase of the Ponseti journey in detail — from the first cast to long-term follow-up.
+            This guide covers every phase of the Ponseti journey, from the first cast to long-term follow-up.
           </p>
           <button
             onClick={() => navigate("/")}
