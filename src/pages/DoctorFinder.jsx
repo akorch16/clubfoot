@@ -227,7 +227,7 @@ export default function DoctorFinder() {
             </div>
             <p className="text-xs font-semibold text-teal-600 mt-2 px-1">
               {usingFallback
-                ? `No providers within ${radius} mi — showing the ${displayList.length} nearest (closest is ${Math.round(displayList[0].distance)} mi away)`
+                ? `No providers within ${radius} mi. Showing the ${displayList.length} nearest (closest is ${Math.round(displayList[0].distance)} mi away)`
                 : `Found ${displayList.length} ${displayList.length === 1 ? "doctor" : "doctors"} ${
                     radius == null ? "sorted by distance" : `within ${radius} miles`
                   }`}
