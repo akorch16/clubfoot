@@ -30,9 +30,18 @@ async function geocodeQuery(query) {
   };
 }
 
+const RADIUS_OPTIONS = [
+  { label: "25 mi", value: 25 },
+  { label: "50 mi", value: 50 },
+  { label: "100 mi", value: 100 },
+  { label: "250 mi", value: 250 },
+  { label: "Any", value: null },
+];
+
 export default function DoctorFinder() {
   const [page, setPage] = useState(1);
   const PAGE_SIZE = 25;
+  const [radius, setRadius] = useState(100);
   const [locationQuery, setLocationQuery] = useState("");
   const [userCoords, setUserCoords] = useState(null);
   const [geoLoading, setGeoLoading] = useState(false);
@@ -103,25 +112,41 @@ export default function DoctorFinder() {
     setGeoError("");
   }
 
-  const filtered = doctors
-    .map((d) => ({
-      ...d,
-      distance:
-        userCoords && d.lat != null && d.lng != null
-          ? haversineMiles(userCoords.lat, userCoords.lng, d.lat, d.lng)
-          : null,
-    }))
-    .sort((a, b) => {
-      if (a.distance !== null && b.distance !== null) return a.distance - b.distance;
-      if (a.distance !== null) return -1;
-      if (b.distance !== null) return 1;
-      if (a.featured && !b.featured) return -1;
-      if (!a.featured && b.featured) return 1;
-      return 0;
-    });
+  const withDistance = doctors.map((d) => ({
+    ...d,
+    distance:
+      userCoords && d.lat != null && d.lng != null
+        ? haversineMiles(userCoords.lat, userCoords.lng, d.lat, d.lng)
+        : null,
+  }));
 
-  const totalPages = Math.ceil(filtered.length / PAGE_SIZE);
-  const paginated = filtered.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  // When a location is set, actually filter to the chosen radius (not just
+  // sort). If nothing is within radius, fall back to the nearest handful so
+  // rural/international searches still get a useful answer instead of nothing.
+  let displayList;
+  let usingFallback = false;
+  if (userCoords) {
+    const sorted = withDistance
+      .filter((d) => d.distance != null)
+      .sort((a, b) => a.distance - b.distance);
+    const inRadius = radius == null ? sorted : sorted.filter((d) => d.distance <= radius);
+    if (inRadius.length > 0) {
+      displayList = inRadius;
+    } else {
+      displayList = sorted.slice(0, 10);
+      usingFallback = true;
+    }
+  } else {
+    displayList = withDistance;
+  }
+
+  const totalPages = Math.ceil(displayList.length / PAGE_SIZE);
+  const paginated = displayList.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+
+  function changeRadius(value) {
+    setRadius(value);
+    setPage(1);
+  }
 
   return (
     <div>
@@ -178,15 +203,34 @@ export default function DoctorFinder() {
         </div>
         {geoError && <p className="text-xs text-red-500 mt-1 px-1">{geoError}</p>}
         {userCoords && !geoError && !geoLoading && (
-          <p className="text-xs font-semibold text-teal-600 mt-1 px-1">
-            Found {filtered.filter((d) => d.distance !== null && d.distance <= 100).length} doctors within 100 miles
-          </p>
+          <>
+            <div className="mt-3 flex flex-wrap gap-1.5">
+              {RADIUS_OPTIONS.map((opt) => (
+                <button
+                  key={opt.label}
+                  onClick={() => changeRadius(opt.value)}
+                  className={`text-xs font-semibold px-3 py-1 rounded-full transition-colors ${
+                    radius === opt.value ? "bg-teal-600 text-white" : "bg-white border border-slate-200 text-slate-500"
+                  }`}
+                >
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+            <p className="text-xs font-semibold text-teal-600 mt-2 px-1">
+              {usingFallback
+                ? `No providers within ${radius} mi — showing the ${displayList.length} nearest (closest is ${Math.round(displayList[0].distance)} mi away)`
+                : `Found ${displayList.length} ${displayList.length === 1 ? "doctor" : "doctors"} ${
+                    radius == null ? "sorted by distance" : `within ${radius} miles`
+                  }`}
+            </p>
+          </>
         )}
       </div>
 
       <div className="px-4 pt-1 pb-6 space-y-3">
         {/* Doctor Cards */}
-        {filtered.length === 0 && (
+        {displayList.length === 0 && (
           <div className="text-center py-12 text-slate-400 text-sm">No providers found for your search.</div>
         )}
         {paginated.map((doc) => (
