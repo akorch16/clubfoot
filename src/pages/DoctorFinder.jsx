@@ -17,7 +17,15 @@ function haversineMiles(lat1, lng1, lat2, lng2) {
 }
 
 async function geocodeQuery(query) {
-  const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&limit=1&format=json`;
+  const trimmed = query.trim();
+  // A bare US zip sent as free text (q=10001) is ambiguous to Nominatim and
+  // often resolves to a house number or the wrong place. Use the structured
+  // postalcode parameter scoped to the US so zips resolve to the right centroid.
+  const zipMatch = trimmed.match(/^(\d{5})(?:-\d{4})?$/);
+  const params = zipMatch
+    ? `postalcode=${zipMatch[1]}&countrycodes=us&limit=1&format=json`
+    : `q=${encodeURIComponent(trimmed)}&limit=1&format=json`;
+  const url = `https://nominatim.openstreetmap.org/search?${params}`;
   const res = await fetch(url, {
     headers: { "Accept-Language": "en", "User-Agent": "ClubfootClub/1.0" },
   });
