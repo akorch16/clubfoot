@@ -8,7 +8,7 @@ const urgencyStyles = {
     badge: "bg-red-600 text-white",
     text: "text-red-800",
     sub: "text-red-600",
-    label: "High priority — Contact your care team",
+    label: "High priority. Contact your care team",
   },
   monitor: {
     border: "border-amber-200",
@@ -36,7 +36,7 @@ const urgencyStyles = {
   },
 };
 
-const confidenceLabel = { high: "High confidence", medium: "Medium confidence", low: "Low confidence — consider retaking the photo" };
+const confidenceLabel = { high: "High confidence", medium: "Medium confidence", low: "Low confidence. Consider retaking the photo" };
 
 export default function DiagnosisResult({ diagnosis }) {
   const [messageOpen, setMessageOpen] = useState(false);
@@ -51,7 +51,7 @@ export default function DiagnosisResult({ diagnosis }) {
     .filter(Boolean);
 
   // Show the differential as a ranked list only when the model gave more than
-  // one candidate — i.e. it was not highly confident. Structural hedging (a
+  // one candidate, i.e. it was not highly confident. Structural hedging (a
   // ranked list) survives a skim; narrative hedging in the prose does not.
   const differential = (diagnosis.differential ?? [])
     .map((d) => ({ ...d, condition: conditionMap[d.condition] }))
@@ -80,7 +80,7 @@ export default function DiagnosisResult({ diagnosis }) {
         {showDifferential && (
           <div className="bg-white/60 rounded-xl px-4 py-3">
             <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">
-              Not certain — most likely first
+              Not certain. Most likely first
             </p>
             <ol className="space-y-1.5">
               {differential.map((d, i) => (
