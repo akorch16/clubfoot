@@ -33,7 +33,7 @@ export default function Scan() {
       setDiagnosis(result);
       setPhase("result");
       // Observability: capture every scan with its output + version stamps.
-      // Fire-and-forget — logging must never block or break the scan.
+      // Fire-and-forget: logging must never block or break the scan.
       logScan({ imageDataUrl: dataUrl, symptoms, diagnosis: result, promptVersion: PROMPT_VERSION, model: MODEL })
         .catch((e) => console.warn("scan log failed:", e));
     } catch (err) {
@@ -134,7 +134,7 @@ export default function Scan() {
             <div className="flex flex-col items-center gap-2">
               <div className="w-8 h-8 border-4 border-slate-200 border-t-violet-500 rounded-full animate-spin" />
               <p className="text-sm font-medium text-slate-600">Analyzing your photo…</p>
-              <p className="text-xs text-slate-400">This usually takes 2–5 seconds</p>
+              <p className="text-xs text-slate-400">This usually takes 2-5 seconds</p>
             </div>
           </div>
         )}

@@ -16,7 +16,7 @@ export const conditions = [
     urgency: "urgent",
     color: "red",
     actionText: "Contact your care team or go to urgent care now. Do not wait until the next appointment.",
-    description: "Toes appear purple, white, dusky, or swollen — possible signs of restricted circulation. This requires immediate attention.",
+    description: "Toes appear purple, white, dusky, or swollen. These can be signs of restricted circulation, and it needs immediate attention.",
   },
   {
     id: "cast_wet_or_damaged",
@@ -54,7 +54,7 @@ export const conditions = [
     urgency: "monitor",
     color: "amber",
     actionText: "Remove and reapply the brace, ensuring the heel is firmly down in the shoe before buckling. Contact your orthotist if this keeps happening.",
-    description: "A visible gap at the heel, bunched sock, or elevated heel inside the shoe suggests the foot is not fully seated — this reduces the corrective effect and increases blister risk.",
+    description: "A visible gap at the heel, a bunched sock, or an elevated heel inside the shoe suggests the foot is not fully seated. That reduces the correction and raises blister risk.",
   },
   {
     id: "brace_blister_or_redness",
@@ -62,7 +62,7 @@ export const conditions = [
     label: "Possible skin irritation or blister",
     urgency: "monitor",
     color: "amber",
-    actionText: "Apply a bandage or moleskin over the blister and continue wearing. Only leave the brace off if there is an open, painful sore. Contact your orthotist — a sock adjustment or pressure saddle often resolves this.",
+    actionText: "Apply a bandage or moleskin over the blister and keep wearing the brace. Only leave the brace off if there is an open, painful sore. Contact your orthotist. A sock adjustment or pressure saddle often fixes this.",
     description: "Visible redness, skin breakdown, or a blister at the heel or dorsum of the foot. Some initial redness is normal; open blisters or persistent redness need assessment.",
   },
   {
@@ -91,8 +91,8 @@ export const conditions = [
     label: "Possible signs of relapse",
     urgency: "urgent",
     color: "red",
-    actionText: "Contact your orthopedic provider promptly. Early relapse is treatable — catching it early means fewer casts.",
-    description: "The foot appears to be supinating, turning inward, or returning toward the clubfoot position. This warrants prompt evaluation — do not wait for a routine appointment.",
+    actionText: "Contact your orthopedic provider promptly. Early relapse is treatable, and catching it early means fewer casts.",
+    description: "The foot appears to be supinating, turning inward, or returning toward the clubfoot position. This needs prompt evaluation. Don't wait for a routine appointment.",
   },
   {
     id: "foot_toe_walking",
