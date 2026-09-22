@@ -38,7 +38,7 @@ export const faqs = [
     id: 6,
     question: "How long does my child need to wear the brace?",
     answer:
-      "Full-time (23 hours a day) for the first 3 months after casting, then 14 to 16 hours a day (nights and naps) until age 4-5. Compliance is the number one predictor of a good long-term outcome. The relapse rate for inconsistent bracing is around 80%.",
+      "Full-time (23 hours a day) for the first 3 months after casting, then about 12 to 14 hours a day (nights and naps) until age 4-5. Compliance is the number one predictor of a good long-term outcome. Most relapses happen when bracing slips.",
     phases: ["boots-and-bar"],
   },
   {
