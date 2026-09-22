@@ -38,6 +38,34 @@ const encouragementHeadline = {
   "long-term":     "text-emerald-800",
 };
 
+// Renders a string that may contain citation markers like [[1]] or [[1,2]] as
+// Wikipedia-style superscript links to the phase's Sources list.
+const CITE_RE = /\[\[(\d+(?:\s*,\s*\d+)*)\]\]/g;
+function Cited({ text }) {
+  if (typeof text !== "string" || !text.includes("[[")) return text ?? null;
+  const parts = [];
+  let last = 0;
+  let m;
+  let key = 0;
+  while ((m = CITE_RE.exec(text)) !== null) {
+    if (m.index > last) parts.push(text.slice(last, m.index));
+    const nums = m[1].split(",").map((s) => s.trim());
+    parts.push(
+      <sup key={`c${key++}`} className="whitespace-nowrap ml-0.5 text-[0.65em] font-semibold">
+        {nums.map((n, i) => (
+          <span key={n}>
+            <a href={`#src-${n}`} className="text-teal-600 no-underline hover:underline">[{n}]</a>
+            {i < nums.length - 1 ? <span className="text-teal-600">,</span> : null}
+          </span>
+        ))}
+      </sup>
+    );
+    last = m.index + m[0].length;
+  }
+  if (last < text.length) parts.push(text.slice(last));
+  return <>{parts}</>;
+}
+
 function TipCard({ tip, allProducts }) {
   const [open, setOpen] = useState(false);
   const linked = (tip.relatedProducts || [])
@@ -60,7 +88,7 @@ function TipCard({ tip, allProducts }) {
       </button>
       {open && (
         <div className="px-5 pb-5">
-          <p className="text-sm text-slate-600 leading-relaxed">{tip.detail}</p>
+          <p className="text-sm text-slate-600 leading-relaxed"><Cited text={tip.detail} /></p>
           {linked.length > 0 && (
             <div className="mt-3 pt-3 border-t border-slate-100">
               <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Related Products</p>
@@ -180,7 +208,7 @@ export default function PhaseDetail() {
                     {group.points.map((point, i) => (
                       <li key={i} className="flex items-start gap-3 text-sm text-slate-700">
                         <span className="mt-2 w-1.5 h-1.5 rounded-full flex-shrink-0 bg-slate-300" />
-                        {point}
+                        <span><Cited text={point} /></span>
                       </li>
                     ))}
                   </ul>
@@ -315,6 +343,28 @@ export default function PhaseDetail() {
             ))}
           </div>
         </section>}
+
+        {/* Sources */}
+        {phase.sources?.length > 0 && (
+          <section className="pb-2">
+            <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Sources</p>
+            <ol className="bg-white rounded-2xl shadow-sm p-5 space-y-2.5">
+              {phase.sources.map((s) => (
+                <li key={s.id} id={`src-${s.id}`} className="scroll-mt-24 flex gap-2 text-xs text-slate-600 leading-relaxed">
+                  <span className="text-teal-600 font-semibold flex-shrink-0">{s.id}.</span>
+                  <span>
+                    {s.label}
+                    {s.url && (
+                      <a href={s.url} target="_blank" rel="noopener noreferrer" className="text-teal-600 ml-1 whitespace-nowrap hover:underline">
+                        View ↗
+                      </a>
+                    )}
+                  </span>
+                </li>
+              ))}
+            </ol>
+          </section>
+        )}
       </div>
     </div>
   );

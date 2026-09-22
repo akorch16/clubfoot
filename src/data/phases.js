@@ -104,16 +104,16 @@ export const phases = [
         heading: "How it works",
         points: [
           "Each cast moves the foot a little closer to a neutral position. The correction is gradual and gentle.",
-          "Casts are long-leg, above the knee, to control rotation. This is on purpose.",
-          "Most babies need 5-8 casts. Bilateral cases may need a few more.",
+          "Casts are long-leg, above the knee, to control rotation.[[1]] This is on purpose.",
+          "Most babies need 5-8 casts.[[1]] Bilateral cases may need a few more.",
           "The casting appointment takes 30-60 minutes. It's the old cast off, a skin check, a brief manipulation, then the new cast.",
         ],
       },
       {
         heading: "The tenotomy",
         points: [
-          "About 80% of children need an Achilles tenotomy before the final cast. It's a minor in-office procedure.",
-          "The final cast after the tenotomy stays on for about 3 weeks while the tendon heals.",
+          "About 80% of children need an Achilles tenotomy before the final cast.[[1]] It's a minor in-office procedure.",
+          "The final cast after the tenotomy stays on for about 3 weeks while the tendon heals.[[1]]",
         ],
       },
       {
@@ -164,6 +164,11 @@ export const phases = [
       },
     ],
     resources: [],
+    sources: [
+      { id: 1, label: "Radler C. The Ponseti method for the treatment of congenital club foot: review of the current literature and treatment recommendations. Int Orthop. 2013;37(9):1747-1753.", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC3764299/" },
+      { id: 2, label: "Ponseti International Association, University of Iowa.", url: "https://ponseti.medicine.uiowa.edu/what-clubfoot/ponseti-method" },
+      { id: 3, label: "POSNA (Pediatric Orthopaedic Society of North America) — Clubfoot study guide.", url: "https://posna.org/physician-education/study-guide/clubfoot" },
+    ],
     encouragement: {
       headline: "Each cast is a week of progress, and you'll see it.",
       body: "The Ponseti technique makes small corrections at every appointment. Most babies need 5-8 casts, and you can see the change week to week. By the last cast, you'll look back at the week-one photos and barely recognize that foot.",
