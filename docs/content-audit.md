@@ -107,6 +107,26 @@ These are care/urgency instructions where only a clinician should confirm the ex
 
 ---
 
+## 4b. Casting page — focused review (the page a reviewer flagged)
+
+### ⚠️ Omission: home cast removal by soaking (highest-value fix)
+- **Current:** "Never get casts wet. No baths, no puddles. Sponge baths only." True during wear, but it omits removal day.
+- **What's missing:** many clinics have families **soak the last cast off at home** before the appointment — warm water (basin, baby tub, or plastic bag), a splash of clear vinegar to soften the plaster, ~15–20 minutes. Do it **shortly before the appointment (within a couple hours), not the night before** — removing too early can let the foot regress and add casts. A controlled trial found soak-removal lowered infant distress and parental anxiety vs the oscillating saw, with equivalent outcomes.
+- **Fix:** keep "dry during wear," and add a short "removal day" note with the soak method and a "confirm your clinic's preference" caveat. This is exactly the lived-experience detail an experienced parent expects to see.
+- **Source:** [Cast removal by soaking — controlled trial (PMC)](https://pmc.ncbi.nlm.nih.gov/articles/PMC13510393/), [Gillette — Ponseti cast application, care, and removal](https://www.gillettechildrens.org/your-visit/patient-education/ponseti-cast-application-and-removal), [STEPS — Ponseti for parents practical tips](https://steps.org.za/news-blog/ponseti-for-parents-practical-tips/).
+
+### ⚠️ Appointment length overstated / unsourced
+- "The casting appointment takes 30–60 minutes." No authoritative duration; routine cast changes are often quicker. Soften to "usually under an hour, often quicker," or drop the specific range.
+
+### ⚠️ Cast-count range
+- "Most babies need 5–8 casts." Defensible, but sources cluster around 4–7 (often ~5–6). Consider "usually about 4 to 8, depending on severity." Source: [Gillette — Ponseti casting](https://www.gillettechildrens.org/conditions-care/what-is-ponseti-casting), [ClubfootForward casting schedule](https://www.clubfootforward.com/casting-schedule/).
+
+### Possible omissions (parent knowledge, worth adding)
+- Casts can **slip down or off** a chubby leg — what to do (the scan tool has a `cast_loose` condition, but the casting page never mentions it).
+- After removal, skin is **peely, flaky, and tender for a few days** — normal.
+
+---
+
 ## 5. Products & doctors — verification method (Tier 3)
 
 Not a full check here; this is the method to run.
