@@ -14,24 +14,24 @@ export const phases = [
       {
         heading: "What it is",
         points: [
-          "Clubfoot affects roughly 1 in 1,000 babies. You are far from alone.",
+          "Clubfoot affects roughly 1 in 1,000 babies.[[1]] You are far from alone.",
           "It's typically diagnosed on the 20-week anatomy ultrasound and confirmed at birth.",
-          "The Ponseti method corrects clubfoot in over 95% of cases without surgery. It's gentle serial casting followed by a foot abduction brace, commonly called boots and bar, or B&B.",
+          "The Ponseti method corrects clubfoot in over 95% of cases without surgery.[[2]] It's gentle serial casting followed by a foot abduction brace, commonly called boots and bar, or B&B.",
           "Clubfoot does not cause pain in utero and does not affect the pregnancy itself.",
         ],
       },
       {
         heading: "Who it affects",
         points: [
-          "Both feet are affected (bilateral) in about 50% of cases. Treatment is the same, and both feet are cast at once.",
-          "Boys are affected roughly twice as often as girls.",
-          "If a parent or sibling had clubfoot, the recurrence risk is about 3-5%. Genetic counseling is available if you want it.",
+          "Both feet are affected (bilateral) in about 50% of cases.[[1]] Treatment is the same, and both feet are cast at once.",
+          "Boys are affected roughly twice as often as girls.[[1]]",
+          "If a sibling had clubfoot, the chance for a later child is roughly 3 to 8%. It's higher, around 10%, if a parent also had clubfoot. Estimates vary by family and population.[[3]] Genetic counseling is available if you want it.",
         ],
       },
       {
         heading: "Getting ready",
         points: [
-          "Treatment ideally begins in the first 1-2 weeks of life, while the tissues are still soft and flexible.",
+          "Treatment ideally begins in the first 1-2 weeks of life, while the tissues are still soft and flexible.[[2]]",
           "Finding a Ponseti-trained provider before birth saves you time in the first days. Casting usually begins within 1-2 weeks of birth, so line up a provider before delivery.",
         ],
       },
@@ -75,6 +75,11 @@ export const phases = [
       },
     ],
     resources: [],
+    sources: [
+      { id: 1, label: "PM&R KnowledgeNow — Club Foot (epidemiology).", url: "https://now.aapmr.org/club-foot/" },
+      { id: 2, label: "Ponseti International Association, University of Iowa.", url: "https://ponseti.medicine.uiowa.edu/what-clubfoot/ponseti-method" },
+      { id: 3, label: "OMIM #119800 — Clubfoot, Congenital (recurrence and genetics).", url: "https://omim.org/entry/119800" },
+    ],
     encouragement: {
       headline: "If you just got a diagnosis, take a breath.",
       body: "This is one of the most treatable conditions in pediatric orthopedics. The Ponseti method works in over 95% of cases, and children go on to run and play sports like anyone else. Thousands of families have gone through this before you, and they're here to help at any hour of the night.",
@@ -106,7 +111,7 @@ export const phases = [
           "Each cast moves the foot a little closer to a neutral position. The correction is gradual and gentle.",
           "Casts are long-leg, above the knee, to control rotation.[[1]] This is on purpose.",
           "Most babies need 5-8 casts.[[1]] Bilateral cases may need a few more.",
-          "The casting appointment takes 30-60 minutes. It's the old cast off, a skin check, a brief manipulation, then the new cast.",
+          "The casting appointment is usually under an hour, often quicker: the old cast off, a skin check, a brief manipulation, then the new cast.",
         ],
       },
       {
@@ -119,7 +124,8 @@ export const phases = [
       {
         heading: "Day-to-day care",
         points: [
-          "Never get casts wet. No baths, no puddles. Sponge baths only.",
+          "Keep casts dry during wear. No baths, no puddles. Sponge baths only.",
+          "On removal day, many clinics have you soak the last cast off at home first: warm water with a splash of vinegar, about 15-20 minutes, shortly before the appointment. Check your clinic's preference.[[4]]",
           "Call your care team right away if toes turn purple, white, or cold, or if your baby is inconsolable. These can be signs of a too-tight cast.",
           "Bring a blanket, a pacifier, and a bottle or nursing setup. Most babies settle quickly after the manipulation.",
         ],
@@ -168,6 +174,7 @@ export const phases = [
       { id: 1, label: "Radler C. The Ponseti method for the treatment of congenital club foot: review of the current literature and treatment recommendations. Int Orthop. 2013;37(9):1747-1753.", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC3764299/" },
       { id: 2, label: "Ponseti International Association, University of Iowa.", url: "https://ponseti.medicine.uiowa.edu/what-clubfoot/ponseti-method" },
       { id: 3, label: "POSNA (Pediatric Orthopaedic Society of North America) — Clubfoot study guide.", url: "https://posna.org/physician-education/study-guide/clubfoot" },
+      { id: 4, label: "Cast removal by soaking reduces infant and parental anxiety without affecting outcomes: a prospective controlled trial. Children (Basel). 2025.", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC13510393/" },
     ],
     encouragement: {
       headline: "Each cast is a week of progress, and you'll see it.",
@@ -203,8 +210,8 @@ export const phases = [
       {
         heading: "Wearing schedule",
         points: [
-          "Full-time wear (23 hours a day) for the first 3 months after casting. The move to nights and naps is gradual. Many providers cut wear by 2 hours every 4-6 weeks rather than dropping it all at once. The full schedule continues through age 4-5.",
-          "Sticking to the brace schedule is the biggest predictor of long-term success. Skipping wear leads to relapse in about 80% of cases.",
+          "Full-time wear (23 hours a day) for the first 3 months after casting. The move to nights and naps is gradual. Many providers cut wear by 2 hours every 4-6 weeks rather than dropping it all at once. The full schedule continues through age 4-5.[[1]]",
+          "Sticking to the brace schedule is the biggest predictor of long-term success. Most relapses happen when brace wear slips; with consistent bracing the relapse rate is low.[[1]]",
           "Let your orthopedic provider guide the transitions from full-time to nights and naps. Don't do it on your own.",
         ],
       },
@@ -268,6 +275,11 @@ export const phases = [
       },
     ],
     resources: [],
+    sources: [
+      { id: 1, label: "Zionts LE, Dietz FR. Bracing following correction of idiopathic clubfoot using the Ponseti method. J Am Acad Orthop Surg. 2010;18(8):486-493.", url: "https://pubmed.ncbi.nlm.nih.gov/20675641/" },
+      { id: 2, label: "Radler C. The Ponseti method: review of the current literature and treatment recommendations. Int Orthop. 2013;37(9):1747-1753.", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC3764299/" },
+      { id: 3, label: "Ponseti International Association, University of Iowa.", url: "https://ponseti.medicine.uiowa.edu/" },
+    ],
     encouragement: {
       headline: "The brace phase is hard. It's also where everything is protected.",
       body: "Full-time bracing is the part most families find toughest. The sleepless nights and adjustments are real. But this phase is what locks in everything casting built. Families who see it through watch their kids run and play and never think about their foot again.",
@@ -294,8 +306,8 @@ export const phases = [
       {
         heading: "Life after bracing",
         points: [
-          "Most children treated with the Ponseti method take part fully in sports, dance, and other activities.",
-          "A slightly smaller calf on the treated side is common and usually causes no real limitation.",
+          "Most children treated with the Ponseti method take part fully in sports, dance, and other activities.[[1]]",
+          "A slightly smaller calf on the treated side is common and usually causes no real limitation.[[1]]",
           "Many professional athletes, including Olympic athletes, have a history of clubfoot.",
           "Clubfoot doesn't affect intelligence, development, or health in any other way.",
         ],
@@ -303,8 +315,8 @@ export const phases = [
       {
         heading: "Staying vigilant",
         points: [
-          "Annual orthopedic check-ups are recommended through skeletal maturity, around age 16-18.",
-          "Relapse can happen even after bracing ends, usually in children under age 7. Annual check-ups catch it early.",
+          "Annual orthopedic check-ups are recommended through skeletal maturity, around age 16-18.[[2]]",
+          "Relapse can happen even after bracing ends, usually in children under age 7. Annual check-ups catch it early.[[2]]",
           "Signs of relapse: supination (walking on the outer edge of the foot), toe-walking, more tightness, and foot pain.",
         ],
       },
@@ -355,6 +367,10 @@ export const phases = [
       },
     ],
     resources: [],
+    sources: [
+      { id: 1, label: "Long-term outcomes of the Ponseti method for treatment of clubfoot: a systematic review. Int Orthop. 2021.", url: "https://link.springer.com/article/10.1007/s00264-021-05189-w" },
+      { id: 2, label: "Radler C. The Ponseti method: review of the current literature and treatment recommendations. Int Orthop. 2013;37(9):1747-1753.", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC3764299/" },
+    ],
     encouragement: {
       headline: "The hardest part is behind you.",
       body: "Casting, tenotomy, full-time bracing: you got through all of it. From here it's a gradual handoff to a normal childhood, with part-time bracing and regular check-ins to protect the correction. The large majority of Ponseti-treated children live without limitations as adults.",
