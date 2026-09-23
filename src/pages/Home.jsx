@@ -1,96 +1,186 @@
 import { useNavigate } from "react-router-dom";
 import { phases } from "../data/phases";
+import { doctors } from "../data/doctors";
 
-const quickLinks = [
-  { label: "The Ponseti Method", to: "/method", icon: "📖", iconBg: "bg-amber-100" },
-  { label: "Product Guide", to: "/products", icon: "🛍️", iconBg: "bg-sky-100" },
-  { label: "Find a Specialist", to: "/doctors", icon: "📍", iconBg: "bg-violet-100" },
-  { label: "Support & Community", to: "/support", icon: "💬", iconBg: "bg-emerald-100" },
-];
-
-const phaseColors = {
-  prenatal:        "bg-violet-500",
-  casting:         "bg-sky-500",
-  "boots-and-bar": "bg-teal-500",
-  "long-term":     "bg-emerald-500",
+const phaseAccent = {
+  prenatal:        { dot: "bg-violet-500",  ring: "hover:border-violet-300",  text: "text-violet-600" },
+  casting:         { dot: "bg-sky-500",     ring: "hover:border-sky-300",     text: "text-sky-600" },
+  "boots-and-bar": { dot: "bg-teal-500",    ring: "hover:border-teal-300",    text: "text-teal-600" },
+  "long-term":     { dot: "bg-emerald-500", ring: "hover:border-emerald-300", text: "text-emerald-600" },
 };
 
+const explore = [
+  { label: "The Ponseti Method", desc: "How treatment works, start to finish", to: "/method", icon: "📖", bg: "bg-amber-100" },
+  { label: "Product Guide", desc: "Curated gear for every phase", to: "/products", icon: "🛍️", bg: "bg-sky-100" },
+  { label: "Find a Specialist", desc: "Ponseti-trained doctors near you", to: "/doctors", icon: "📍", bg: "bg-violet-100" },
+  { label: "Support & Community", desc: "Groups, resources, and real families", to: "/support", icon: "💬", bg: "bg-rose-100" },
+];
+
 const script = { fontFamily: "'Pacifico', cursive" };
+const NAVY = "#2D3B6E";
+const TEAL = "#65abc2";
+
+const totalDoctors = doctors.length;
+const totalCountries = new Set(doctors.map((d) => d.country || "United States")).size;
+
+const stats = [
+  { value: "95%+", label: "corrected without surgery" },
+  { value: totalDoctors.toString(), label: "Ponseti-trained specialists" },
+  { value: totalCountries.toString(), label: "countries in our directory" },
+  { value: "1 in 1,000", label: "babies born with clubfoot" },
+];
 
 export default function Home() {
   const navigate = useNavigate();
 
   return (
     <div>
-      {/* Header */}
-      <div className="px-5 pt-12 pb-6">
+      {/* ── Mobile brand header (desktop uses the top nav) ── */}
+      <div className="md:hidden px-5 pt-10 pb-2">
         <div className="flex items-center gap-3">
           <p style={script} className="text-4xl leading-snug">
-            <span style={{ color: "#65abc2" }}>Clubfoot</span>
-            <span style={{ color: "#2D3B6E" }}> Club</span>
+            <span style={{ color: TEAL }}>Clubfoot</span>
+            <span style={{ color: NAVY }}> Club</span>
           </p>
           <img src="/logo.jpg" alt="Clubfoot Club" className="h-12 w-12 rounded-full object-cover" />
         </div>
-        <p style={{ fontFamily: "'Nunito', sans-serif", fontStyle: "italic", fontWeight: 600, color: "#2D3B6E" }} className="text-xl leading-snug mt-1">
-          Support for every step of the journey
-        </p>
       </div>
 
-      <div className="px-4 pb-10 space-y-3">
-        {/* Phase label row */}
-        <div className="flex items-baseline justify-between pb-1">
-          <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">
-            The Journey
-          </p>
-        </div>
-
-        {/* Full-width stacked phase tiles */}
-        {phases.map((phase) => (
-            <button
-              key={phase.id}
-              onClick={() => navigate(`/phase/${phase.id}`)}
-              className={`relative w-full ${phaseColors[phase.id] ?? "bg-slate-500"} rounded-2xl py-5 px-5 text-left overflow-hidden active:scale-95 transition-transform`}
-            >
-              {/* Ghost emoji texture */}
-              <span className="absolute right-3 top-1/2 -translate-y-1/2 text-8xl opacity-[0.12] pointer-events-none select-none leading-none">
-                {phase.emoji}
-              </span>
-              <div className="flex items-center gap-4 relative z-10">
-                <div className="flex-1 min-w-0">
-                  <p className="font-bold text-white text-lg leading-tight">{phase.label}</p>
-                  <p className="text-white/75 text-xs mt-0.5 leading-snug">{phase.description}</p>
-                </div>
-                <span className="text-white/50 text-2xl font-light flex-shrink-0">›</span>
+      {/* ── Hero ── */}
+      <section className="relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-b from-sky-50 via-stone-50 to-stone-50 md:from-sky-50/80 md:via-stone-50" />
+        <div className="relative max-w-6xl mx-auto px-5 md:px-6 pt-6 md:pt-20 pb-10 md:pb-24">
+          <div className="grid md:grid-cols-2 gap-10 md:gap-12 items-center">
+            {/* Copy */}
+            <div>
+              <p className="text-xs font-semibold uppercase tracking-widest text-teal-600 mb-4">
+                Support for every step of the journey
+              </p>
+              <h1 className="text-4xl md:text-6xl font-extrabold leading-[1.05] tracking-tight" style={{ color: NAVY }}>
+                A calmer path through clubfoot treatment.
+              </h1>
+              <p className="mt-5 text-base md:text-lg text-slate-600 leading-relaxed max-w-xl">
+                Clear guidance for every phase, an AI tool to help you spot cast and brace problems early, curated gear, and a directory of Ponseti-trained specialists. Built by a clubfoot family.
+              </p>
+              <div className="mt-8 flex flex-col sm:flex-row gap-3">
+                <button
+                  onClick={() => navigate("/scan")}
+                  className="px-6 py-3.5 rounded-full text-white font-semibold text-sm active:scale-95 md:hover:scale-[1.03] transition-transform shadow-sm"
+                  style={{ backgroundColor: NAVY }}
+                >
+                  Try the scan tool
+                </button>
+                <a
+                  href="#journey"
+                  className="px-6 py-3.5 rounded-full font-semibold text-sm text-slate-700 bg-white border border-slate-200 active:scale-95 md:hover:border-slate-300 transition text-center"
+                >
+                  Explore the journey
+                </a>
               </div>
-            </button>
-        ))}
+            </div>
 
-        {/* Quick links — circle icon grid */}
-        <div className="pt-3">
-          <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">Explore</p>
-          <div className="grid grid-cols-2 gap-2">
-            {quickLinks.map(({ label, to, icon, iconBg }) => (
+            {/* Visual */}
+            <div className="relative">
+              <div className="rounded-3xl bg-white shadow-xl ring-1 ring-slate-100 p-6 md:p-8">
+                <img src="/logo.jpg" alt="Clubfoot Club" className="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover mx-auto" />
+                <p style={script} className="text-3xl md:text-4xl text-center mt-4 leading-snug">
+                  <span style={{ color: TEAL }}>Clubfoot</span>
+                  <span style={{ color: NAVY }}> Club</span>
+                </p>
+                <p className="text-center text-sm text-slate-500 mt-3 leading-relaxed">
+                  With the Ponseti method, over 95% of children go on to run, play, and live without limits.
+                </p>
+              </div>
+              <div className="hidden md:block absolute -bottom-5 -left-5 bg-white rounded-2xl shadow-lg ring-1 ring-slate-100 px-5 py-3">
+                <p className="text-2xl font-extrabold" style={{ color: TEAL }}>Non-surgical</p>
+                <p className="text-xs text-slate-500">in the vast majority of cases</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* ── The Journey ── */}
+      <section id="journey" className="max-w-6xl mx-auto px-5 md:px-6 py-10 md:py-16 scroll-mt-20">
+        <div className="flex items-end justify-between mb-6 md:mb-8">
+          <div>
+            <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">The Journey</p>
+            <h2 className="text-2xl md:text-3xl font-bold mt-1" style={{ color: NAVY }}>Four phases, one step at a time</h2>
+          </div>
+        </div>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {phases.map((phase) => {
+            const accent = phaseAccent[phase.id] ?? { dot: "bg-slate-400", ring: "hover:border-slate-300", text: "text-slate-600" };
+            return (
               <button
-                key={to}
-                onClick={() => navigate(to)}
-                className="flex flex-col items-center gap-2 bg-white rounded-2xl shadow-sm px-3 py-4 active:scale-95 transition-transform text-center"
+                key={phase.id}
+                onClick={() => navigate(`/phase/${phase.id}`)}
+                className={`group text-left bg-white rounded-2xl p-6 border border-slate-100 shadow-sm transition-all active:scale-[0.98] md:hover:-translate-y-1 md:hover:shadow-md ${accent.ring}`}
               >
-                <div className={`w-12 h-12 rounded-full ${iconBg} flex items-center justify-center`}>
-                  <span className="text-2xl">{icon}</span>
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-4xl leading-none">{phase.emoji}</span>
+                  <span className={`w-2.5 h-2.5 rounded-full ${accent.dot}`} />
                 </div>
-                <span className="text-xs font-semibold text-slate-600 leading-tight">{label}</span>
+                <p className="font-bold text-lg leading-tight" style={{ color: NAVY }}>{phase.label}</p>
+                <p className="text-sm text-slate-500 mt-1 leading-snug">{phase.description}</p>
+                <span className={`inline-block mt-4 text-sm font-semibold ${accent.text}`}>
+                  Explore <span className="transition-transform group-hover:translate-x-0.5 inline-block">→</span>
+                </span>
               </button>
+            );
+          })}
+        </div>
+      </section>
+
+      {/* ── Stat band ── */}
+      <section style={{ backgroundColor: NAVY }}>
+        <div className="max-w-6xl mx-auto px-5 md:px-6 py-10 md:py-14">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 text-center">
+            {stats.map((s) => (
+              <div key={s.label}>
+                <p className="text-3xl md:text-4xl font-extrabold text-white">{s.value}</p>
+                <p className="text-xs md:text-sm text-white/70 mt-1 leading-snug">{s.label}</p>
+              </div>
             ))}
           </div>
         </div>
+      </section>
 
-        {/* Soft encouragement note */}
-        <div className="bg-amber-50 border border-amber-100 rounded-2xl px-5 py-4">
-          <p className="text-amber-800 text-sm text-center leading-snug">
-            With the Ponseti method, over 95% of children go on to run, play sports, and live without limitations.
-          </p>
+      {/* ── Explore ── */}
+      <section className="max-w-6xl mx-auto px-5 md:px-6 py-10 md:py-16">
+        <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-6">Explore</p>
+        <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+          {explore.map(({ label, desc, to, icon, bg }) => (
+            <button
+              key={to}
+              onClick={() => navigate(to)}
+              className="group text-left bg-white rounded-2xl p-6 border border-slate-100 shadow-sm transition-all active:scale-[0.98] md:hover:-translate-y-1 md:hover:shadow-md"
+            >
+              <div className={`w-12 h-12 rounded-full ${bg} flex items-center justify-center mb-4`}>
+                <span className="text-2xl">{icon}</span>
+              </div>
+              <p className="font-semibold text-slate-800">{label}</p>
+              <p className="text-sm text-slate-500 mt-1 leading-snug">{desc}</p>
+            </button>
+          ))}
         </div>
-      </div>
+      </section>
+
+      {/* ── Reassurance / closing ── */}
+      <section className="max-w-6xl mx-auto px-5 md:px-6 pb-16">
+        <div className="rounded-3xl bg-amber-50 border border-amber-100 p-8 md:p-12 text-center">
+          <p className="text-lg md:text-2xl font-semibold leading-relaxed max-w-3xl mx-auto" style={{ color: NAVY }}>
+            If you just got a diagnosis, take a breath. This is one of the most treatable conditions in pediatric orthopedics, and thousands of families have done this before you.
+          </p>
+          <button
+            onClick={() => navigate("/phase/prenatal")}
+            className="mt-6 px-6 py-3 rounded-full text-white font-semibold text-sm active:scale-95 md:hover:scale-[1.03] transition-transform"
+            style={{ backgroundColor: TEAL }}
+          >
+            Start with a prenatal diagnosis
+          </button>
+        </div>
+      </section>
     </div>
   );
 }
