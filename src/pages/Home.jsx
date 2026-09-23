@@ -50,10 +50,10 @@ export default function Home() {
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-sky-50 via-stone-50 to-stone-50 md:from-sky-50/80 md:via-stone-50" />
         <div className="relative max-w-6xl mx-auto px-5 md:px-6 pt-4 md:pt-10 pb-10 md:pb-24">
-          <div className="grid md:grid-cols-2 gap-10 md:gap-12 items-center">
+          <div className="grid md:grid-cols-[3fr_2fr] gap-10 md:gap-10 items-center">
             {/* Copy */}
             <div>
-              <h1 className="text-4xl md:text-6xl font-extrabold leading-[1.05] tracking-tight" style={{ color: NAVY }}>
+              <h1 className="text-4xl md:text-5xl font-extrabold leading-[1.1] tracking-tight" style={{ color: NAVY }}>
                 Support for every step of clubfoot treatment.
               </h1>
               <p className="mt-5 text-base md:text-lg text-slate-600 leading-relaxed max-w-xl">
@@ -72,15 +72,8 @@ export default function Home() {
 
             {/* Visual */}
             <div className="relative">
-              <div className="rounded-3xl bg-white shadow-xl ring-1 ring-slate-100 p-6 md:p-8">
-                <img src="/logo.jpg" alt="Clubfoot Club" className="w-24 h-24 md:w-28 md:h-28 rounded-full object-cover mx-auto" />
-                <p style={script} className="text-3xl md:text-4xl text-center mt-4 leading-snug">
-                  <span style={{ color: TEAL }}>Clubfoot</span>
-                  <span style={{ color: NAVY }}> Club</span>
-                </p>
-                <p className="text-center text-sm text-slate-500 mt-3 leading-relaxed">
-                  With the Ponseti method, over 95% of children go on to run, play, and live without limits.
-                </p>
+              <div className="rounded-3xl bg-white shadow-xl ring-1 ring-slate-100 overflow-hidden aspect-[3/4] max-w-sm mx-auto md:mx-0">
+                <img src="/clubfoot-pic.jpg" alt="A baby smiling while wearing a foot abduction brace" className="w-full h-full object-cover" />
               </div>
               <div className="hidden md:block absolute -bottom-5 -left-5 bg-white rounded-2xl shadow-lg ring-1 ring-slate-100 px-5 py-3">
                 <p className="text-2xl font-extrabold" style={{ color: TEAL }}>Non-surgical</p>
