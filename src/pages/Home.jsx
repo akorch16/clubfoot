@@ -49,7 +49,7 @@ export default function Home() {
       {/* ── Hero ── */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-sky-50 via-stone-50 to-stone-50 md:from-sky-50/80 md:via-stone-50" />
-        <div className="relative max-w-6xl mx-auto px-5 md:px-6 pt-4 md:pt-10 pb-10 md:pb-24">
+        <div className="relative max-w-6xl mx-auto px-5 md:px-6 pt-4 md:pt-10 pb-6 md:pb-10">
           <div className="grid md:grid-cols-[3fr_2fr] gap-10 md:gap-10 items-center">
             {/* Copy */}
             <div>
@@ -82,7 +82,7 @@ export default function Home() {
       </section>
 
       {/* ── The Journey ── */}
-      <section id="journey" className="max-w-6xl mx-auto px-5 md:px-6 py-10 md:py-16 scroll-mt-20">
+      <section id="journey" className="max-w-6xl mx-auto px-5 md:px-6 pt-6 md:pt-8 pb-10 md:pb-16 scroll-mt-20">
         <div className="flex items-end justify-between mb-6 md:mb-8">
           <div>
             <p className="text-xs font-semibold uppercase tracking-widest text-slate-500">The Journey</p>
