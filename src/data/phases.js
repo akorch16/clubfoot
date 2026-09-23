@@ -34,6 +34,7 @@ export const phases = [
         points: [
           "Treatment ideally begins in the first 1-2 weeks of life, while the tissues are still soft and flexible.[[2]]",
           "Finding a Ponseti-trained provider before birth saves you time in the first days. Casting usually begins within 1-2 weeks of birth, so line up a provider before delivery.",
+          "Once casting starts, your baby is in full-leg casts that run from the toes to the upper thigh, so most regular outfits won't fit over them. Stock up before birth on footless clothing — footless sleepers and rompers, baby gowns with an elastic bottom, and side-snap or kimono onesies — plus wide-leg pants or leggings a size up. Skip anything footed: the toes need to stay visible for circulation checks.",
         ],
       },
     ],
@@ -110,10 +111,10 @@ export const phases = [
       {
         heading: "How it works",
         points: [
-          "Each cast moves the foot a little closer to a neutral position. The correction is gradual and gentle.",
-          "Casts are long-leg, above the knee, to control rotation.[[1]] This is on purpose.",
-          "Most babies need 5-8 casts.[[1]] Bilateral cases may need a few more.",
-          "The casting appointment is usually under an hour, often quicker: the old cast off, a skin check, a brief manipulation, then the new cast.",
+          "Each cast moves the foot a little closer to a neutral position. The correction is gradual.",
+          "The full leg is casted, above the knee and below the hip.[[1]]",
+          "Most babies need about 4 to 8 casts, depending on how severe the clubfoot is.[[1]] Both feet are casted at the same weekly appointments, so bilateral cases don't add extra casting weeks. The exact number varies from child to child.",
+          "The casting appointment is usually under an hour. Depending on your doctor's recommendation and the type of material in the cast, the cast may start to be removed before or during the appointment. Once the old cast is taken off, the skin is checked, there's a brief manipulation of the foot, and then the new cast is applied.",
         ],
       },
       {
