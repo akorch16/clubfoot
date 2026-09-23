@@ -24,7 +24,10 @@ function CiteMark({ n, source }) {
   }
 
   return (
-    <sup className="whitespace-nowrap ml-0.5 text-[0.65em] font-semibold align-super">
+    <sup
+      className="ml-0.5 text-[0.7em] font-semibold"
+      style={{ lineHeight: 0, position: "relative", top: "-0.5em", verticalAlign: "baseline" }}
+    >
       <button
         ref={ref}
         type="button"

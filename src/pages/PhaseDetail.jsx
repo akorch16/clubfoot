@@ -151,7 +151,7 @@ export default function PhaseDetail() {
           <p className={`font-semibold text-sm mb-1 ${encouragementHeadline[phase.id] ?? "text-slate-800"}`}>
             {phase.encouragement.headline}
           </p>
-          <p className="text-slate-700 text-sm leading-relaxed">{phase.encouragement.body}</p>
+          <p className="text-slate-700 text-sm leading-relaxed"><Cited text={phase.encouragement.body} sources={phase.sources} /></p>
         </div>
       )}
 
