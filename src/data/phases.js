@@ -129,7 +129,7 @@ export const phases = [
         heading: "Day-to-day care",
         points: [
           "Keep casts dry during wear. No baths, no puddles. Sponge baths only.",
-          "On removal day, many clinics have you soak the last cast off at home first: warm water with a splash of vinegar, about 15-20 minutes, shortly before the appointment. Check your clinic's preference.[[4]]",
+          "On cast change day, some clinics have you soak the last cast off at home first shortly before the appointment, but some clinics remove the cast in the office. Check your clinic's preference.[[4]]",
           "Call your care team right away if toes turn purple, white, or cold, or if your baby is inconsolable. These can be signs of a too-tight cast.",
           "Bring a blanket, a pacifier, and a bottle or nursing setup. Most babies settle quickly after the manipulation.",
         ],
