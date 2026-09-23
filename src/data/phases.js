@@ -94,7 +94,7 @@ export const phases = [
       },
     ],
     productCategories: ["clothing", "socks", "car-seats"],
-    featuredProductIds: [13, 14, 1, 5, 6],
+    featuredProductIds: [13, 14, 1, 6],
   },
   {
     id: "casting",
@@ -249,7 +249,7 @@ export const phases = [
         title: "Clothing that works with the bar",
         detail:
           "The rigid bar between the shoes is about as wide as the hips, so normal pants and footie pajamas won't work. The Zipadee-Zip sleep sack is a favorite for sleep in the B&B phase. Little Sleepies footless rompers with two-way zips work well for daytime. Wide-leg pants and leggings with good stretch work for older babies. Plenty of parents just cut the feet off pajamas, and it works fine.",
-        relatedProducts: [4, 5, 1],
+        relatedProducts: [4, 1],
       },
       {
         title: "Baby wearing with a brace bar",
