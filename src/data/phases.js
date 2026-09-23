@@ -34,7 +34,7 @@ export const phases = [
         points: [
           "Treatment ideally begins in the first 1-2 weeks of life, while the tissues are still soft and flexible.[[2]]",
           "Finding a Ponseti-trained provider before birth saves you time in the first days. Casting usually begins within 1-2 weeks of birth, so line up a provider before delivery.",
-          "Once casting starts, your baby is in full-leg casts that run from the toes to the upper thigh, so most regular outfits won't fit over them. Stock up before birth on footless clothing — footless sleepers and rompers, baby gowns with an elastic bottom, and side-snap or kimono onesies — plus wide-leg pants or leggings a size up. Skip anything footed: the toes need to stay visible for circulation checks.",
+          "Once casting starts, your baby is in full-leg casts that run from the toes to the upper thigh, so most regular outfits won't fit over them. Stock up before birth on footless clothing like footless sleepers and rompers, baby gowns with an elastic bottom, and side-snap or kimono onesies. Skip anything footed because the toes need to stay visible for circulation checks.",
         ],
       },
     ],
