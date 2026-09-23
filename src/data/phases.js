@@ -14,6 +14,7 @@ export const phases = [
       {
         heading: "What it is",
         points: [
+          "Clubfoot is a condition present at birth where one or both feet are turned inward and pointed down.",
           "Clubfoot affects roughly 1 in 1,000 babies.[[1]] You are far from alone.",
           "It's typically diagnosed on the 20-week anatomy ultrasound and confirmed at birth.",
           "The Ponseti method corrects clubfoot in over 95% of cases without surgery.[[2]] It's gentle serial casting followed by a foot abduction brace, commonly called boots and bar, or B&B.",
