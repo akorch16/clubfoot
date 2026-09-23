@@ -295,7 +295,7 @@ export default function PhaseDetail() {
 
         {/* Practical Tips */}
         <section>
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Practical Tips</p>
+          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Common Questions</p>
           <div className="space-y-2">
             {phase.tips.map((tip, i) => (
               <TipCard key={i} tip={tip} allProducts={products} sources={phase.sources} />
