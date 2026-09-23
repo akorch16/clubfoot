@@ -18,7 +18,7 @@ export const phases = [
           "Clubfoot affects roughly 1 in 1,000 babies.[[1]] You are far from alone.",
           "It's typically diagnosed on the 20-week anatomy ultrasound and confirmed at birth.",
           "The Ponseti method corrects clubfoot in over 95% of cases without surgery.[[2]] It's gentle serial casting followed by a foot abduction brace, commonly called boots and bar, or B&B.",
-          "Clubfoot does not cause pain in utero and does not affect the pregnancy itself.",
+          "Clubfoot isn't painful for your baby, and it doesn't affect the pregnancy or delivery.[[5]]",
         ],
       },
       {
@@ -81,6 +81,7 @@ export const phases = [
       { id: 2, label: "Ponseti International Association, University of Iowa.", url: "https://ponseti.medicine.uiowa.edu/what-clubfoot/ponseti-method" },
       { id: 3, label: "OMIM #119800 — Clubfoot, Congenital (recurrence and genetics).", url: "https://omim.org/entry/119800" },
       { id: 4, label: "Owen RM, Capper B, Lavy C. Clubfoot treatment in 2015: a global perspective. BMJ Glob Health. 2018;3(4):e000852.", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6135438/" },
+      { id: 5, label: "Children's Wisconsin, Fetal Concerns Center — Clubfoot.", url: "https://childrenswi.org/medical-care/fetal-concerns-center/conditions/infant-complications/clubfoot" },
     ],
     encouragement: {
       headline: "If you just got a diagnosis, take a breath.",
@@ -88,7 +89,6 @@ export const phases = [
     },
     videos: [
       {
-        title: "What is clubfoot? Prenatal diagnosis explained",
         youtubeId: "poMLd-BujDU",
         isShort: true,
       },
