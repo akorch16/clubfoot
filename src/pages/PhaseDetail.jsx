@@ -64,7 +64,7 @@ function TipCard({ tip, allProducts, sources }) {
           <p className="text-sm text-slate-600 leading-relaxed"><Cited text={tip.detail} sources={sources} /></p>
           {linked.length > 0 && (
             <div className="mt-3 pt-3 border-t border-slate-100">
-              <p className="text-xs font-semibold text-slate-400 uppercase tracking-wide mb-2">Related Products</p>
+              <p className="text-xs font-semibold text-slate-500 uppercase tracking-wide mb-2">Related Products</p>
               <div className="flex flex-col gap-2">
                 {linked.map((product) => (
                   <a
@@ -171,7 +171,7 @@ export default function PhaseDetail() {
 
         {/* Key Facts */}
         <section>
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Key Facts</p>
+          <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">Key Facts</p>
           {phase.keyPointGroups ? (
             <div className="bg-white rounded-2xl shadow-sm p-5 space-y-5">
               {phase.keyPointGroups.map((group, gi) => (
@@ -205,7 +205,7 @@ export default function PhaseDetail() {
         {/* Videos */}
         {phase.videos?.length > 0 && (
           <section>
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Videos</p>
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">Videos</p>
             <div className="space-y-3">
               {phase.videos.map((video) => (
                 <div key={video.youtubeId} className="bg-white rounded-2xl shadow-sm overflow-hidden">
@@ -229,7 +229,7 @@ export default function PhaseDetail() {
         {carouselProducts.length > 0 && (
           <section>
             <div className="flex items-center justify-between mb-3">
-              <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest">Recommended Products</p>
+              <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">Recommended Products</p>
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => scrollCarousel(-1)}
@@ -295,7 +295,7 @@ export default function PhaseDetail() {
 
         {/* Practical Tips */}
         <section>
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Common Questions</p>
+          <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">Common Questions</p>
           <div className="space-y-2">
             {phase.tips.map((tip, i) => (
               <TipCard key={i} tip={tip} allProducts={products} sources={phase.sources} />
@@ -305,7 +305,7 @@ export default function PhaseDetail() {
 
         {/* External Resources */}
         {phase.resources.length > 0 && <section className="pb-2">
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">External Resources</p>
+          <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">External Resources</p>
           <div className="space-y-2">
             {phase.resources.map((res, i) => (
               <a key={i} href={res.url} target="_blank" rel="noopener noreferrer"
@@ -320,7 +320,7 @@ export default function PhaseDetail() {
         {/* Sources */}
         {phase.sources?.length > 0 && (
           <section className="pb-2">
-            <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Sources</p>
+            <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">Sources</p>
             <Sources sources={phase.sources} />
           </section>
         )}

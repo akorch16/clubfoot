@@ -75,7 +75,7 @@ export default function PonsetiMethod() {
 
         {/* How it works */}
         <section className="space-y-2">
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">How it works</p>
+          <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">How it works</p>
           {steps.map((step) => (
             <div key={step.number} className="bg-white rounded-2xl shadow-sm p-5">
               <div className="flex items-start gap-4">

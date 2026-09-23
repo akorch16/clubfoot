@@ -37,7 +37,7 @@ export default function Support() {
 
         {/* Community Links */}
         <section>
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Community & Resources</p>
+          <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">Community & Resources</p>
           <div className="space-y-2">
             {communityLinks.map((link, i) => (
               <a key={i} href={link.url} target="_blank" rel="noopener noreferrer"
@@ -57,7 +57,7 @@ export default function Support() {
 
         {/* Travel assistance */}
         <section>
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Travel assistance</p>
+          <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">Travel assistance</p>
           <p className="text-xs text-slate-500 leading-relaxed mb-3">
             Traveling out of state to see a Ponseti specialist can get expensive. These nonprofits arrange free or low-cost medical travel for families who qualify. Start with the National Patient Travel Center, which points you to the right program. Eligibility and coverage areas vary, so check each program's current requirements.
           </p>
