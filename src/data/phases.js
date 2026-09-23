@@ -287,8 +287,8 @@ export const phases = [
       { id: 3, label: "Ponseti International Association, University of Iowa.", url: "https://ponseti.medicine.uiowa.edu/" },
     ],
     encouragement: {
-      headline: "The brace phase is hard. It's also where everything is protected.",
-      body: "Full-time bracing is the part most families find toughest. The sleepless nights and adjustments are real. But this phase is what locks in everything casting built. Families who see it through watch their kids run and play and never think about their foot again.",
+      headline: "The boots and bar phase is hard. It's also where everything is protected.",
+      body: "Full-time bracing is the part that some families find the toughest. It's a big transition from full leg casts. But this phase is what locks in all the progress from casting. Families who see it through often see their children grow up to run and play without limitation.",
     },
     videos: [
       {
