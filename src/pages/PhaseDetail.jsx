@@ -212,13 +212,13 @@ export default function PhaseDetail() {
                   <div className={`relative w-full ${video.isShort ? "aspect-[9/16] max-w-[320px] mx-auto" : "aspect-video"}`}>
                     <iframe
                       src={`https://www.youtube.com/embed/${video.youtubeId}`}
-                      title={video.title}
+                      title={video.title || `${phase.label} video`}
                       allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                       allowFullScreen
                       className="absolute inset-0 w-full h-full"
                     />
                   </div>
-                  <p className="px-4 py-3 text-sm font-medium text-slate-700 leading-snug">{video.title}</p>
+                  {video.title && <p className="px-4 py-3 text-sm font-medium text-slate-700 leading-snug">{video.title}</p>}
                 </div>
               ))}
             </div>
