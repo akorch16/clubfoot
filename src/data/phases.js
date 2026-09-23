@@ -120,8 +120,9 @@ export const phases = [
       {
         heading: "The tenotomy",
         points: [
-          "About 80% of children need an Achilles tenotomy before the final cast.[[1]] It's a minor in-office procedure.",
-          "The final cast after the tenotomy stays on for about 3 weeks while the tendon heals.[[1]]",
+          "By the end of casting most of the correction is done, but in about 80% of babies the Achilles tendon (the heel cord) is still too tight to let the foot come up to a neutral position.[[1]] The tenotomy releases it: the surgeon fully divides the tendon through a tiny opening in the skin, so the foot can finish correcting instead of forcing the midfoot.",
+          "It's a short procedure, usually done in the office under local anesthetic for young babies, though some providers use sedation or a light general depending on the child's age and the setting.[[5]] It's minor as surgeries go, but it is a real procedure — the tendon is cut all the way across, not just stretched.",
+          "The tendon isn't gone for good. In the final cast, worn for about 3 weeks, the heel cord heals back to a new, functional length, and children regain normal push-off strength over time.[[1]]",
         ],
       },
       {
@@ -178,6 +179,7 @@ export const phases = [
       { id: 2, label: "Ponseti International Association, University of Iowa.", url: "https://ponseti.medicine.uiowa.edu/what-clubfoot/ponseti-method" },
       { id: 3, label: "POSNA (Pediatric Orthopaedic Society of North America) — Clubfoot study guide.", url: "https://posna.org/physician-education/study-guide/clubfoot" },
       { id: 4, label: "Cast removal by soaking reduces infant and parental anxiety without affecting outcomes: a prospective controlled trial. Children (Basel). 2025.", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC13510393/" },
+      { id: 5, label: "Achilles tenotomy as an office procedure: safety and efficacy as part of the Ponseti serial casting protocol for clubfoot. J Pediatr Orthop. 2012.", url: "https://pubmed.ncbi.nlm.nih.gov/22584844/" },
     ],
     encouragement: {
       headline: "Each cast is a week of progress, and you'll see it.",
@@ -190,6 +192,7 @@ export const phases = [
       },
     ],
     productCategories: ["clothing", "socks", "car-seats", "tubs"],
+    featuredProductIds: [1, 4, 6, 7],
   },
   {
     id: "boots-and-bar",
