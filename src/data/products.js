@@ -52,7 +52,7 @@ export const products = [
     description: "Keep bare legs warm during casting without wrestling pants over a full-leg cast. BabyLegs are the original and most-stocked brand.",
     tip: "Note: leg warmers only cover ankle to hip and leave toes exposed. Many families prefer pulling a knee-high sock over the cast end instead. It covers the toes too, making it easier to monitor circulation.",
     url: "https://www.amazon.com/s?k=babylegs+baby+leg+warmers",
-    phases: ["casting"],
+    phases: ["boots-and-bar"],
   },
 
   // Socks
