@@ -190,6 +190,7 @@ export const phases = [
       },
     ],
     productCategories: ["clothing", "socks", "car-seats", "tubs"],
+    featuredProductIds: [1, 4, 6, 7],
   },
   {
     id: "boots-and-bar",
