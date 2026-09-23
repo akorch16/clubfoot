@@ -120,7 +120,7 @@ export const phases = [
       {
         heading: "The tenotomy",
         points: [
-          "By the end of casting most of the correction is done, but in about 80% of babies the Achilles tendon (the heel cord) is still too tight to let the foot come up to a neutral position.[[1]] The tenotomy releases it: the surgeon fully divides the tendon through a tiny opening in the skin, so the foot can finish correcting instead of forcing the midfoot.",
+          "By the end of casting most of the correction is done, but in about 80% of babies the Achilles tendon (the heel cord) is still too tight to let the foot come up to a neutral position.[[1]] The tenotomy releases it: the surgeon fully divides the tendon through a tiny opening in the skin.",
           "It's a short procedure, usually done in the office under local anesthetic for young babies, though some providers use sedation or a light general depending on the child's age and the setting.[[5]] It's minor as surgeries go, but it is a real procedure — the tendon is cut all the way across, not just stretched.",
           "The tendon isn't gone for good. In the final cast, worn for about 3 weeks, the heel cord heals back to a new, functional length, and children regain normal push-off strength over time.[[1]]",
         ],
