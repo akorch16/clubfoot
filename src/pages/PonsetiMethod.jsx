@@ -1,20 +1,21 @@
 import { useNavigate } from "react-router-dom";
+import Cited, { Sources } from "../components/Cited";
 
 const steps = [
   {
     number: "01",
     title: "Serial casting",
-    body: "A specialist gently manipulates the foot toward its correct position and applies a fresh plaster cast each week. Each cast holds the correction and stretches the ligaments and tendons a little further. Most children need 5 to 8 casts over 5 to 8 weeks, though the number varies by severity.",
+    body: "A specialist gently manipulates the foot toward its correct position and applies a fresh plaster cast each week. Each cast holds the correction and stretches the ligaments and tendons a little further. Most children need 5 to 8 casts over 5 to 8 weeks, though the number varies by severity.[[2]]",
   },
   {
     number: "02",
     title: "Achilles tenotomy",
-    body: "In about 80% of cases, the Achilles tendon is too short to allow full correction after casting. A tenotomy releases the tendon. It's a minor procedure done in-office or under local anesthesia, it takes seconds, and it heals within a few weeks. A final cast holds the position while it heals.",
+    body: "In about 80% of cases, the Achilles tendon is too short to allow full correction after casting.[[2]] A tenotomy releases the tendon. It's a minor procedure done in-office or under local anesthesia, it takes seconds, and it heals within a few weeks. A final cast holds the position while it heals.",
   },
   {
     number: "03",
     title: "Foot abduction brace",
-    body: "Once casting is complete, a foot abduction brace, typically boots attached to a bar, holds the correction and prevents relapse. It's worn 23 hours a day for about 3 months, then during sleep (nights and naps) until around age 4-5. This phase is the longest and the most important.",
+    body: "Once casting is complete, a foot abduction brace, typically boots attached to a bar, holds the correction and prevents relapse. It's worn 23 hours a day for about 3 months, then during sleep (nights and naps) until around age 4-5.[[3]] This phase is the longest and the most important.",
   },
   {
     number: "04",
@@ -34,14 +35,16 @@ const clubfootTypes = [
   },
   {
     label: "Syndromic",
-    body: "Clubfoot that comes as part of another condition, such as arthrogryposis, spina bifida (myelomeningocele), or Larsen syndrome. These feet usually need more casts, relapse more often, and follow a less predictable course. The Ponseti method is still the starting point, but the timeline and expectations are different, so talk with your provider about your child's specific situation.",
+    body: "Clubfoot that comes as part of another condition, such as arthrogryposis, spina bifida (myelomeningocele), or Larsen syndrome. These feet usually need more casts, relapse more often, and follow a less predictable course.[[2]] The Ponseti method is still the starting point, but the timeline and expectations are different, so talk with your provider about your child's specific situation.",
   },
 ];
 
 const sources = [
-  { label: "Ponseti International Association", url: "https://ponseti.medicine.uiowa.edu" },
-  { label: "What is clubfoot", url: "https://ponseti.medicine.uiowa.edu/what-clubfoot" },
-  { label: "Publications & resources (Red Book, clinical guidelines)", url: "https://ponseti.medicine.uiowa.edu/what-clubfoot/publications-and-resources" },
+  { id: 1, label: "Ponseti International Association, University of Iowa.", url: "https://ponseti.medicine.uiowa.edu/what-clubfoot/ponseti-method" },
+  { id: 2, label: "Radler C. The Ponseti method: review of the current literature and treatment recommendations. Int Orthop. 2013;37(9):1747-1753.", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC3764299/" },
+  { id: 3, label: "Zionts LE, Dietz FR. Bracing following correction of idiopathic clubfoot using the Ponseti method. J Am Acad Orthop Surg. 2010;18(8):486-493.", url: "https://pubmed.ncbi.nlm.nih.gov/20675641/" },
+  { id: 4, label: "Dobbs MB, Morcuende JA, Gurnett CA, Ponseti IV. Treatment of idiopathic clubfoot: an historical review. Iowa Orthop J. 2000;20:59-64.", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC1888755/" },
+  { id: 5, label: "Ponseti International — Publications & resources (Red Book, clinical guidelines).", url: "https://ponseti.medicine.uiowa.edu/what-clubfoot/publications-and-resources" },
 ];
 
 export default function PonsetiMethod() {
@@ -63,7 +66,7 @@ export default function PonsetiMethod() {
         <div className="bg-white rounded-2xl shadow-sm p-5 space-y-2">
           <h2 className="font-semibold text-slate-800 text-base">What it is</h2>
           <p className="text-sm text-slate-600 leading-relaxed">
-            The Ponseti method is a non-surgical technique for correcting clubfoot in infants. Dr. Ignacio Ponseti developed it at the University of Iowa starting in the 1950s. It uses a carefully sequenced series of gentle manipulations and plaster casts to gradually reshape the foot into its correct position. No surgery is needed in the large majority of cases.
+            <Cited sources={sources} text="The Ponseti method is a non-surgical technique for correcting clubfoot in infants. Dr. Ignacio Ponseti developed it at the University of Iowa starting in the 1950s.[[4]] It uses a carefully sequenced series of gentle manipulations and plaster casts to gradually reshape the foot into its correct position. No surgery is needed in the large majority of cases.[[1]]" />
           </p>
           <p className="text-sm text-slate-600 leading-relaxed">
             It replaced invasive surgical correction as the global standard of care because it produces better long-term outcomes with much less risk, pain, and recovery time.
@@ -79,7 +82,7 @@ export default function PonsetiMethod() {
                 <span className="text-2xl font-bold text-slate-200 leading-none mt-0.5 tabular-nums">{step.number}</span>
                 <div className="space-y-1.5">
                   <h3 className="font-semibold text-slate-800 text-sm">{step.title}</h3>
-                  <p className="text-sm text-slate-600 leading-relaxed">{step.body}</p>
+                  <p className="text-sm text-slate-600 leading-relaxed"><Cited text={step.body} sources={sources} /></p>
                 </div>
               </div>
             </div>
@@ -111,7 +114,7 @@ export default function PonsetiMethod() {
         <div className="bg-white rounded-2xl shadow-sm p-5 space-y-2">
           <h2 className="font-semibold text-slate-800 text-base">Success rate</h2>
           <p className="text-sm text-slate-600 leading-relaxed">
-            With proper treatment and brace compliance, over 95% of children treated with the Ponseti method walk, run, and play like anyone else. The foot may be slightly smaller or the calf slightly thinner on the affected side, but function is typically normal.
+            <Cited sources={sources} text="With proper treatment and brace compliance, over 95% of children treated with the Ponseti method walk, run, and play like anyone else.[[1,2]] The foot may be slightly smaller or the calf slightly thinner on the affected side, but function is typically normal." />
           </p>
         </div>
 
@@ -149,14 +152,7 @@ export default function PonsetiMethod() {
           <p className="text-sm text-slate-600 leading-relaxed">
             The clinical information here follows the Ponseti International Association at the University of Iowa, where Dr. Ponseti developed the method, and its published guidance. The over-95% success figure and the treatment sequence come from their materials and clinical guidelines.
           </p>
-          <div className="space-y-1.5">
-            {sources.map((s) => (
-              <a key={s.url} href={s.url} target="_blank" rel="noopener noreferrer"
-                className="block text-sm font-medium text-teal-600 active:text-teal-700">
-                {s.label} →
-              </a>
-            ))}
-          </div>
+          <Sources sources={sources} />
           <p className="text-xs text-slate-400 leading-relaxed">
             This site is for education and support. It doesn't replace your care team.
           </p>
