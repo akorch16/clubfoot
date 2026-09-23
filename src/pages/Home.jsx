@@ -39,7 +39,7 @@ export default function Home() {
       <div className="px-4 pb-10 space-y-3">
         {/* Phase label row */}
         <div className="flex items-baseline justify-between pb-1">
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest">
+          <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">
             The Journey
           </p>
         </div>
@@ -67,7 +67,7 @@ export default function Home() {
 
         {/* Quick links — circle icon grid */}
         <div className="pt-3">
-          <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Explore</p>
+          <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">Explore</p>
           <div className="grid grid-cols-2 gap-2">
             {quickLinks.map(({ label, to, icon, iconBg }) => (
               <button

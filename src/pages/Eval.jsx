@@ -114,7 +114,7 @@ export default function Eval() {
         {(phase === "idle" || phase === "error") && (
           <div className="space-y-3">
             <div className="bg-white rounded-2xl shadow-sm p-4">
-              <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Models to compare</p>
+              <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">Models to compare</p>
               <div className="space-y-2">
                 {EVAL_MODELS.map((m) => (
                   <label key={m.id} className="flex items-center justify-between gap-2 cursor-pointer">
@@ -158,7 +158,7 @@ export default function Eval() {
           <div className="space-y-5">
             {/* Comparison table */}
             <section>
-              <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Comparison</p>
+              <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">Comparison</p>
               <div className="bg-white rounded-2xl shadow-sm p-4 overflow-x-auto">
                 <table className="w-full text-xs">
                   <thead>
@@ -201,7 +201,7 @@ export default function Eval() {
             {/* Set composition (model-independent) */}
             {focus && (
               <section>
-                <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest mb-3">Set composition (by true urgency)</p>
+                <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">Set composition (by true urgency)</p>
                 <div className="bg-white rounded-2xl shadow-sm p-4 space-y-2">
                   {URGENCY_TIERS.map((t) => (
                     <div key={t} className="flex items-center justify-between text-sm">
@@ -220,7 +220,7 @@ export default function Eval() {
             {ranModels.length > 0 && (
               <section>
                 <div className="flex items-center gap-2 mb-3 flex-wrap">
-                  <p className="text-xs font-semibold text-slate-400 uppercase tracking-widest">Detail:</p>
+                  <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest">Detail:</p>
                   {ranModels.map((m) => (
                     <button key={m.id} onClick={() => setFocusModel(m.id)}
                       className={`text-xs font-semibold px-2.5 py-1 rounded-lg transition-colors ${
