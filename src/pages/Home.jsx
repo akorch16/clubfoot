@@ -60,24 +60,21 @@ export default function Home() {
                 Clear guidance for every phase, an AI tool to help you spot cast and brace problems early, curated gear, and a directory of Ponseti-trained specialists. Built by a clubfoot family.
               </p>
               <div className="mt-8">
-                <a
-                  href="#journey"
+                <button
+                  type="button"
+                  onClick={() => document.getElementById("journey")?.scrollIntoView({ behavior: "smooth" })}
                   className="inline-block px-6 py-3.5 rounded-full text-white font-semibold text-sm active:scale-95 md:hover:scale-[1.03] transition-transform shadow-sm text-center"
                   style={{ backgroundColor: NAVY }}
                 >
                   Explore the journey
-                </a>
+                </button>
               </div>
             </div>
 
             {/* Visual */}
             <div className="relative">
-              <div className="rounded-3xl bg-white shadow-xl ring-1 ring-slate-100 overflow-hidden aspect-[3/4] max-w-sm mx-auto md:mx-0">
+              <div className="rounded-3xl bg-white shadow-xl ring-1 ring-slate-100 overflow-hidden aspect-[3/4] max-w-sm mx-auto md:mx-0 md:mr-32">
                 <img src="/clubfoot-pic.jpg" alt="A baby smiling while wearing a foot abduction brace" className="w-full h-full object-cover" />
-              </div>
-              <div className="hidden md:block absolute -bottom-5 -left-5 bg-white rounded-2xl shadow-lg ring-1 ring-slate-100 px-5 py-3">
-                <p className="text-2xl font-extrabold" style={{ color: TEAL }}>Non-surgical</p>
-                <p className="text-xs text-slate-500">in the vast majority of cases</p>
               </div>
             </div>
           </div>
