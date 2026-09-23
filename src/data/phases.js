@@ -113,7 +113,7 @@ export const phases = [
         points: [
           "Each cast moves the foot a little closer to a neutral position. The correction is gradual.",
           "The full leg is casted, above the knee and below the hip.[[1]]",
-          "Most babies need about 4 to 8 casts, depending on how severe the clubfoot is.[[1]] Both feet are casted at the same weekly appointments, so bilateral cases don't add extra casting weeks. The exact number varies from child to child.",
+          "Most babies need about 4 to 8 casts, depending on how severe the clubfoot is.[[1]] The exact number varies from child to child.",
           "The casting appointment is usually under an hour. Depending on your doctor's recommendation and the type of material in the cast, the cast may start to be removed before or during the appointment. Once the old cast is taken off, the skin is checked, there's a brief manipulation of the foot, and then the new cast is applied.",
         ],
       },
