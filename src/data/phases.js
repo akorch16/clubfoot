@@ -112,7 +112,8 @@ export const phases = [
         heading: "How it works",
         points: [
           "Each cast moves the foot a little closer to a neutral position. The correction is gradual.",
-          "The full leg is casted, above the knee and below the hip.[[1]]",
+          "The full leg is casted, with the knee bent to at least 90 degrees and the cast extended high into the groin.[[1,6]] This isn't arbitrary: a cast that's too straight or doesn't reach high enough can slip down a chubby infant leg and lose the correction.",
+          "Most providers use plaster because it molds more precisely to the corrected position. Some use semirigid fiberglass instead, which recent studies show gets comparable results with easier removal.[[7]] Either is fine with an experienced provider.",
           "Most babies need about 4 to 8 casts, depending on how severe the clubfoot is.[[1]] The exact number varies from child to child.",
           "The casting appointment is usually under an hour. Depending on your doctor's recommendation and the type of material in the cast, the cast may start to be removed before or during the appointment. Once the old cast is taken off, the skin is checked, there's a brief manipulation of the foot, and then the new cast is applied.",
         ],
@@ -130,6 +131,7 @@ export const phases = [
           "Keep casts dry during wear. No baths, no puddles. Sponge baths only.",
           "On cast change day, some clinics have you soak the last cast off at home first shortly before the appointment, but some clinics remove the cast in the office. Check your clinic's preference.[[4]]",
           "Call your care team right away if toes turn purple, white, or cold, or if your baby is inconsolable. These can be signs of a too-tight cast.",
+          "A cast that has visibly slipped down the leg is more urgent than one that just feels a little loose. It's already lost its grip on the correction, so call right away rather than waiting for the next scheduled visit.[[6]]",
           "Bring a blanket, a pacifier, and a bottle or nursing setup. Most babies settle quickly after the manipulation.",
         ],
       },
@@ -150,7 +152,7 @@ export const phases = [
       {
         title: "What are the warning signs of a problem cast?",
         detail:
-          "A well-applied cast shouldn't cause more than a few minutes of fussiness after it goes on. Call your care team right away if you see any of these: toes that are purple, white, mottled, or cold to the touch, toes that don't move or wiggle, a baby who is inconsolable 30 minutes or more after the cast went on, or a cast that suddenly feels loose or cracks. When in doubt, call.",
+          "A well-applied cast shouldn't cause more than a few minutes of fussiness after it goes on. Not every issue is equally urgent, so it helps to know what to do when. Call right away: toes that are purple, white, mottled, or cold to the touch; toes that don't move or wiggle; a baby who is inconsolable 30 minutes or more after the cast went on; or a cast that has visibly slipped down the leg. A slipped cast has already lost its grip on the correction, so it needs to come off and be reapplied, not wait for the next visit.[[6]] Call today, without waiting: a cast that feels loose without having visibly slipped, cracking or softening in the plaster, or a bad smell. Mention at your next visit: minor rubbing or redness right at the cast edges. When in doubt, call. It's never the wrong move.",
         relatedProducts: [],
       },
       {
@@ -179,6 +181,8 @@ export const phases = [
       { id: 3, label: "POSNA (Pediatric Orthopaedic Society of North America) — Clubfoot study guide.", url: "https://posna.org/physician-education/study-guide/clubfoot" },
       { id: 4, label: "Cast removal by soaking reduces infant and parental anxiety without affecting outcomes: a prospective controlled trial. Children (Basel). 2025.", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC13510393/" },
       { id: 5, label: "Achilles tenotomy as an office procedure: safety and efficacy as part of the Ponseti serial casting protocol for clubfoot. J Pediatr Orthop. 2012.", url: "https://pubmed.ncbi.nlm.nih.gov/22584844/" },
+      { id: 6, label: "Above- or below-knee plaster casts in the Ponseti method for clubfoot correction — comparative study. Bone Joint J.", url: "https://boneandjoint.org.uk/Article/10.1302/0301-620X.95B11.31899" },
+      { id: 7, label: "Plaster of Paris versus semirigid fiberglass casting in the Ponseti method for idiopathic clubfoot: a systematic review and meta-analysis. 2025.", url: "https://pubmed.ncbi.nlm.nih.gov/40888800/" },
     ],
     encouragement: {
       headline: "Each cast is a week of progress, and you'll see it.",
