@@ -5,6 +5,7 @@ const links = [
   { to: "/products", label: "Products" },
   { to: "/doctors", label: "Find a Doctor" },
   { to: "/support", label: "Support" },
+  { to: "/scan", label: "Scan & Assess" },
 ];
 
 const script = { fontFamily: "'Pacifico', cursive" };
@@ -35,13 +36,6 @@ export default function TopNav() {
               {label}
             </NavLink>
           ))}
-          <Link
-            to="/scan"
-            className="ml-2 px-4 py-2 rounded-full text-sm font-semibold text-white transition-transform hover:scale-[1.03]"
-            style={{ backgroundColor: "#2D3B6E" }}
-          >
-            Scan &amp; Assess
-          </Link>
         </nav>
       </div>
     </header>
