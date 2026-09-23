@@ -25,7 +25,7 @@ export const phases = [
         points: [
           "Both feet are affected (bilateral) in about 50% of cases.[[1]] Treatment is the same, and both feet are cast at once.",
           "Boys are affected roughly twice as often as girls.[[1]]",
-          "If a sibling had clubfoot, the chance for a later child is roughly 3 to 8%. It's higher, around 10%, if a parent also had clubfoot. Estimates vary by family and population.[[3]] Genetic counseling is available if you want it.",
+          "If a sibling had clubfoot, the chance for a future child to have clubfoot is roughly 3 to 8%. If a parent also had clubfoot, the rate is 10%. Estimates vary by family and population.[[3]] Genetic counseling is available if you want it.",
         ],
       },
       {
@@ -79,10 +79,11 @@ export const phases = [
       { id: 1, label: "PM&R KnowledgeNow — Club Foot (epidemiology).", url: "https://now.aapmr.org/club-foot/" },
       { id: 2, label: "Ponseti International Association, University of Iowa.", url: "https://ponseti.medicine.uiowa.edu/what-clubfoot/ponseti-method" },
       { id: 3, label: "OMIM #119800 — Clubfoot, Congenital (recurrence and genetics).", url: "https://omim.org/entry/119800" },
+      { id: 4, label: "Owen RM, Capper B, Lavy C. Clubfoot treatment in 2015: a global perspective. BMJ Glob Health. 2018;3(4):e000852.", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC6135438/" },
     ],
     encouragement: {
       headline: "If you just got a diagnosis, take a breath.",
-      body: "This is one of the most treatable conditions in pediatric orthopedics. The Ponseti method works in over 95% of cases, and children go on to run and play sports like anyone else. Thousands of families have gone through this before you, and they're here to help at any hour of the night.",
+      body: "This is one of the most treatable conditions in pediatric orthopedics. The Ponseti method works in over 95% of cases. Children can go on to run and play sports like any other kid. Hundreds of thousands of families have gone through this before you[[4]] and many are here to support you.",
     },
     videos: [
       {
