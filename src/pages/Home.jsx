@@ -49,7 +49,7 @@ export default function Home() {
       {/* ── Hero ── */}
       <section className="relative overflow-hidden">
         <div className="absolute inset-0 bg-gradient-to-b from-sky-50 via-stone-50 to-stone-50 md:from-sky-50/80 md:via-stone-50" />
-        <div className="relative max-w-6xl mx-auto px-5 md:px-6 pt-6 md:pt-20 pb-10 md:pb-24">
+        <div className="relative max-w-6xl mx-auto px-5 md:px-6 pt-4 md:pt-10 pb-10 md:pb-24">
           <div className="grid md:grid-cols-2 gap-10 md:gap-12 items-center">
             {/* Copy */}
             <div>
@@ -59,17 +59,11 @@ export default function Home() {
               <p className="mt-5 text-base md:text-lg text-slate-600 leading-relaxed max-w-xl">
                 Clear guidance for every phase, an AI tool to help you spot cast and brace problems early, curated gear, and a directory of Ponseti-trained specialists. Built by a clubfoot family.
               </p>
-              <div className="mt-8 flex flex-col sm:flex-row gap-3">
-                <button
-                  onClick={() => navigate("/scan")}
-                  className="px-6 py-3.5 rounded-full text-white font-semibold text-sm active:scale-95 md:hover:scale-[1.03] transition-transform shadow-sm"
-                  style={{ backgroundColor: NAVY }}
-                >
-                  Try the scan tool
-                </button>
+              <div className="mt-8">
                 <a
                   href="#journey"
-                  className="px-6 py-3.5 rounded-full font-semibold text-sm text-slate-700 bg-white border border-slate-200 active:scale-95 md:hover:border-slate-300 transition text-center"
+                  className="inline-block px-6 py-3.5 rounded-full text-white font-semibold text-sm active:scale-95 md:hover:scale-[1.03] transition-transform shadow-sm text-center"
+                  style={{ backgroundColor: NAVY }}
                 >
                   Explore the journey
                 </a>
