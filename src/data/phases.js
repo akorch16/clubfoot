@@ -24,7 +24,7 @@ export const phases = [
       {
         heading: "Who it affects",
         points: [
-          "Both feet are affected (bilateral) in about 50% of cases.[[1]] Treatment is the same, and both feet are cast at once.",
+          "Both feet are affected (bilateral) in about 50% of cases.[[1]] If both feet are affected, both feet are casted. If one foot is affected, only that foot is casted.",
           "Boys are affected roughly twice as often as girls.[[1]]",
           "If a sibling had clubfoot, the chance for a future child to have clubfoot is roughly 3 to 8%. If a parent also had clubfoot, the rate is 10%. Estimates vary by family and population.[[3]] Genetic counseling is available if you want it.",
         ],
