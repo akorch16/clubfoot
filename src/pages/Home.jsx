@@ -53,11 +53,8 @@ export default function Home() {
           <div className="grid md:grid-cols-2 gap-10 md:gap-12 items-center">
             {/* Copy */}
             <div>
-              <p className="text-xs font-semibold uppercase tracking-widest text-teal-600 mb-4">
-                Support for every step of the journey
-              </p>
               <h1 className="text-4xl md:text-6xl font-extrabold leading-[1.05] tracking-tight" style={{ color: NAVY }}>
-                A calmer path through clubfoot treatment.
+                Support for every step of clubfoot treatment.
               </h1>
               <p className="mt-5 text-base md:text-lg text-slate-600 leading-relaxed max-w-xl">
                 Clear guidance for every phase, an AI tool to help you spot cast and brace problems early, curated gear, and a directory of Ponseti-trained specialists. Built by a clubfoot family.
