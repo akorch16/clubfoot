@@ -181,7 +181,7 @@ export const phases = [
     ],
     encouragement: {
       headline: "Each cast is a week of progress, and you'll see it.",
-      body: "The Ponseti technique makes small corrections at every appointment. Most babies need 5-8 casts, and you can see the change week to week. By the last cast, you'll look back at the week-one photos and barely recognize that foot.",
+      body: "The Ponseti technique makes small corrections at every appointment. Most babies need 5-8 casts, and you can see the change week to week. The entire process generally takes around two months.",
     },
     videos: [
       {
