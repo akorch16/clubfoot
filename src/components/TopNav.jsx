@@ -5,7 +5,7 @@ const links = [
   { to: "/products", label: "Products" },
   { to: "/doctors", label: "Find a Doctor" },
   { to: "/support", label: "Support" },
-  { to: "/scan", label: "Scan & Assess" },
+  { to: "/scan", label: "Scan & Assess", beta: true },
 ];
 
 const script = { fontFamily: "'Pacifico', cursive" };
@@ -23,17 +23,22 @@ export default function TopNav() {
         </Link>
 
         <nav className="flex items-center gap-1">
-          {links.map(({ to, label }) => (
+          {links.map(({ to, label, beta }) => (
             <NavLink
               key={to}
               to={to}
               className={({ isActive }) =>
-                `px-3 py-2 rounded-lg text-sm font-semibold transition-colors ${
+                `px-3 py-2 rounded-lg text-sm font-semibold transition-colors flex items-center gap-1.5 ${
                   isActive ? "text-slate-900 bg-slate-100" : "text-slate-500 hover:text-slate-900 hover:bg-slate-50"
                 }`
               }
             >
               {label}
+              {beta && (
+                <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide bg-amber-100 text-amber-700">
+                  Beta
+                </span>
+              )}
             </NavLink>
           ))}
         </nav>

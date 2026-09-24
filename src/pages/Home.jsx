@@ -125,6 +125,38 @@ export default function Home() {
         </div>
       </section>
 
+      {/* ── Scan & Assess ── */}
+      <section className="max-w-6xl mx-auto px-5 md:px-6 py-10 md:py-16">
+        <div className="bg-violet-50 border border-violet-100 rounded-3xl p-6 md:p-10">
+          <div className="grid md:grid-cols-[3fr_2fr] gap-8 md:gap-10 items-center">
+            <div>
+              <div className="flex items-center gap-2 mb-3">
+                <p className="text-xs font-semibold uppercase tracking-widest text-violet-600">Scan &amp; Assess</p>
+                <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide bg-amber-100 text-amber-700">Beta</span>
+              </div>
+              <h2 className="text-2xl md:text-3xl font-bold leading-snug" style={{ color: NAVY }}>
+                Worried about a cast or brace? Get an instant AI check.
+              </h2>
+              <p className="mt-3 text-sm md:text-base text-slate-600 leading-relaxed max-w-xl">
+                Take a photo of the cast or brace and our AI tool flags common warning signs in seconds, so you know whether to call your care team right away or it can wait. It's not a replacement for your care team's advice.
+              </p>
+              <button
+                onClick={() => navigate("/scan")}
+                className="mt-5 px-6 py-3 rounded-full text-white font-semibold text-sm active:scale-95 md:hover:scale-[1.03] transition-transform"
+                style={{ backgroundColor: NAVY }}
+              >
+                Try Scan &amp; Assess →
+              </button>
+            </div>
+            <div className="hidden md:flex items-center justify-center">
+              <div className="w-32 h-32 rounded-full bg-white shadow-sm flex items-center justify-center text-6xl">
+                📸
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* ── Explore ── */}
       <section className="max-w-6xl mx-auto px-5 md:px-6 py-10 md:py-16">
         <p className="text-xs font-semibold uppercase tracking-widest text-slate-500 mb-6">Explore</p>
