@@ -193,12 +193,9 @@ function ProblemCastModule({ phase, large }) {
   return (
     <section>
       <div className={`bg-amber-50 border border-amber-200 rounded-2xl ${large ? "p-6" : "p-5"}`}>
-        <div className="flex items-start gap-3 mb-4">
-          <span className={`flex-shrink-0 ${large ? "text-2xl" : "text-xl"}`}>🆘</span>
-          <div>
-            <h2 className={`font-bold text-amber-900 ${large ? "text-xl" : "text-lg"}`}>Help! I have a problem with the cast</h2>
-            <p className={`text-amber-800 leading-relaxed mt-1 ${large ? "text-base" : "text-sm"}`}>{phase.problemCast.intro}</p>
-          </div>
+        <div className="mb-4">
+          <h2 className={`font-bold text-amber-900 ${large ? "text-xl" : "text-lg"}`}>Help! I have a problem with the cast</h2>
+          <p className={`text-amber-800 leading-relaxed mt-1 ${large ? "text-base" : "text-sm"}`}>{phase.problemCast.intro}</p>
         </div>
         <div className="space-y-2">
           {phase.problemCast.scenarios.map((scenario, i) => (
@@ -351,7 +348,6 @@ export default function PhaseDetail() {
       {/* ── Mobile / tablet: single linear column (unchanged) ── */}
       <div className="lg:hidden px-4 pt-5 pb-10 space-y-5">
         <KeyFacts phase={phase} />
-        <ProblemCastModule phase={phase} />
         <VideosSection phase={phase} />
 
         {carouselProducts.length > 0 && (
@@ -423,6 +419,7 @@ export default function PhaseDetail() {
 
         <CommonQuestions phase={phase} />
         <ExternalResources phase={phase} />
+        <ProblemCastModule phase={phase} />
 
         {phase.sources?.length > 0 && (
           <section className="pb-2">
@@ -436,10 +433,10 @@ export default function PhaseDetail() {
       <div className="hidden lg:grid max-w-6xl mx-auto px-6 pt-8 pb-16 lg:grid-cols-3 lg:gap-10 lg:items-start">
         <div className="lg:col-span-2 space-y-8">
           <KeyFacts phase={phase} large />
-          <ProblemCastModule phase={phase} large />
           <VideosSection phase={phase} large />
           <CommonQuestions phase={phase} large />
           <ExternalResources phase={phase} large />
+          <ProblemCastModule phase={phase} large />
         </div>
 
         <div className="lg:col-span-1 space-y-8 lg:sticky lg:top-20">
