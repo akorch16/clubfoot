@@ -24,7 +24,7 @@ The user works on Mac at `~/Documents/clubfoot`. Claude runs in the cloud repo.
 - **Per-section accent colors** (intentional wayfinding — keep it):
   - Prenatal → violet (`violet-500`)
   - Casting → sky (`sky-500`)
-  - Boots & bar → teal (`teal-500`)
+  - Boots & bar → amber (`amber-500`)
   - Long-term → emerald (`emerald-500`)
   - Scan → violet
   - Support → rose
