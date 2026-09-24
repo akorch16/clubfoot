@@ -3,10 +3,10 @@ import { phases } from "../data/phases";
 import { doctors } from "../data/doctors";
 
 const phaseAccent = {
-  prenatal:        { dot: "bg-violet-500",  ring: "hover:border-violet-300",  text: "text-violet-600" },
-  casting:         { dot: "bg-sky-500",     ring: "hover:border-sky-300",     text: "text-sky-600" },
-  "boots-and-bar": { dot: "bg-teal-500",    ring: "hover:border-teal-300",    text: "text-teal-600" },
-  "long-term":     { dot: "bg-emerald-500", ring: "hover:border-emerald-300", text: "text-emerald-600" },
+  prenatal:        { glow: "bg-violet-400",  ring: "hover:border-violet-300",  text: "text-violet-600" },
+  casting:         { glow: "bg-sky-400",     ring: "hover:border-sky-300",     text: "text-sky-600" },
+  "boots-and-bar": { glow: "bg-teal-400",    ring: "hover:border-teal-300",    text: "text-teal-600" },
+  "long-term":     { glow: "bg-emerald-400", ring: "hover:border-emerald-300", text: "text-emerald-600" },
 };
 
 const explore = [
@@ -91,20 +91,20 @@ export default function Home() {
         </div>
         <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
           {phases.map((phase) => {
-            const accent = phaseAccent[phase.id] ?? { dot: "bg-slate-400", ring: "hover:border-slate-300", text: "text-slate-600" };
+            const accent = phaseAccent[phase.id] ?? { glow: "bg-slate-400", ring: "hover:border-slate-300", text: "text-slate-600" };
             return (
               <button
                 key={phase.id}
                 onClick={() => navigate(`/phase/${phase.id}`)}
-                className={`group text-left bg-white rounded-2xl p-6 border border-slate-100 shadow-sm transition-all active:scale-[0.98] md:hover:-translate-y-1 md:hover:shadow-md ${accent.ring}`}
+                className={`group relative overflow-hidden text-left bg-white rounded-2xl p-6 border border-slate-100 shadow-sm transition-all active:scale-[0.98] md:hover:-translate-y-1 md:hover:shadow-md ${accent.ring}`}
               >
-                <div className="flex items-center justify-between mb-4">
+                <div className={`absolute -top-10 -right-10 w-40 h-40 rounded-full ${accent.glow} opacity-30 blur-xl pointer-events-none`} />
+                <div className="relative mb-4">
                   <span className="text-4xl leading-none">{phase.emoji}</span>
-                  <span className={`w-2.5 h-2.5 rounded-full ${accent.dot}`} />
                 </div>
-                <p className="font-bold text-lg leading-tight" style={{ color: NAVY }}>{phase.label}</p>
-                <p className="text-sm text-slate-500 mt-1 leading-snug">{phase.description}</p>
-                <span className={`inline-block mt-4 text-sm font-semibold ${accent.text}`}>
+                <p className="relative font-bold text-lg leading-tight" style={{ color: NAVY }}>{phase.label}</p>
+                <p className="relative text-sm text-slate-500 mt-1 leading-snug">{phase.description}</p>
+                <span className={`relative inline-block mt-4 text-sm font-semibold ${accent.text}`}>
                   Explore <span className="transition-transform group-hover:translate-x-0.5 inline-block">→</span>
                 </span>
               </button>
