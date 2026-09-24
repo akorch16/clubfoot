@@ -5,7 +5,7 @@ import { doctors } from "../data/doctors";
 const phaseAccent = {
   prenatal:        { glow: "bg-violet-400",  ring: "hover:border-violet-300",  text: "text-violet-600" },
   casting:         { glow: "bg-sky-400",     ring: "hover:border-sky-300",     text: "text-sky-600" },
-  "boots-and-bar": { glow: "bg-teal-400",    ring: "hover:border-teal-300",    text: "text-teal-600" },
+  "boots-and-bar": { glow: "bg-amber-400",   ring: "hover:border-amber-300",   text: "text-amber-600" },
   "long-term":     { glow: "bg-emerald-400", ring: "hover:border-emerald-300", text: "text-emerald-600" },
 };
 
@@ -154,11 +154,11 @@ export default function Home() {
             If you just got a diagnosis, take a breath. This is one of the most treatable conditions in pediatric orthopedics, and thousands of families have done this before you.
           </p>
           <button
-            onClick={() => navigate("/phase/prenatal")}
+            onClick={() => navigate("/doctors")}
             className="mt-6 px-6 py-3 rounded-full text-white font-semibold text-sm active:scale-95 md:hover:scale-[1.03] transition-transform"
             style={{ backgroundColor: TEAL }}
           >
-            Start with a prenatal diagnosis
+            Find a Doctor
           </button>
         </div>
       </section>

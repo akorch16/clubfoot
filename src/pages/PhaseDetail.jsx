@@ -21,21 +21,21 @@ import Cited, { Sources } from "../components/Cited";
 const phaseColors = {
   prenatal:        "bg-violet-500",
   casting:         "bg-sky-500",
-  "boots-and-bar": "bg-teal-500",
+  "boots-and-bar": "bg-amber-500",
   "long-term":     "bg-emerald-500",
 };
 
 const encouragementStyle = {
   prenatal:        "bg-violet-50 border-violet-100",
   casting:         "bg-sky-50 border-sky-100",
-  "boots-and-bar": "bg-teal-50 border-teal-100",
+  "boots-and-bar": "bg-amber-50 border-amber-100",
   "long-term":     "bg-emerald-50 border-emerald-100",
 };
 
 const encouragementHeadline = {
   prenatal:        "text-violet-800",
   casting:         "text-sky-800",
-  "boots-and-bar": "text-teal-800",
+  "boots-and-bar": "text-amber-800",
   "long-term":     "text-emerald-800",
 };
 
