@@ -54,7 +54,7 @@ export default function Home() {
             {/* Copy */}
             <div>
               <h1 className="text-4xl md:text-5xl font-extrabold leading-[1.1] tracking-tight" style={{ color: NAVY }}>
-                Support for every step of clubfoot treatment.
+                Support for every step of clubfoot treatment
               </h1>
               <p className="mt-5 text-base md:text-lg text-slate-600 leading-relaxed max-w-xl">
                 Clear guidance for every phase, an AI tool to help you spot cast and brace problems early, curated gear, and a directory of Ponseti-trained specialists. Built by a clubfoot family.
