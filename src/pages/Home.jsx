@@ -71,7 +71,7 @@ export default function Home() {
 
             {/* Visual */}
             <div className="relative">
-              <div className="rounded-3xl bg-white shadow-xl ring-1 ring-slate-100 overflow-hidden aspect-[3/4] max-w-sm mx-auto md:mx-0 md:mr-32">
+              <div className="rounded-3xl bg-white shadow-xl ring-1 ring-slate-100 overflow-hidden aspect-[3/4] max-w-sm mx-auto md:ml-auto md:mr-[16px]">
                 <img src="/clubfoot-pic.jpg" alt="A baby smiling while wearing a foot abduction brace" className="w-full h-full object-cover" />
               </div>
             </div>
