@@ -163,6 +163,56 @@ function KeyFacts({ phase, large }) {
   );
 }
 
+function ProblemCastScenario({ scenario, sources, large }) {
+  const [open, setOpen] = useState(false);
+  return (
+    <div className="bg-white rounded-xl overflow-hidden">
+      <button
+        className={`w-full text-left px-4 ${large ? "py-4" : "py-3.5"} flex justify-between items-center gap-2`}
+        onClick={() => setOpen(!open)}
+      >
+        <span className={`font-semibold text-slate-800 leading-snug ${large ? "text-base" : "text-sm"}`}>{scenario.title}</span>
+        <svg
+          className={`w-5 h-5 text-amber-500 flex-shrink-0 transition-transform duration-200 ${open ? "rotate-180" : ""}`}
+          fill="none" stroke="currentColor" viewBox="0 0 24 24"
+        >
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        </svg>
+      </button>
+      {open && (
+        <div className="px-4 pb-4">
+          <p className={`text-slate-600 leading-relaxed ${large ? "text-base" : "text-sm"}`}><Cited text={scenario.detail} sources={sources} /></p>
+        </div>
+      )}
+    </div>
+  );
+}
+
+function ProblemCastModule({ phase, large }) {
+  if (!phase.problemCast) return null;
+  return (
+    <section>
+      <div className={`bg-amber-50 border border-amber-200 rounded-2xl ${large ? "p-6" : "p-5"}`}>
+        <div className="flex items-start gap-3 mb-4">
+          <span className={`flex-shrink-0 ${large ? "text-2xl" : "text-xl"}`}>🆘</span>
+          <div>
+            <h2 className={`font-bold text-amber-900 ${large ? "text-xl" : "text-lg"}`}>Help! I have a problem with the cast</h2>
+            <p className={`text-amber-800 leading-relaxed mt-1 ${large ? "text-base" : "text-sm"}`}>{phase.problemCast.intro}</p>
+          </div>
+        </div>
+        <div className="space-y-2">
+          {phase.problemCast.scenarios.map((scenario, i) => (
+            <ProblemCastScenario key={i} scenario={scenario} sources={phase.sources} large={large} />
+          ))}
+        </div>
+        {phase.problemCast.closing && (
+          <p className={`text-amber-800 font-medium leading-relaxed mt-4 ${large ? "text-base" : "text-sm"}`}>{phase.problemCast.closing}</p>
+        )}
+      </div>
+    </section>
+  );
+}
+
 function VideosSection({ phase, large }) {
   if (!phase.videos?.length) return null;
   return (
@@ -301,6 +351,7 @@ export default function PhaseDetail() {
       {/* ── Mobile / tablet: single linear column (unchanged) ── */}
       <div className="lg:hidden px-4 pt-5 pb-10 space-y-5">
         <KeyFacts phase={phase} />
+        <ProblemCastModule phase={phase} />
         <VideosSection phase={phase} />
 
         {carouselProducts.length > 0 && (
@@ -385,6 +436,7 @@ export default function PhaseDetail() {
       <div className="hidden lg:grid max-w-6xl mx-auto px-6 pt-8 pb-16 lg:grid-cols-3 lg:gap-10 lg:items-start">
         <div className="lg:col-span-2 space-y-8">
           <KeyFacts phase={phase} large />
+          <ProblemCastModule phase={phase} large />
           <VideosSection phase={phase} large />
           <CommonQuestions phase={phase} large />
           <ExternalResources phase={phase} large />

@@ -138,6 +138,24 @@ Template for a new entry:
 - **Key facts extracted:** General reference/hub source rather than a single extracted claim — points to PIA's own published clinical guidance for deeper claims.
 - **Used on site:** `PonsetiMethod.jsx`, local source id 5
 
+## S016 — Gillette Children's — Ponseti Cast Application, Care, and Removal
+- **Citation:** Gillette Children's — Ponseti Cast Application, Care, and Removal.
+- **URL:** https://www.gillettechildrens.org/your-visit/patient-education/ponseti-cast-application-and-removal
+- **Tier:** 6 (clinical-institution patient education, Ponseti-specific)
+- **Topics:** problem cast, cast care, too tight, wet cast, cracked cast, foul odor, fever, skin irritation, fussiness
+- **Key facts extracted:** Toes dark/cold and not whitening with a pinch → cast too tight, contact care team right away to remove. Other warning signs: cast wet or soiled, baby inconsolable without apparent reason, a new stain from inside the cast, unusual/foul odor, color or temperature change in toes, skin irritation/rash, cracking or breaking of the cast, unexplained fever ≥101.5°F (38.6°C). A wet cast traps moisture against skin, risking skin breakdown, slippage, and odor. Also call if the cast cracks, skin at the cast edges gets very red/irritated, or baby is still very fussy after a day or two.
+- **Retrieval note:** WebFetch to this domain was blocked in this session (network egress proxy); content retrieved via WebSearch's page summary rather than a direct fetch. Re-verify with a direct fetch if egress access to this domain becomes available, before relying on it for a new claim beyond what's already cited here.
+- **Used on site:** Casting phase, local source id 8 (`src/data/phases.js`, "Help! I have a problem with the cast" module)
+
+## S017 — Nationwide Children's Hospital — Circulation Checks
+- **Citation:** Nationwide Children's Hospital — Circulation Checks.
+- **URL:** https://www.nationwidechildrens.org/family-resources-education/health-wellness-and-safety-resources/helping-hands/circulation-checks
+- **Tier:** 6 (clinical-institution patient education; general pediatric cast/circulation guidance, not clubfoot-specific)
+- **Topics:** circulation check, cast too tight, toe color, blanch test, monitoring frequency
+- **Key facts extracted:** Toes should be warm and pink; apply pressure to the nail and it should return to pink within ~5 seconds after release ("blanch test"). Check circulation every hour for the first 6-8 hours after a new cast, then a few times a day after that. White, blue, purple, very swollen, or very painful fingers/toes need the cast off urgently/emergently.
+- **Retrieval note:** Same as S016 — retrieved via WebSearch summary, not a direct fetch (domain blocked this session).
+- **Used on site:** Casting phase, local source id 9 (`src/data/phases.js`, "Help! I have a problem with the cast" module — toe-check instructions)
+
 ---
 
 ## Candidates seen but not yet formally verified for this library
