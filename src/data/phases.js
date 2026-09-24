@@ -150,12 +150,6 @@ export const phases = [
         relatedProducts: [1, 4],
       },
       {
-        title: "What are the warning signs of a problem cast?",
-        detail:
-          "A well-applied cast shouldn't cause more than a few minutes of fussiness after it goes on. Not every issue is equally urgent, so it helps to know what to do when. Call right away: toes that are purple, white, mottled, or cold to the touch; toes that don't move or wiggle; a baby who is inconsolable 30 minutes or more after the cast went on; or a cast that has visibly slipped down the leg. A slipped cast has already lost its grip on the correction, so it needs to come off and be reapplied, not wait for the next visit.[[6]] Call today, without waiting: a cast that feels loose without having visibly slipped, cracking or softening in the plaster, or a bad smell. Mention at your next visit: minor rubbing or redness right at the cast edges. When in doubt, call. It's never the wrong move.",
-        relatedProducts: [],
-      },
-      {
         title: "How do I prepare for the tenotomy?",
         detail:
           "The Achilles tenotomy is a small in-office procedure. It's a tiny nick in the tendon under local anesthetic, and it takes under five minutes. Even so, a lot of parents find this the hardest day of the whole journey. It's okay if it's hard. The tendon heals in about three weeks under the post-tenotomy cast, which goes on the same day. Your baby will likely settle quickly. Be kind to yourself if it hits harder than you expected.",
@@ -174,6 +168,47 @@ export const phases = [
         relatedProducts: [],
       },
     ],
+    problemCast: {
+      intro: "If something feels off with a cast, here's how to tell what needs a call right now and what can wait.",
+      scenarios: [
+        {
+          title: "My baby's toes look pale, blue, purple, or feel cold",
+          detail:
+            "Press gently on a toenail. It should turn white, then return to pink within about 5 seconds. Toes should also be warm and able to move. If a toe stays white, blue, purple, or cold, or doesn't pink back up quickly, that's a sign the cast is too tight.[[8,9]] Call your care team right away. Don't wait for the next scheduled visit.",
+        },
+        {
+          title: "The cast has slipped, and I can see less of the foot than before",
+          detail:
+            "A cast that's slipped down has lost its grip on the correction, which is different from one that just feels a little loose.[[6]] Call your care team right away. They'll tell you whether to come in or soak it off at home, since your clinic has already told you which one they prefer.[[4]]",
+        },
+        {
+          title: "The cast got wet",
+          detail:
+            "Moisture trapped against the skin under a cast can cause skin breakdown, let the cast slip, or create a bad smell.[[8]] Call your clinic. A wet cast usually needs to be changed earlier than planned.",
+        },
+        {
+          title: "The cast is cracked, feels soft, or seems broken",
+          detail:
+            "A cracked or softened cast can't reliably hold the correction. Call your care team rather than waiting to see if it holds.[[8]]",
+        },
+        {
+          title: "There's a bad smell, a new stain, or a fever",
+          detail:
+            "A new odor, a stain coming through the cast, or a fever of 101.5°F (38.6°C) or higher can be signs of irritation or infection under the cast. Call your care team right away.[[8]]",
+        },
+        {
+          title: "The skin at the top or bottom edge looks red or irritated",
+          detail:
+            "Some rubbing at the cast edges is common. Keep an eye on it, and call if it's getting worse, breaking the skin, or seems to be bothering your baby.[[8]]",
+        },
+        {
+          title: "My baby won't settle after the new cast",
+          detail:
+            "A few minutes to an hour of fussiness right after a cast goes on is normal. Call if your baby is still very upset after a day or two. That's longer than the usual adjustment period.[[8]]",
+        },
+      ],
+      closing: "When in doubt, call. It's never the wrong move.",
+    },
     resources: [],
     sources: [
       { id: 1, label: "Radler C. The Ponseti method for the treatment of congenital club foot: review of the current literature and treatment recommendations. Int Orthop. 2013;37(9):1747-1753.", url: "https://pmc.ncbi.nlm.nih.gov/articles/PMC3764299/" },
@@ -183,6 +218,8 @@ export const phases = [
       { id: 5, label: "Achilles tenotomy as an office procedure: safety and efficacy as part of the Ponseti serial casting protocol for clubfoot. J Pediatr Orthop. 2012.", url: "https://pubmed.ncbi.nlm.nih.gov/22584844/" },
       { id: 6, label: "Above- or below-knee plaster casts in the Ponseti method for clubfoot correction — comparative study. Bone Joint J.", url: "https://boneandjoint.org.uk/Article/10.1302/0301-620X.95B11.31899" },
       { id: 7, label: "Plaster of Paris versus semirigid fiberglass casting in the Ponseti method for idiopathic clubfoot: a systematic review and meta-analysis. 2025.", url: "https://pubmed.ncbi.nlm.nih.gov/40888800/" },
+      { id: 8, label: "Gillette Children's — Ponseti Cast Application, Care, and Removal.", url: "https://www.gillettechildrens.org/your-visit/patient-education/ponseti-cast-application-and-removal" }, // sources/index.md#S016
+      { id: 9, label: "Nationwide Children's Hospital — Circulation Checks.", url: "https://www.nationwidechildrens.org/family-resources-education/health-wellness-and-safety-resources/helping-hands/circulation-checks" }, // sources/index.md#S017
     ],
     encouragement: {
       headline: "Each cast is a week of progress, and you'll see it.",

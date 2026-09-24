@@ -21,12 +21,10 @@ const NAVY = "#2D3B6E";
 const TEAL = "#65abc2";
 
 const totalDoctors = doctors.length;
-const totalCountries = new Set(doctors.map((d) => d.country || "United States")).size;
 
 const stats = [
   { value: "95%+", label: "corrected without surgery" },
   { value: totalDoctors.toString(), label: "Ponseti-trained specialists" },
-  { value: totalCountries.toString(), label: "countries in our directory" },
   { value: "1 in 1,000", label: "babies born with clubfoot" },
 ];
 
@@ -116,7 +114,7 @@ export default function Home() {
       {/* ── Stat band ── */}
       <section style={{ backgroundColor: NAVY }}>
         <div className="max-w-6xl mx-auto px-5 md:px-6 py-10 md:py-14">
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 md:gap-8 text-center">
+          <div className="grid grid-cols-3 gap-6 md:gap-8 text-center">
             {stats.map((s) => (
               <div key={s.label}>
                 <p className="text-3xl md:text-4xl font-extrabold text-white">{s.value}</p>
