@@ -53,36 +53,38 @@ export default function PonsetiMethod() {
   return (
     <div>
       {/* Header */}
-      <div className="bg-amber-400 px-5 pt-12 pb-8">
-        <h1 className="text-3xl font-bold text-amber-950 leading-snug">The Ponseti Method</h1>
-        <p className="text-amber-800 text-sm mt-2 leading-relaxed">
-          The global standard of care for clubfoot, and the reason most children treated today grow up to run and play like anyone else.
-        </p>
+      <div className="bg-amber-400 px-5 md:px-6 pt-12 md:pt-14 pb-8 md:pb-12">
+        <div className="max-w-3xl mx-auto">
+          <h1 className="text-3xl md:text-5xl font-bold text-amber-950 leading-snug md:leading-tight">The Ponseti Method</h1>
+          <p className="text-amber-800 text-sm md:text-lg mt-2 md:mt-3 leading-relaxed">
+            The global standard of care for clubfoot, and the reason most children treated today grow up to run and play like anyone else.
+          </p>
+        </div>
       </div>
 
-      <div className="px-4 pt-5 pb-10 space-y-4">
+      <div className="max-w-3xl mx-auto px-4 md:px-6 pt-5 md:pt-10 pb-10 md:pb-16 space-y-4 md:space-y-6">
 
         {/* What it is */}
-        <div className="bg-white rounded-2xl shadow-sm p-5 space-y-2">
-          <h2 className="font-semibold text-slate-800 text-base">What it is</h2>
-          <p className="text-sm text-slate-600 leading-relaxed">
+        <div className="bg-white rounded-2xl shadow-sm p-5 md:p-7 space-y-2 md:space-y-3">
+          <h2 className="font-semibold text-slate-800 text-base md:text-xl">What it is</h2>
+          <p className="text-sm md:text-base text-slate-600 leading-relaxed">
             <Cited sources={sources} text="The Ponseti method is a non-surgical technique for correcting clubfoot in infants. Dr. Ignacio Ponseti developed it at the University of Iowa starting in the 1950s.[[4]] It uses a carefully sequenced series of gentle manipulations and plaster casts to gradually reshape the foot into its correct position. No surgery is needed in the large majority of cases.[[1]]" />
           </p>
-          <p className="text-sm text-slate-600 leading-relaxed">
+          <p className="text-sm md:text-base text-slate-600 leading-relaxed">
             It replaced invasive surgical correction as the global standard of care because it produces better long-term outcomes with much less risk, pain, and recovery time.
           </p>
         </div>
 
         {/* How it works */}
-        <section className="space-y-2">
-          <p className="text-xs font-semibold text-slate-500 uppercase tracking-widest mb-3">How it works</p>
+        <section className="space-y-2 md:space-y-3">
+          <p className="text-xs md:text-sm font-semibold text-slate-500 uppercase tracking-widest mb-3">How it works</p>
           {steps.map((step) => (
-            <div key={step.number} className="bg-white rounded-2xl shadow-sm p-5">
-              <div className="flex items-start gap-4">
-                <span className="text-2xl font-bold text-slate-200 leading-none mt-0.5 tabular-nums">{step.number}</span>
-                <div className="space-y-1.5">
-                  <h3 className="font-semibold text-slate-800 text-sm">{step.title}</h3>
-                  <p className="text-sm text-slate-600 leading-relaxed"><Cited text={step.body} sources={sources} /></p>
+            <div key={step.number} className="bg-white rounded-2xl shadow-sm p-5 md:p-7">
+              <div className="flex items-start gap-4 md:gap-5">
+                <span className="text-2xl md:text-3xl font-bold text-slate-200 leading-none mt-0.5 tabular-nums">{step.number}</span>
+                <div className="space-y-1.5 md:space-y-2">
+                  <h3 className="font-semibold text-slate-800 text-sm md:text-lg">{step.title}</h3>
+                  <p className="text-sm md:text-base text-slate-600 leading-relaxed"><Cited text={step.body} sources={sources} /></p>
                 </div>
               </div>
             </div>
@@ -90,20 +92,20 @@ export default function PonsetiMethod() {
         </section>
 
         {/* Why it works */}
-        <div className="bg-white rounded-2xl shadow-sm p-5 space-y-2">
-          <h2 className="font-semibold text-slate-800 text-base">Why it works</h2>
-          <p className="text-sm text-slate-600 leading-relaxed">
+        <div className="bg-white rounded-2xl shadow-sm p-5 md:p-7 space-y-2 md:space-y-3">
+          <h2 className="font-semibold text-slate-800 text-base md:text-xl">Why it works</h2>
+          <p className="text-sm md:text-base text-slate-600 leading-relaxed">
             An infant's foot is made almost entirely of cartilage, which is far more pliable than bone. The Ponseti sequence takes advantage of this window. The same flexibility that lets the foot grow quickly also lets its shape be gently and permanently corrected. By the time the foot hardens into bone in early childhood, the correction is set.
           </p>
         </div>
 
         {/* Brace compliance warning */}
-        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5">
-          <div className="flex items-start gap-3">
-            <span className="text-xl mt-0.5 flex-shrink-0">⚠️</span>
-            <div className="space-y-1.5">
-              <h2 className="font-semibold text-amber-800 text-sm">The single most important thing</h2>
-              <p className="text-sm text-amber-700 leading-relaxed">
+        <div className="bg-amber-50 border border-amber-200 rounded-2xl p-5 md:p-7">
+          <div className="flex items-start gap-3 md:gap-4">
+            <span className="text-xl md:text-2xl mt-0.5 flex-shrink-0">⚠️</span>
+            <div className="space-y-1.5 md:space-y-2">
+              <h2 className="font-semibold text-amber-800 text-sm md:text-lg">The single most important thing</h2>
+              <p className="text-sm md:text-base text-amber-700 leading-relaxed">
                 Casting corrects the foot. <strong>Bracing holds the correction.</strong> The number one cause of relapse is stopping the brace early or wearing it inconsistently. The brace phase feels long, sometimes years, but compliance is what determines whether the correction lasts.
               </p>
             </div>
@@ -111,45 +113,45 @@ export default function PonsetiMethod() {
         </div>
 
         {/* Success rate */}
-        <div className="bg-white rounded-2xl shadow-sm p-5 space-y-2">
-          <h2 className="font-semibold text-slate-800 text-base">Success rate</h2>
-          <p className="text-sm text-slate-600 leading-relaxed">
+        <div className="bg-white rounded-2xl shadow-sm p-5 md:p-7 space-y-2 md:space-y-3">
+          <h2 className="font-semibold text-slate-800 text-base md:text-xl">Success rate</h2>
+          <p className="text-sm md:text-base text-slate-600 leading-relaxed">
             <Cited sources={sources} text="With proper treatment and brace compliance, over 95% of children treated with the Ponseti method walk, run, and play like anyone else.[[1,2]] The foot may be slightly smaller or the calf slightly thinner on the affected side, but function is typically normal." />
           </p>
         </div>
 
         {/* Types of clubfoot */}
-        <div className="bg-white rounded-2xl shadow-sm p-5 space-y-3">
-          <h2 className="font-semibold text-slate-800 text-base">Types of clubfoot</h2>
-          <p className="text-sm text-slate-600 leading-relaxed">
+        <div className="bg-white rounded-2xl shadow-sm p-5 md:p-7 space-y-3 md:space-y-4">
+          <h2 className="font-semibold text-slate-800 text-base md:text-xl">Types of clubfoot</h2>
+          <p className="text-sm md:text-base text-slate-600 leading-relaxed">
             Most of the numbers on this site describe idiopathic clubfoot, the most common kind. A few children have a type that behaves differently, and it helps to know which one you're dealing with.
           </p>
           {clubfootTypes.map((t) => (
             <div key={t.label}>
-              <p className="text-sm font-semibold text-slate-800">{t.label}</p>
-              <p className="text-sm text-slate-600 leading-relaxed">{t.body}</p>
+              <p className="text-sm md:text-base font-semibold text-slate-800">{t.label}</p>
+              <p className="text-sm md:text-base text-slate-600 leading-relaxed">{t.body}</p>
             </div>
           ))}
-          <p className="text-sm text-slate-600 leading-relaxed">
+          <p className="text-sm md:text-base text-slate-600 leading-relaxed">
             If your provider has used the words atypical, complex, or syndromic, ask what it means for your child's casts, bracing, and follow-up.
           </p>
         </div>
 
         {/* Who developed it */}
-        <div className="bg-white rounded-2xl shadow-sm p-5 space-y-2">
-          <h2 className="font-semibold text-slate-800 text-base">Who developed it</h2>
-          <p className="text-sm text-slate-600 leading-relaxed">
+        <div className="bg-white rounded-2xl shadow-sm p-5 md:p-7 space-y-2 md:space-y-3">
+          <h2 className="font-semibold text-slate-800 text-base md:text-xl">Who developed it</h2>
+          <p className="text-sm md:text-base text-slate-600 leading-relaxed">
             Dr. Ignacio Ponseti began developing the method at the University of Iowa in the 1940s and 50s, after seeing that surgical corrections often left feet stiff and painful in adulthood. He refined the technique over decades, and his long-term follow-up of patients, some for 50 years or more, showed outcomes surgery couldn't match.
           </p>
-          <p className="text-sm text-slate-600 leading-relaxed">
+          <p className="text-sm md:text-base text-slate-600 leading-relaxed">
             The method gained wide adoption in the early 2000s after the Ponseti International Association helped train orthopedic providers worldwide. It is now the recommended treatment in nearly every major medical guideline.
           </p>
         </div>
 
         {/* Sources & references */}
-        <div className="bg-white rounded-2xl shadow-sm p-5 space-y-3">
-          <h2 className="font-semibold text-slate-800 text-base">Sources & references</h2>
-          <p className="text-sm text-slate-600 leading-relaxed">
+        <div className="bg-white rounded-2xl shadow-sm p-5 md:p-7 space-y-3 md:space-y-4">
+          <h2 className="font-semibold text-slate-800 text-base md:text-xl">Sources & references</h2>
+          <p className="text-sm md:text-base text-slate-600 leading-relaxed">
             The clinical information here follows the Ponseti International Association at the University of Iowa, where Dr. Ponseti developed the method, and its published guidance. The over-95% success figure and the treatment sequence come from their materials and clinical guidelines.
           </p>
           <Sources sources={sources} />
@@ -159,14 +161,16 @@ export default function PonsetiMethod() {
         </div>
 
         {/* Bottom CTA */}
-        <div className="bg-amber-400 rounded-2xl p-5 space-y-3">
-          <p className="text-amber-950 font-semibold text-sm">Ready to go deeper?</p>
-          <p className="text-amber-800 text-sm leading-relaxed">
-            This guide covers every phase of the Ponseti journey, from the first cast to long-term follow-up.
-          </p>
+        <div className="bg-amber-400 rounded-2xl p-5 md:p-8 space-y-3 md:flex md:items-center md:justify-between md:gap-6 md:space-y-0">
+          <div>
+            <p className="text-amber-950 font-semibold text-sm md:text-lg">Ready to go deeper?</p>
+            <p className="text-amber-800 text-sm md:text-base leading-relaxed mt-1 md:mt-1">
+              This guide covers every phase of the Ponseti journey, from the first cast to long-term follow-up.
+            </p>
+          </div>
           <button
             onClick={() => navigate("/")}
-            className="w-full py-3 rounded-xl bg-amber-950 text-amber-100 font-semibold text-sm active:scale-95 transition-transform"
+            className="w-full md:w-auto md:flex-shrink-0 py-3 md:py-3.5 px-6 rounded-xl bg-amber-950 text-amber-100 font-semibold text-sm active:scale-95 md:hover:scale-[1.03] transition-transform"
           >
             View the treatment phases →
           </button>
