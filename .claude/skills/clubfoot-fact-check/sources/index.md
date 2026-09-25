@@ -156,13 +156,61 @@ Template for a new entry:
 - **Retrieval note:** Same as S016 — retrieved via WebSearch summary, not a direct fetch (domain blocked this session).
 - **Used on site:** Casting phase, local source id 9 (`src/data/phases.js`, "Help! I have a problem with the cast" module — toe-check instructions)
 
+## S018 — Orthobullets — Clubfoot (Congenital Talipes Equinovarus)
+- **Citation:** Orthobullets — Clubfoot (Congenital Talipes Equinovarus), Pediatrics.
+- **URL:** https://www.orthobullets.com/pediatrics/4062/clubfoot-congenital-talipes-equinovarus
+- **Tier:** 5 (clinician/resident-facing educational reference, editorially curated by physicians; not peer-reviewed primary research)
+- **Topics:** epidemiology, deformity components (cavus/adductus/varus/equinus), casting protocol, tenotomy, bracing, general overview
+- **Key facts extracted:** Clubfoot occurs in ~1-2 per 1,000 live births. Deformity is characterized by midfoot cavus, forefoot adductus, hindfoot varus, and ankle equinus. Ponseti serial casting is the standard treatment, generally followed by percutaneous Achilles tenotomy where needed, then bracing; sustained bracing is critical to preventing relapse.
+- **Used on site:** not yet used
+
+## S019 — Mayo Clinic — Ponseti treatment for clubfoot: Past and future
+- **Citation:** Ponseti treatment for clubfoot: Past and future. Mayo Clinic, medical professionals news, 2020.
+- **URL:** https://www.mayoclinic.org/medical-professionals/orthopedic-surgery/news/ponseti-treatment-for-clubfoot-past-and-future/mac-20430801
+- **Tier:** 5 (narrative/professional-audience review from a major clinical institution)
+- **Topics:** Ponseti method overview, history, standard of care
+- **Key facts extracted:** The Ponseti method (serial casting, percutaneous Achilles tenotomy, then bracing) remains the gold standard for clubfoot treatment worldwide, despite being time-consuming and demanding for families.
+- **Used on site:** not yet used
+
+## S020 — Global-HELP — Clubfoot: Ponseti Management
+- **Citation:** Staheli L, Ponseti I, et al. Clubfoot: Ponseti Management, 3rd ed. Global-HELP Organization, 2009.
+- **URL:** http://www.global-help.org/publications/books/book_cfponseti.html
+- **Tier:** 4 (professional body guideline/teaching manual — the standard international Ponseti training manual)
+- **Topics:** casting technique, tenotomy, bracing, general Ponseti protocol, provider training
+- **Key facts extracted:** The definitive Ponseti-method training manual, authored by Dr. Lynn Staheli and Dr. Ignacio Ponseti's own collaborators. First published 2003, now in its 3rd edition (2009); translated into multiple languages and distributed in 50+ countries as a free, standardized reference for providers learning the method. This was previously flagged in this library as a high-priority candidate; now formally admitted.
+- **Used on site:** not yet used
+
+## S021 — Global-HELP — Ponseti Clubfoot Management: Teaching Manual for Health-Care Providers in Uganda
+- **Citation:** Pirani S, Naddumba E, Staheli L. Ponseti Clubfoot Management: Teaching Manual for Health-Care Providers in Uganda. Global-HELP Organization, 2008.
+- **URL:** https://global-help.org/publications/books/help_ponsetiuganda.pdf
+- **Tier:** 4 (professional body/government-endorsed teaching manual)
+- **Topics:** casting technique, provider training, low-resource-setting Ponseti protocol
+- **Key facts extracted:** Co-authored by Dr. Shafique Pirani (creator of the Pirani clubfoot severity scoring system) and Dr. Lynn Staheli, produced with the Uganda Sustainable Clubfoot Care Project and endorsed by Uganda's Ministry of Health. A condensed, provider-training-focused companion to S020, adapted for a low-resource clinical setting.
+- **Used on site:** not yet used
+
+## S022 — HSS — The Ponseti Method for Clubfoot Correction: An Overview for Parents
+- **Citation:** Blanco JS, Dodwell ER, Doyle SM, Scher DM. The Ponseti Method for Clubfoot Correction: An Overview for Parents. Hospital for Special Surgery.
+- **URL:** https://www.hss.edu/health-library/conditions-and-treatments/the-ponseti-method-for-clubfoot-correction
+- **Tier:** 6 (clinical-institution patient education, authored by named HSS pediatric orthopedic physicians)
+- **Topics:** Ponseti method overview, parent-facing explanation, standard of care
+- **Key facts extracted:** The Ponseti method is now the most widely practiced technique for early clubfoot treatment; when a provider follows its details meticulously without modification, parents can expect optimal short- and long-term results.
+- **Note:** the URL given by the user (`hss.edu/conditions_the-ponseti-method-for-clubfoot-correction.asp`) appears to be an old path — the current working URL (confirmed via search) is `hss.edu/health-library/conditions-and-treatments/the-ponseti-method-for-clubfoot-correction`, used above.
+- **Used on site:** not yet used
+
 ---
 
 ## Candidates seen but not yet formally verified for this library
 
-These came up during earlier research in this project (referenced in `docs/content-audit.md` on branch `claude/content-audit`) but haven't been re-read and admitted here with full extracted facts. Don't cite them on the site until they've been through the "sourcing a new claim" workflow and get a proper `S0xx` entry.
+These came up during earlier research in this project (referenced in `docs/content-audit.md` on branch `claude/content-audit`) but haven't been re-read and admitted here with full extracted facts. Don't cite them on the site until they've been through the "sourcing a new claim" workflow and get a proper `S0xx` entry. (Gillette Children's and Global-HELP's *Clubfoot: Ponseti Management* were both on this list — now admitted as S016 and S020.)
 
-- Gillette Children's — Ponseti cast application, care, and removal (parent-facing clinical org resource)
 - STEPS (South Africa) — Ponseti for parents, practical tips
 - ClubfootForward — casting schedule reference
-- Global-HELP / Staheli & Ponseti — *Clubfoot: Ponseti Management* (the standard international training manual, translated into 35 languages) — high-value, should be prioritized for formal admission given how authoritative it is
+
+## Evaluated and NOT admitted, with reasons
+
+A batch of user-submitted links, evaluated 2026-09-25 against the tier system:
+
+- **Physiopedia — Ponseti method** (`physio-pedia.com/Ponseti_method`) — a crowd-edited wiki, same caution class as Wikipedia: multiple named contributors plus a generic "WikiSysop" account, no fixed authorship or formal peer review. Fine for a reader's own background orientation, not admissible as a citation for a specific clinical claim on the site.
+- **vdocument.in clubfoot search results** — this is a raw search-results listing on a general document-hosting aggregator, not a source itself. It could surface a specific, real document worth then evaluating on its own merits (e.g. a named paper or a Steenbeek brace pattern), but the search-results page has zero editorial curation and isn't citable as-is.
+- **Asociatia Varus Equin (Romania)**, asociatiavarusequin.ro, and its Facebook page — a parent-run nonprofit advocacy organization, not a clinical institution, same non-admissibility as any parent-run group per this skill's standing rule. Could be legitimate as an *external resource / local support org* link (parallel to how the site already lists STEPS South Africa) for Romanian families — that's a different list than this clinical source library, and a call for whoever maintains `src/data/phases.js` resources or the Support page, not this skill.
+- **nosurgery4clubfoot.com/manager/clubfootclub.org** — this URL shape (a `/manager/` path) looks like an exposed admin/staging path rather than a real public page; it didn't resolve to any real content in search. Likely a broken or mistyped link — flagged for the user to double-check the intended URL rather than guessed at.
