@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import { phases } from "../data/phases";
 
@@ -17,16 +17,27 @@ function JourneyDropdown() {
   const navigate = useNavigate();
   const { pathname } = useLocation();
   const isActive = pathname.startsWith("/phase/");
+  const rootRef = useRef(null);
 
   useEffect(() => {
     if (!open) return;
     function onKey(e) { if (e.key === "Escape") setOpen(false); }
+    // Note: the overlay-button trick for "click outside to close" doesn't work
+    // here because the header has backdrop-blur (a CSS backdrop-filter), which
+    // creates a new containing block for position:fixed descendants -- so a
+    // "fixed inset-0" overlay only covers the header's own box, not the full
+    // viewport below it. A document-level listener sidesteps that entirely.
+    function onClick(e) { if (rootRef.current && !rootRef.current.contains(e.target)) setOpen(false); }
     document.addEventListener("keydown", onKey);
-    return () => document.removeEventListener("keydown", onKey);
+    document.addEventListener("mousedown", onClick);
+    return () => {
+      document.removeEventListener("keydown", onKey);
+      document.removeEventListener("mousedown", onClick);
+    };
   }, [open]);
 
   return (
-    <div className="relative">
+    <div className="relative" ref={rootRef}>
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -41,27 +52,18 @@ function JourneyDropdown() {
         </svg>
       </button>
       {open && (
-        <>
-          <button
-            type="button"
-            aria-hidden="true"
-            tabIndex={-1}
-            onClick={() => setOpen(false)}
-            className="fixed inset-0 z-30 cursor-default"
-          />
-          <div className="absolute left-0 top-full mt-1 w-48 bg-white rounded-2xl shadow-lg ring-1 ring-slate-100 p-2 z-40">
-            {phases.map((phase) => (
-              <button
-                key={phase.id}
-                type="button"
-                onClick={() => { setOpen(false); navigate(`/phase/${phase.id}`); }}
-                className="w-full px-3 py-2.5 rounded-xl text-left text-sm font-semibold text-slate-800 hover:bg-slate-50 transition-colors"
-              >
-                {phase.label}
-              </button>
-            ))}
-          </div>
-        </>
+        <div className="absolute left-0 top-full mt-1 w-48 bg-white rounded-2xl shadow-lg ring-1 ring-slate-100 p-2 z-40">
+          {phases.map((phase) => (
+            <button
+              key={phase.id}
+              type="button"
+              onClick={() => { setOpen(false); navigate(`/phase/${phase.id}`); }}
+              className="w-full px-3 py-2.5 rounded-xl text-left text-sm font-semibold text-slate-800 hover:bg-slate-50 transition-colors"
+            >
+              {phase.label}
+            </button>
+          ))}
+        </div>
       )}
     </div>
   );
