@@ -10,13 +10,6 @@ const links = [
   { to: "/scan", label: "Scan & Assess", beta: true },
 ];
 
-const phaseDot = {
-  prenatal:        "bg-violet-500",
-  casting:         "bg-sky-500",
-  "boots-and-bar": "bg-amber-500",
-  "long-term":     "bg-emerald-500",
-};
-
 const script = { fontFamily: "'Pacifico', cursive" };
 
 function JourneyDropdown() {
@@ -56,20 +49,15 @@ function JourneyDropdown() {
             onClick={() => setOpen(false)}
             className="fixed inset-0 z-30 cursor-default"
           />
-          <div className="absolute left-0 top-full mt-1 w-64 bg-white rounded-2xl shadow-lg ring-1 ring-slate-100 p-2 z-40">
+          <div className="absolute left-0 top-full mt-1 w-48 bg-white rounded-2xl shadow-lg ring-1 ring-slate-100 p-2 z-40">
             {phases.map((phase) => (
               <button
                 key={phase.id}
                 type="button"
                 onClick={() => { setOpen(false); navigate(`/phase/${phase.id}`); }}
-                className="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl text-left hover:bg-slate-50 transition-colors"
+                className="w-full px-3 py-2.5 rounded-xl text-left text-sm font-semibold text-slate-800 hover:bg-slate-50 transition-colors"
               >
-                <span className="text-xl leading-none flex-shrink-0">{phase.emoji}</span>
-                <span className="flex-1 min-w-0">
-                  <span className="block text-sm font-semibold text-slate-800">{phase.label}</span>
-                  <span className="block text-xs text-slate-400 truncate">{phase.description}</span>
-                </span>
-                <span className={`w-2 h-2 rounded-full flex-shrink-0 ${phaseDot[phase.id] ?? "bg-slate-300"}`} />
+                {phase.label}
               </button>
             ))}
           </div>
