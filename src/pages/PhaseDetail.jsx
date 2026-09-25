@@ -338,7 +338,7 @@ export default function PhaseDetail() {
             <img
               src={photo}
               alt={phase.label}
-              className="w-full h-auto md:rounded-2xl md:shadow-sm md:max-h-96 md:object-cover md:mx-auto"
+              className="w-full h-auto md:w-[70%] md:rounded-2xl md:shadow-sm md:max-h-96 md:object-cover md:mx-auto"
               onError={() => setPhotoError(true)}
             />
           </div>
