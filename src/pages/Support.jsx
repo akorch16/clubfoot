@@ -23,8 +23,7 @@ function RedditIcon() {
 }
 
 const socialLinks = [
-  { label: "Clubfoot Support Facebook Group", url: "https://www.facebook.com/groups/clubfeetsupport/", description: "Large, active community of clubfoot parents worldwide", icon: FacebookIcon, iconBg: "bg-blue-100 text-blue-600" },
-  { label: "Clubbed Foot Support Group", url: "https://www.facebook.com/groups/1503261329975163", description: "Community of clubfoot families sharing support and advice", icon: FacebookIcon, iconBg: "bg-blue-100 text-blue-600" },
+  { label: "Clubbed Foot Support Group", url: "https://www.facebook.com/groups/498575687183033", description: "Community of clubfoot families sharing support and advice", icon: FacebookIcon, iconBg: "bg-blue-100 text-blue-600" },
   { label: "Reddit r/clubfoot", url: "https://www.reddit.com/r/clubfoot", description: "Forum for parents, adults with clubfoot, and caregivers", icon: RedditIcon, iconBg: "bg-orange-100 text-orange-600" },
   { label: "#clubfoot on Instagram", url: "https://www.instagram.com/explore/tags/clubfoot/", description: "Real families sharing their journeys", icon: InstagramIcon, iconBg: "bg-rose-100 text-rose-600" },
 ];
