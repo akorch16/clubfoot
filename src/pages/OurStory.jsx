@@ -8,17 +8,14 @@ export default function OurStory() {
       {/* Header */}
       <div className="px-5 md:px-6 pt-12 md:pt-16 pb-8 md:pb-10">
         <div className="max-w-2xl mx-auto text-center">
-          <p className="text-xs md:text-sm font-semibold uppercase tracking-widest text-slate-400 mb-2">Our Story</p>
-          <h1 className="text-3xl md:text-5xl font-bold text-slate-800 leading-snug md:leading-tight">
-            A product for the 0.1%
-          </h1>
+          <h1 className="text-xs md:text-sm font-semibold uppercase tracking-widest text-slate-400">Our Story</h1>
         </div>
       </div>
 
       <div className="max-w-2xl mx-auto px-5 md:px-6 pb-14 md:pb-20">
         <article className="prose-none text-slate-700 text-base md:text-lg leading-relaxed space-y-5 md:space-y-6">
           <p className="text-xl md:text-2xl font-semibold text-slate-800 leading-snug">
-            There's a 99.9% chance this product is not for you.
+            There's a 99.9% chance this website is not for you.
           </p>
 
           <p>
