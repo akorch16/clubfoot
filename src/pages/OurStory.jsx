@@ -16,14 +16,6 @@ export default function OurStory() {
       </div>
 
       <div className="max-w-2xl mx-auto px-5 md:px-6 pb-14 md:pb-20">
-        <div className="rounded-3xl overflow-hidden shadow-md mb-8 md:mb-10">
-          <img
-            src="/clubfoot-pic.jpg"
-            alt="A baby smiling while wearing a foot abduction brace"
-            className="w-full h-auto object-cover"
-          />
-        </div>
-
         <article className="prose-none text-slate-700 text-base md:text-lg leading-relaxed space-y-5 md:space-y-6">
           <p className="text-xl md:text-2xl font-semibold text-slate-800 leading-snug">
             There's a 99.9% chance this product is not for you.
