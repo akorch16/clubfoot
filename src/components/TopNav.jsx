@@ -3,11 +3,11 @@ import { NavLink, Link, useNavigate, useLocation } from "react-router-dom";
 import { phases } from "../data/phases";
 
 const links = [
+  { to: "/our-story", label: "Our Story" },
   { to: "/products", label: "Products" },
   { to: "/doctors", label: "Find a Doctor" },
   { to: "/support", label: "Support" },
   { to: "/scan", label: "Scan & Assess", beta: true },
-  { to: "/our-story", label: "Our Story" },
 ];
 
 const script = { fontFamily: "'Pacifico', cursive" };
