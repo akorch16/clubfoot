@@ -55,7 +55,7 @@ export default function Home() {
                 Support for every step of clubfoot treatment
               </h1>
               <p className="mt-5 text-base md:text-lg text-slate-600 leading-relaxed max-w-xl">
-                Clear guidance for every phase, an AI tool to help you spot cast and brace problems early, curated gear, and a directory of Ponseti-trained specialists. Built by a clubfoot family.
+                Clear guidance for every phase, a scan tool to help you spot cast and brace problems early, curated gear, and a directory of Ponseti-trained specialists. Built by a clubfoot family.
               </p>
               <div className="mt-8">
                 <button
@@ -135,10 +135,10 @@ export default function Home() {
                 <span className="px-1.5 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wide bg-amber-100 text-amber-700">Beta</span>
               </div>
               <h2 className="text-2xl md:text-3xl font-bold leading-snug" style={{ color: NAVY }}>
-                Worried about a cast or brace? Get an instant AI check.
+                Worried about a cast or brace? Get an instant check.
               </h2>
               <p className="mt-3 text-sm md:text-base text-slate-600 leading-relaxed max-w-xl">
-                Take a photo of the cast or brace and our AI tool flags common warning signs in seconds, so you know whether to call your care team right away or it can wait. It's not a replacement for your care team's advice.
+                Take a photo of the cast or brace and Scan &amp; Assess flags common warning signs in seconds, so you know whether to call your care team right away or it can wait. It's not a replacement for your care team's advice.
               </p>
               <button
                 onClick={() => navigate("/scan")}
